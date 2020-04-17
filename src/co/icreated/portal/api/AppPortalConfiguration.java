@@ -1,4 +1,4 @@
-package org.icreated.portal.api;
+package co.icreated.portal.api;
 
 import java.util.Properties;
 
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@ComponentScan("org.icreated")
+@ComponentScan("co.icreated")
 @PropertySource(value= {"classpath:application.properties"})
 public class AppPortalConfiguration  {
 	

@@ -1,4 +1,4 @@
-package org.icreated.portal.service;
+package co.icreated.portal.service;
 
 import java.util.Properties;
 

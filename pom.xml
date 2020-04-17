@@ -9,9 +9,8 @@
 		<relativePath>../org.idempiere.parent/pom.xml</relativePath>
 		 -->
    </parent>
-    <groupId>org.icreated</groupId>
-	<artifactId>org.icreated.portal.api</artifactId>
-	<version>7.1.0-SNAPSHOT</version>
+    <groupId>co.icreated</groupId>
+	<artifactId>co.icreated.portal.api</artifactId>
 	<packaging>eclipse-plugin</packaging>
   
   <properties>

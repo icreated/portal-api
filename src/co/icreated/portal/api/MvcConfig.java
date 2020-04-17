@@ -1,4 +1,4 @@
-package org.icreated.portal.api;
+package co.icreated.portal.api;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

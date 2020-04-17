@@ -1,8 +1,9 @@
-package org.icreated.portal.controller;
+package co.icreated.portal.controller;
 
-import org.icreated.portal.bean.Token;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import co.icreated.portal.bean.Token;
 
 @RestController
 public class CommonController {

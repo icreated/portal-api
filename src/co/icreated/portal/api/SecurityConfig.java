@@ -1,4 +1,4 @@
-package org.icreated.portal.api;
+package co.icreated.portal.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
