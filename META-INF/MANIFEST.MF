@@ -29,8 +29,11 @@ Bundle-ClassPath: .,
  WEB-INF/lib/snakeyaml.jar,
  WEB-INF/lib/swagger-models.jar,
  WEB-INF/lib/spring-plugin-metadata.jar,
- WEB-INF/lib/swagger-annotations.jar
-Automatic-Module-Name: org.icreated.portal.api
+ WEB-INF/lib/swagger-annotations.jar,
+ WEB-INF/lib/org.apache.servicemix.bundles.spring-jdbc.jar,
+ WEB-INF/lib/spring-dao.jar,
+ WEB-INF/lib/spring-tx.jar
+Automatic-Module-Name: co.icreated.portal.api
 Comment: Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.11))"
 Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
@@ -67,13 +70,7 @@ Import-Package: com.fasterxml.jackson.annotation,
  javax.inject,
  javax.servlet;version="3.1.0",
  javax.servlet.http;version="3.1.0",
- javax.ws.rs,
- javax.ws.rs.container;version="2.1.5",
- javax.ws.rs.core,
- javax.ws.rs.ext;version="2.1.5",
  javax.xml.bind.annotation;version="2.3.2",
- jersey.repackaged.com.google.common.base;version="2.22.1",
- jersey.repackaged.com.google.common.collect;version="2.22.1",
  net.bytebuddy.agent;version="1.9.0",
  org.aopalliance.aop;version="1.0.0",
  org.apache.commons.codec;version="1.10.0",

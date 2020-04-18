@@ -7,9 +7,12 @@ import co.icreated.portal.bean.Token;
 
 @RestController
 public class CommonController {
+
 	
 	@GetMapping("/hello")
 	public Token hello() {
+		
+		
 		return new Token("Hello");
 	}
 

@@ -13,6 +13,11 @@
  ******************************************************************************/
 package co.icreated.portal.api;
 
+import java.io.File;
+
+import org.adempiere.exceptions.AdempiereException;
+import org.compiere.Adempiere;
+import org.compiere.util.Ini;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -36,8 +41,19 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 		
-//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-		
+        String propertyFile = Ini.getFileName(false);
+        File file = new File(propertyFile);
+        if (!file.exists()) {
+        	throw new IllegalStateException("idempiere.properties file missing. Path="+file.getAbsolutePath());
+        }
+        if (!Adempiere.isStarted())
+        {
+	        boolean started = Adempiere.startup(false);
+	        if(!started)
+	        {
+	            throw new AdempiereException("Could not start ADempiere");
+	        }
+        }		
 	}
 
 	/*
