@@ -20,7 +20,9 @@ import org.compiere.Adempiere;
 import org.compiere.util.Ini;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+
+
 
 /**
  * The activator class controls the plug-in life cycle

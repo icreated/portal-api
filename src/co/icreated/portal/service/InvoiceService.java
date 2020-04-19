@@ -13,9 +13,6 @@ public class InvoiceService {
 	Properties ctx;
 	
 	
-	public MInvoice getInvoice(int C_Invoice_ID) {
-		
-		return new MInvoice(ctx, C_Invoice_ID, null);
-	}
+
 
 }

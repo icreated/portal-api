@@ -36,7 +36,6 @@ public class IdempierePasswordEncoder implements PasswordEncoder  {
 		String encoded = null;
 		
 		boolean hash_password = MSysConfig.getBooleanValue(MSysConfig.USER_PASSWORD_HASH, false);
-		System.out.println("MATCH SALT="+salt);
 		if (!hash_password) {
 			return password.toString().equals(hash);
 		}

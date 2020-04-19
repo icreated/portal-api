@@ -38,7 +38,7 @@
 						<goal>copy</goal>
 					</goals>
 					<configuration>
-						<artifactItems>
+						<artifactItems>				
 							<artifactItem>
 								<groupId>org.apache.servicemix.bundles</groupId>
 								<artifactId>org.apache.servicemix.bundles.spring-webmvc</artifactId>
