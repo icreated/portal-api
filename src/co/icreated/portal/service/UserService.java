@@ -7,6 +7,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.compiere.db.CConnection;
 import org.compiere.model.I_AD_User;
 import org.compiere.model.MRole;
 import org.compiere.model.MUser;
@@ -23,6 +26,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.SessionUser;
+import co.icreated.portal.utils.SQLErrorDelegationTranslator;
 
 @Service
 public class UserService {
@@ -32,16 +36,13 @@ public class UserService {
 	
 	CLogger log = CLogger.getCLogger(UserService.class);
 	
-    private JdbcTemplate jdbcTemplate;
-    
-    
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-	
+	JdbcTemplate jdbcTemplate;
+
 	
 	public SessionUser findSessionUserByEmail(String email) {
+		
+
 
 		String sql = "SELECT AD_User_ID, u.Value, u.Name, Email, " + 
 				"Password, u.Salt, bp.C_BPartner_ID, u.isExpired, " + 
