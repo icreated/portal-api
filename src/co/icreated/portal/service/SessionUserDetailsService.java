@@ -23,7 +23,7 @@ public class SessionUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
     	
-        SessionUser user = userService.findSessionUserByEmail(username);
+        SessionUser user = userService.findSessionUserByValue(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }

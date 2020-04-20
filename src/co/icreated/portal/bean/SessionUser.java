@@ -116,6 +116,11 @@ public class SessionUser implements UserDetails {
 		return partnerId;
 	}
 
+	@Override
+	public String toString() {
+		return "SessionUser [userId=" + userId + ", name=" + name + ", email=" + email + "]";
+	}
+
 	
 	
 }
