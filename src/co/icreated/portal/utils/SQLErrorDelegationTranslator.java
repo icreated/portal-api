@@ -12,8 +12,7 @@ public class SQLErrorDelegationTranslator extends SQLErrorCodeSQLExceptionTransl
 	CLogger log = CLogger.getCLogger(SQLErrorDelegationTranslator.class);
 	
     @Override
-    protected DataAccessException
-      customTranslate(String task, String sql, SQLException sqlException) {
+    protected DataAccessException customTranslate(String task, String sql, SQLException sqlException) {
     	//log.log(Level.INFO, "SQL:", sql);
     	log.log(Level.INFO, task, sqlException);
         return null;

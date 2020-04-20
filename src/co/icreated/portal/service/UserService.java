@@ -31,10 +31,10 @@ import co.icreated.portal.utils.SQLErrorDelegationTranslator;
 @Service
 public class UserService {
 	
+	CLogger log = CLogger.getCLogger(UserService.class);
+	
 	@Autowired
 	Properties ctx;
-	
-	CLogger log = CLogger.getCLogger(UserService.class);
 	
     @Autowired
 	JdbcTemplate jdbcTemplate;
@@ -42,7 +42,6 @@ public class UserService {
 	
 	public SessionUser findSessionUserByEmail(String email) {
 		
-
 
 		String sql = "SELECT AD_User_ID, u.Value, u.Name, Email, " + 
 				"Password, u.Salt, bp.C_BPartner_ID, u.isExpired, " + 
