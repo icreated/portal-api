@@ -23,10 +23,10 @@ public class JacksonConfig {
     public ObjectMapper getObjectMapper() {
 
 		ObjectMapper mapper = new ObjectMapper();
-	    mapper.disable(MapperFeature.AUTO_DETECT_CREATORS,
-	            MapperFeature.AUTO_DETECT_FIELDS,
-	            MapperFeature.AUTO_DETECT_GETTERS,
-	            MapperFeature.AUTO_DETECT_IS_GETTERS);
+//	    mapper.disable(MapperFeature.AUTO_DETECT_CREATORS,
+//	            MapperFeature.AUTO_DETECT_FIELDS,
+//	            MapperFeature.AUTO_DETECT_GETTERS,
+//	            MapperFeature.AUTO_DETECT_IS_GETTERS);
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
 		
 		return mapper;

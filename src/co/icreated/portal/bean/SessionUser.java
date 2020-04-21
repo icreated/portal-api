@@ -61,7 +61,7 @@ public class SessionUser implements UserDetails {
 	@Override
 	public String getUsername() {
 
-		return email;
+		return value;
 	}
 
 	@Override

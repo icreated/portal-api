@@ -1,32 +1,21 @@
 package co.icreated.portal.service;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.compiere.db.CConnection;
-import org.compiere.model.I_AD_User;
 import org.compiere.model.MRole;
 import org.compiere.model.MUser;
-import org.compiere.model.Query;
-import org.compiere.model.X_AD_User;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.utils.SQLErrorDelegationTranslator;
 
 @Service
 public class UserService {
@@ -39,8 +28,7 @@ public class UserService {
     @Autowired
 	JdbcTemplate jdbcTemplate;
 
-	
-
+    @Cacheable("users")
 	public SessionUser findSessionUserByValue(String value) {
 		
 
@@ -65,11 +53,11 @@ public class UserService {
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
 		// check other roles for future implementations
-		MUser user = MUser.get(ctx, sessionUser.getUserId());
-		MRole[] roles = user.getRoles(Env.getAD_Role_ID(ctx));
-		for (MRole role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-		}
+//		MUser user = MUser.get(ctx, sessionUser.getUserId());
+//		MRole[] roles = user.getRoles(Env.getAD_Role_ID(ctx));
+//		for (MRole role : roles) {
+//			authorities.add(new SimpleGrantedAuthority(role.getName()));
+//		}
 		
 		return sessionUser;
 
