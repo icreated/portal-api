@@ -17,9 +17,9 @@ public class Invoice extends Document {
 	public Invoice() {}
 
 	public Invoice(int id, String documentNo,String description, String docStatus,
-			Date date, BigDecimal totalLines, BigDecimal grandTotal, String docStatusName) {
+			Date date, BigDecimal totalLines, BigDecimal grandTotal) {
 		
-		super(id, documentNo, null, description, docStatus, date, totalLines, grandTotal, docStatusName);
+		super(id, documentNo, null, description, docStatus, date, totalLines, grandTotal);
 
 	}
 	

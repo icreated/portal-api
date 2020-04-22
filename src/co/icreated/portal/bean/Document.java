@@ -14,7 +14,6 @@ public class Document {
 	String poReference;
 	String description;
 	String docStatus;
-	String docStatusName;
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	Date date;
@@ -33,14 +32,13 @@ public class Document {
 
 	public Document(int id, String documentNo, String poReference,
 			String description, String docStatus, Date date,
-			BigDecimal totalLines, BigDecimal grandTotal, String docStatusName) {
+			BigDecimal totalLines, BigDecimal grandTotal) {
 		super();
 		this.id = id;
 		this.documentNo = documentNo;
 		this.poReference = poReference;
 		this.description = description;
 		this.docStatus = docStatus;
-		this.docStatusName = docStatusName;
 		this.date = date;
 		this.totalLines = totalLines;
 		this.grandTotal = grandTotal;
@@ -75,9 +73,6 @@ public class Document {
 	}
 	public BigDecimal getTotalLines() {
 		return totalLines;
-	}
-	public String getDocStatusName() {
-		return docStatusName;
 	}
 	public String getName() {
 		return name;
@@ -129,10 +124,6 @@ public class Document {
 
 	public void setDocStatus(String docStatus) {
 		this.docStatus = docStatus;
-	}
-
-	public void setDocStatusName(String docStatusName) {
-		this.docStatusName = docStatusName;
 	}
 
 	public void setTotalLines(BigDecimal totalLines) {
