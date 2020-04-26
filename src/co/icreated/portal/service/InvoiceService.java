@@ -20,6 +20,7 @@ import co.icreated.portal.bean.DocumentLine;
 import co.icreated.portal.bean.Invoice;
 import co.icreated.portal.bean.Payment;
 import co.icreated.portal.bean.Tax;
+import co.icreated.portal.bean.VOpenItem;
 
 
 @Service
@@ -116,7 +117,27 @@ public class InvoiceService {
 	}
 
 	
+	public List<VOpenItem> findOpenItems(int C_BPartner_ID) {
+		
+	    String sql = "SELECT C_Invoice_ID, C_Order_ID, C_BPartner_ID, C_BPartner_Location_ID, C_Currency_ID," +  
+	    		"documentNo, description, docStatus, " + 
+	    		"isSOTrx, isActive, " +
+	    		"dateOrdered, dateInvoiced, dueDate, netDays, " + 
+	    		"totalLines, grandTotal, paidAmt, openAmt " +
+	    		"FROM RV_OpenItem WHERE AD_Client_ID = ? AND C_BPartner_ID = ? AND isSOTrx='Y' " +
+	    		"ORDER BY dateInvoiced DESC";
 
+			return jdbcTemplate.query(sql,
+					new Object[]{Env.getAD_Client_ID(ctx), C_BPartner_ID},
+					(rs, rowNum) ->
+						new VOpenItem(rs.getInt("C_Invoice_ID"), rs.getInt("C_Order_ID"), rs.getInt("C_BPartner_ID"), rs.getInt("C_BPartner_Location_ID"), rs.getInt("C_Currency_ID"),
+								rs.getString("documentNo"), rs.getString("description"), rs.getString("docStatus"), 
+								rs.getString("isSOTrx").equals("Y"), rs.getString("isActive").equals("Y"), 
+								rs.getTimestamp("dateOrdered"), rs.getTimestamp("dateInvoiced"), rs.getTimestamp("dueDate"), rs.getInt("netDays"),
+								rs.getBigDecimal("totalLines"),rs.getBigDecimal("grandTotal"),rs.getBigDecimal("paidAmt"),rs.getBigDecimal("openAmt"))
+	        );	
+
+	}
 
 
 }

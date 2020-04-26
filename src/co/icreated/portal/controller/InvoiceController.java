@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.icreated.portal.bean.Document;
 import co.icreated.portal.bean.Invoice;
 import co.icreated.portal.bean.SessionUser;
+import co.icreated.portal.bean.VOpenItem;
 import co.icreated.portal.service.InvoiceService;
 
 @RestController
@@ -34,6 +35,14 @@ public class InvoiceController {
 	public Invoice  getInvoiceById(@PathVariable int invoiceId, @AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findInvoiceById(invoiceId, user.getPartnerId());
+		
+	}
+	
+	
+	@GetMapping("/openitems")
+	public List<VOpenItem>  getOpenItems(@AuthenticationPrincipal SessionUser user) {
+		
+		return invoiceService.findOpenItems(user.getPartnerId());
 		
 	}
 
