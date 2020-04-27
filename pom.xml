@@ -17,6 +17,7 @@
     <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	<swagger.version>2.0.8</swagger.version>
+  	<spring.version>4.3.19.RELEASE_1</spring.version>
   	<springfox.version>2.9.2</springfox.version>
   </properties>
   
@@ -38,21 +39,21 @@
 						<goal>copy</goal>
 					</goals>
 					<configuration>
-						<artifactItems>				
+						<artifactItems>
 							<artifactItem>
 								<groupId>org.apache.servicemix.bundles</groupId>
 								<artifactId>org.apache.servicemix.bundles.spring-webmvc</artifactId>
-							    <version>4.3.19.RELEASE_1</version>
+							    <version>${spring.version}</version>
 							</artifactItem>
 							<artifactItem>
 								<groupId>org.apache.servicemix.bundles</groupId>
 								<artifactId>org.apache.servicemix.bundles.spring-jdbc</artifactId>
-							    <version>4.3.19.RELEASE_1</version>
+							    <version>${spring.version}</version>
 							</artifactItem>						
 							<artifactItem>
 							    <groupId>org.springframework</groupId>
 							    <artifactId>spring-tx</artifactId>
-							    <version>4.3.19.RELEASE</version>
+							    <version>${spring.version}</version>
 							</artifactItem>								
 							<artifactItem>
 							    <groupId>org.springframework</groupId>
