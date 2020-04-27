@@ -53,7 +53,7 @@
 							<artifactItem>
 							    <groupId>org.springframework</groupId>
 							    <artifactId>spring-tx</artifactId>
-							    <version>${spring.version}</version>
+							    <version>4.3.19.RELEASE</version>
 							</artifactItem>								
 							<artifactItem>
 							    <groupId>org.springframework</groupId>

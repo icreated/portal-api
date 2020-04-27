@@ -28,9 +28,6 @@
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/springfox-swagger-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/spring-plugin-core.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classmate.jar"/>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classgraph.jar"/>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jackson-dataformat-yaml.jar"/>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/snakeyaml.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/swagger-models.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/spring-plugin-metadata.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/swagger-annotations.jar"/>
