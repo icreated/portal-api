@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WebPortal API
 Bundle-SymbolicName: co.icreated.portal.api;singleton:=true
-Bundle-Version: 7.1.0.qualifier
+Bundle-Version: 6.2.0.qualifier
 Bundle-Vendor: ICreated
 Bundle-Activator: co.icreated.portal.api.Activator
 Bundle-ActivationPolicy: lazy
