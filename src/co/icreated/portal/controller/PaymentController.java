@@ -47,7 +47,7 @@ public class PaymentController {
 	public void postPaymentCreditCard(@AuthenticationPrincipal SessionUser sessionUser, @RequestBody CreditCard creditCard) {
 		
 		List<VOpenItem> openItems = invoiceService.findOpenItems(sessionUser.getPartnerId());
-		BigDecimal openTotal = openItems.stream().map(item -> item.getOpenAmt()).reduce(Env.ZERO, (subtotal, value)->subtotal.add(value));
+		BigDecimal openTotal = openItems.stream().map(VOpenItem::getOpenAmt).reduce(Env.ZERO, (subtotal, value)->subtotal.add(value));
 		
 		boolean isTotalEqual = openTotal.compareTo(creditCard.getAmt()) == 0;
 		if (!isTotalEqual) {
