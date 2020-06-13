@@ -4,7 +4,7 @@
 # Idempiere Portal API
 > 
 
-This server side plugin is working in pairs with frontend PrimeNG-Angular plugin that can be found here 
+This server side plugin works in pairs with frontend PrimeNG-Angular plugin that can be found here 
 [https://github.com/icreated/portal-frontend](https://github.com/icreated/portal-frontend) 
 
 This plugin is fully dependent on Spring Framework and integrates its features:
