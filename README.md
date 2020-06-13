@@ -40,6 +40,7 @@ If you put sources directly in Idempiere sources folder, it will be
 ```
 like others Idempiere plugins, otherwise modify it.
 
+Be sure to satisfy all required dependencies. All needed jars are added directly to lib folder.
 
 
 ### Deploying / Publishing / Testing
