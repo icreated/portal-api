@@ -4,10 +4,24 @@
 # Idempiere Portal API
 > 
 
-This server side plugin is created to show how API REST can be used in OSGI Idempiere Environment.
+This server side plugin is working in pairs with frontend PrimeNG-Angular plugin that can be found here 
+[https://github.com/icreated/portal-frontend](https://github.com/icreated/portal-frontend) 
 
-It's based on Spring Framework, Spring Security & Swagger integration:
+This plugin is fully dependent on Spring Framework and integrates its features:
 
+*   Spring configuration with @Configuration annotation
+*	Idempiere context injected by application.properties
+*	Simple architecture with @Autowire annotation 
+*   JdbcTemplate used over native DB Idempiere static database connection
+ 
+
+From a functional point of view this plugin provides following features:
+
+*	JWT Spring Security authentication
+*	Swagger Integration for JSON based Frontend Integration and API testing
+*	Invoices and Payments lists
+*	OpenItems, i.e. payment due under contract
+*	Payment Imitation by Credit Card
 
 
 ## Installing / Getting started
