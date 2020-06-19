@@ -46,6 +46,7 @@ Be sure to satisfy all required dependencies. All needed jars are added directly
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
 [http://localhost:8080/portal/api/swagger-ui.html](http://localhost:8080/portal/api/swagger-ui.html) 
+To connect to API you have to provide AD_User Value and Password. For example: gardenusr / GardenUser
 
 !["Swagger UI"](Swagger_UI.png "Swagger UI") 
 
