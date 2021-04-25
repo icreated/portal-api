@@ -1,13 +1,12 @@
 package co.icreated.portal.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.compiere.model.MRole;
 import org.compiere.model.MUser;
 import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -62,11 +61,22 @@ public class UserService {
 		return sessionUser;
 
 	}
-	
-	
-	public MUser getUser() {
+    
+    
+    /**
+     * 
+     * @param newPassword
+     * @param AD_User_ID
+     * @return
+     */
+	public boolean changePassword(String newPassword, int AD_User_ID) {
 		
-		return MUser.get(ctx, 102);
+		MUser user = MUser.get(ctx, AD_User_ID);
+		user.setPassword(newPassword);
+		user.setIsLocked(false);
+		user.setDatePasswordChanged(new Timestamp(System.currentTimeMillis()));
+		user.setEMailVerifyCode(user.getEMailVerifyCode(), "By Changing password");
+		return user.save();
 	}
 	
 
