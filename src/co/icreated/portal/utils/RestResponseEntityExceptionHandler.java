@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import co.icreated.portal.exception.OldPasswordNotCorrectException;
-
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
  
-    @ExceptionHandler(value = {AdempiereException.class, IllegalArgumentException.class, IllegalStateException.class,
-    		OldPasswordNotCorrectException.class})
+    @ExceptionHandler(value = {AdempiereException.class, IllegalArgumentException.class, IllegalStateException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
     	
         String bodyOfResponse = "Idempiere Portal Exception";

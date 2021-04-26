@@ -14,25 +14,22 @@ import javax.servlet.ServletContext;
 
 import org.compiere.model.MClient;
 import org.compiere.model.MUser;
-import org.compiere.model.X_AD_User;
 import org.compiere.util.DB;
-import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.icreated.portal.api.SecurityConfig;
+import co.icreated.portal.bean.FrontendUser;
 import co.icreated.portal.bean.PasswordBean;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.bean.Token;
-import co.icreated.portal.exception.OldPasswordNotCorrectException;
 import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
 import co.icreated.portal.utils.Misc;
@@ -154,10 +151,13 @@ public class UserController {
 		
 		boolean ok = userService.changePassword(passwordBean.getConfirmPassword(), user.getAD_User_ID());
 
-		return ok ?
-				ResponseEntity.ok().build() :
-				ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Password not updated");	
+		if (ok) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Password not updated");
+		}
+
 	}
 	
 	
@@ -167,28 +167,35 @@ public class UserController {
 	 * @param sessionUser
 	 * @return
 	 */
-	@PutMapping("/password/change")
-	public ResponseEntity<Token> changePassword(@RequestBody PasswordBean passwordBean, @AuthenticationPrincipal SessionUser sessionUser) {
+	@PostMapping("/password/change")
+	public ResponseEntity<FrontendUser> changePassword(@RequestBody PasswordBean passwordBean, @AuthenticationPrincipal SessionUser sessionUser) {
+		
+		if (!Misc.areSet(passwordBean.getPassword(), passwordBean.getNewPassword(), passwordBean.getConfirmPassword())) {
+			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+		}
 		
 		passwordEncoder.setSalt(sessionUser.getSalt());
         CharSequence pass = passwordBean.getPassword();
         boolean isValid = passwordEncoder.matches(pass , sessionUser.getPassword());
 
         if (!isValid) {
-        	throw new OldPasswordNotCorrectException();
+        	return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         }
 		
 		boolean ok = userService.changePassword(passwordBean.getConfirmPassword(), sessionUser.getUserId());
 		if (ok) {
 			
-			final SessionUser authenticatedUser = userService.findSessionUserByValue(sessionUser.getEmail());
+			final SessionUser authenticatedUser = userService.findSessionUserByValue(sessionUser.getUsername());
 			
 	        String token = Jwts.builder()
 	                .signWith(SecurityConfig.SECRET)
 	                .setSubject(authenticatedUser.getUsername())
 	                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
 	                .compact();
-			return ResponseEntity.status(HttpStatus.OK).body(new Token(token));
+	        
+	        FrontendUser frontendUser = new FrontendUser(sessionUser.getUserId(), sessionUser.getUsername(), sessionUser.getName(), token);
+	        
+			return ResponseEntity.status(HttpStatus.OK).body(frontendUser);
 		}
 		
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

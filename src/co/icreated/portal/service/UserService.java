@@ -19,6 +19,8 @@ import co.icreated.portal.bean.SessionUser;
 @Service
 public class UserService {
 	
+	public static final String CACHE = "users";
+	
 	CLogger log = CLogger.getCLogger(UserService.class);
 	
 	@Autowired
@@ -27,7 +29,7 @@ public class UserService {
     @Autowired
 	JdbcTemplate jdbcTemplate;
 
-    @Cacheable("users")
+//    @Cacheable(CACHE) // Cache not implemented yet
 	public SessionUser findSessionUserByValue(String value) {
 		
 
