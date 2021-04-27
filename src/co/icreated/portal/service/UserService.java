@@ -29,7 +29,7 @@ public class UserService {
     @Autowired
 	JdbcTemplate jdbcTemplate;
 
-//    @Cacheable(CACHE) // Cache not implemented yet
+    @Cacheable(CACHE)
 	public SessionUser findSessionUserByValue(String value) {
 		
 

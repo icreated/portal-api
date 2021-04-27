@@ -17,6 +17,7 @@ import org.compiere.model.MUser;
 import org.compiere.util.DB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -66,6 +67,9 @@ public class UserController {
 	
 	@Autowired
 	ServletContext servletContext; 
+	
+	@Autowired
+	CacheManager cacheManager;
 	
 	
 	/**
@@ -184,6 +188,8 @@ public class UserController {
 		
 		boolean ok = userService.changePassword(passwordBean.getConfirmPassword(), sessionUser.getUserId());
 		if (ok) {
+			// clear cache to get renewed user
+			cacheManager.getCache(UserService.CACHE).clear();
 			
 			final SessionUser authenticatedUser = userService.findSessionUserByValue(sessionUser.getUsername());
 			
