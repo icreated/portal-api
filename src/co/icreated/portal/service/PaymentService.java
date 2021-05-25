@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.stream.Stream;
 
 import org.compiere.model.MBPBankAccount;
@@ -18,10 +17,8 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.CreditCard;

@@ -3,8 +3,6 @@ package co.icreated.portal.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 public class VOpenItem {
 	

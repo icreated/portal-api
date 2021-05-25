@@ -11,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Configuration
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {

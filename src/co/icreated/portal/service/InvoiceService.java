@@ -5,7 +5,6 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.compiere.model.MInvoiceTax;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTax;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -18,7 +17,6 @@ import co.icreated.portal.bean.Address;
 import co.icreated.portal.bean.Document;
 import co.icreated.portal.bean.DocumentLine;
 import co.icreated.portal.bean.Invoice;
-import co.icreated.portal.bean.Payment;
 import co.icreated.portal.bean.Tax;
 import co.icreated.portal.bean.VOpenItem;
 

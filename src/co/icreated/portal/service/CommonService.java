@@ -5,12 +5,10 @@ import java.util.Properties;
 
 import org.compiere.model.MRefList;
 import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.VOpenItem;
 import co.icreated.portal.bean.ValueLabelBean;
 
 @Service
