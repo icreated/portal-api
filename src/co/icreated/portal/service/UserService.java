@@ -9,6 +9,7 @@ import org.compiere.model.MUser;
 import org.compiere.util.CLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,15 +41,18 @@ public class UserService {
 				"INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = u.C_BPartner_ID " +
 				"WHERE u.Value LIKE ?";
 		
-		
 
-		SessionUser sessionUser = jdbcTemplate.queryForObject(sql,
-				new Object[]{value},
-				(rs, rowNum) ->
-				new SessionUser(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
-						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8).equals("N"), 
-						rs.getString(9).equals("N"), true, rs.getString(10).equals("Y") && rs.getString(11).equals("Y"))
-        );
+		SessionUser sessionUser = null;
+		try {
+			sessionUser = jdbcTemplate.queryForObject(sql,
+					new Object[]{value},
+					(rs, rowNum) ->
+					new SessionUser(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+							rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8).equals("N"), 
+							rs.getString(9).equals("N"), true, rs.getString(10).equals("Y") && rs.getString(11).equals("Y"))
+	        );
+        } catch (EmptyResultDataAccessException e) {}
+
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));

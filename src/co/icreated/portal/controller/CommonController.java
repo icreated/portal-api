@@ -19,22 +19,22 @@ public class CommonController {
 	CommonService commonService;
 
 	
-	@GetMapping("/reference/docstatus/{value}")
-	public String getReferenceDocStatus(@PathVariable String value) {
+	@GetMapping("/reference/docstatus/{language}/{value}")
+	public String getReferenceDocStatus(@PathVariable String language, @PathVariable String value) {
 		// AD_Reference_ID = 131 _DocStatus	
-		return commonService.getReferenceValue(131, value);
+		return commonService.getReferenceValue(language, 131, value);
 	}
 	
-	@GetMapping("/reference/tendertype/{value}")
-	public String getReferenceTenderType(@PathVariable String value) {
+	@GetMapping("/reference/tendertype/{language}/{value}")
+	public String getReferenceTenderType(@PathVariable String language, @PathVariable String value) {
 		// AD_Reference_ID = 214 C_Payment TenderType
-		return commonService.getReferenceValue(214, value);
+		return commonService.getReferenceValue(language, 214, value);
 	}
 	
 	@GetMapping("/reference/creditcardtypes")
 	public List<ValueLabelBean> getReferenceCreditCard() {
 		// AD_Reference_ID = 149 CreditCardType
-		return commonService.getValueLabelList(149);
+		return commonService.getValueLabelList("en_US", 149);
 	}
 
 }

@@ -23,19 +23,21 @@ public class CommonService {
 	JdbcTemplate jdbcTemplate;
 	
 	
-	public String getReferenceValue(int AD_Reference_ID, String value) {
+	public String getReferenceValue(String AD_Language, int AD_Reference_ID, String value) {
 		
-		return MRefList.getListName(ctx, AD_Reference_ID, value);
+		return MRefList.getListName(AD_Language, AD_Reference_ID, value);
 	}
 	
 	
-	public List<ValueLabelBean> getValueLabelList(int AD_Reference_ID) {
+	public List<ValueLabelBean> getValueLabelList(String AD_Language, int AD_Reference_ID) {
 		
-	    String sql = "SELECT Value, Name FROM AD_Ref_List WHERE AD_Reference_ID = ? AND isActive='Y'";
+	    String sql = "SELECT Value, COALESCE(trl.Name, l.Name) FROM AD_Ref_List l "
+	    		+ "LEFT JOIN AD_Ref_List_Trl trl ON l.AD_Ref_List_ID=trl.AD_Ref_List_ID AND trl.AD_Language = ? "
+	    		+ "WHERE l.AD_Reference_ID = ? AND l.isActive='Y'";
 			return jdbcTemplate.query(sql,
-					new Object[]{AD_Reference_ID},
+					new Object[]{AD_Language, AD_Reference_ID},
 					(rs, rowNum) ->
-						new ValueLabelBean(rs.getString("Name"), rs.getString("Value"))
+						new ValueLabelBean(rs.getString(2), rs.getString(1))
 	        );	
 	}
 }
