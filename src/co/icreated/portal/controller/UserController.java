@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.icreated.portal.api.SecurityConfig;
 import co.icreated.portal.bean.FrontendUser;
-import co.icreated.portal.bean.PasswordBean;
+import co.icreated.portal.bean.PasswordDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.Token;
+import co.icreated.portal.bean.TokenDto;
 import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
 import co.icreated.portal.utils.Misc;
@@ -78,7 +78,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/password/emaillink")
-	public ResponseEntity sendEmailLink(@RequestBody Token email) {
+	public ResponseEntity sendEmailLink(@RequestBody TokenDto email) {
 
 		int AD_User_ID = DB.getSQLValue(null, "SELECT AD_User_ID FROM AD_User WHERE isActive='Y' AND UPPER(email) LIKE ?", email.getToken().toUpperCase());
 		if (AD_User_ID <=0 ) {
@@ -125,7 +125,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/password/validate")
-	public ResponseEntity passwordValidate(@RequestBody PasswordBean passwordBean) {
+	public ResponseEntity passwordValidate(@RequestBody PasswordDto passwordBean) {
 		
 
 		
@@ -172,7 +172,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/password/change")
-	public ResponseEntity<FrontendUser> changePassword(@RequestBody PasswordBean passwordBean, @AuthenticationPrincipal SessionUser sessionUser) {
+	public ResponseEntity<FrontendUser> changePassword(@RequestBody PasswordDto passwordBean, @AuthenticationPrincipal SessionUser sessionUser) {
 		
 		if (!Misc.areSet(passwordBean.getPassword(), passwordBean.getNewPassword(), passwordBean.getConfirmPassword())) {
 			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();

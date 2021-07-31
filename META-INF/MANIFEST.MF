@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WebPortal API
 Bundle-SymbolicName: co.icreated.portal.api;singleton:=true
-Bundle-Version: 7.1.0.qualifier
+Bundle-Version: 8.2.0.qualifier
 Bundle-Vendor: ICreated
 Bundle-Activator: co.icreated.portal.api.Activator
 Bundle-ActivationPolicy: lazy
@@ -33,7 +33,7 @@ Bundle-ClassPath: .,
 Automatic-Module-Name: co.icreated.portal.api
 Comment: Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.11))"
-Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
+Require-Bundle: org.adempiere.base,
  org.apache.servicemix.bundles.spring-beans;bundle-version="4.3.19",
  org.apache.servicemix.bundles.spring-context;bundle-version="4.3.19",
  org.apache.servicemix.bundles.spring-core;bundle-version="4.3.19",
@@ -84,7 +84,7 @@ Import-Package: com.fasterxml.jackson.annotation,
  org.osgi.framework,
  org.slf4j;version="1.7.25"
 Web-ContextPath: portal
-Export-Package: co.icreated.portal.api;version="7.1.0",
- co.icreated.portal.bean;version="7.1.0",
- co.icreated.portal.controller;version="7.1.0",
- co.icreated.portal.service;version="7.1.0"
+Export-Package: co.icreated.portal.api;version="8.2.0",
+ co.icreated.portal.bean;version="8.2.0",
+ co.icreated.portal.controller;version="8.2.0",
+ co.icreated.portal.service;version="8.2.0"

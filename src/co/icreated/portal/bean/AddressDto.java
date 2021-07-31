@@ -3,7 +3,7 @@ package co.icreated.portal.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Address {
+public class AddressDto {
 	
 	int id = 0;
 	String label;
@@ -16,9 +16,9 @@ public class Address {
 	int  countryId;
 	String countryName;
 	
-    public Address() {}
+    public AddressDto() {}
 	
-	public Address(int id, String label, String name, String address1, String address2, String postal, String city,
+	public AddressDto(int id, String label, String name, String address1, String address2, String postal, String city,
 			String phone, int countryId, String countryName) {
 		super();
 		this.id = id;

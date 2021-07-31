@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.bean.ValueLabelBean;
+import co.icreated.portal.bean.ValueLabelDto;
 import co.icreated.portal.service.CommonService;
 
 @RestController
@@ -32,7 +32,7 @@ public class CommonController {
 	}
 	
 	@GetMapping("/reference/creditcardtypes")
-	public List<ValueLabelBean> getReferenceCreditCard() {
+	public List<ValueLabelDto> getReferenceCreditCard() {
 		// AD_Reference_ID = 149 CreditCardType
 		return commonService.getValueLabelList("en_US", 149);
 	}

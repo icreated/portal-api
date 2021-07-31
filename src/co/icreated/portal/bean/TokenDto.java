@@ -17,14 +17,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Token {
+public class TokenDto {
 	
 	@JsonProperty("token")
 	String token = null;
 	
-	public Token() {}
+	public TokenDto() {}
 	
-	public Token(String token) {
+	public TokenDto(String token) {
 		super();
 		this.token = token;
 	}

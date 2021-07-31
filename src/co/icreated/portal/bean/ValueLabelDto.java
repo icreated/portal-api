@@ -1,15 +1,15 @@
 package co.icreated.portal.bean;
 
-public class ValueLabelBean {
+public class ValueLabelDto {
 	
 	String label;
 	String value;
 	
-	public ValueLabelBean() {
+	public ValueLabelDto() {
 		
 	}
 	
-	public ValueLabelBean(String label, String value) {
+	public ValueLabelDto(String label, String value) {
 		super();
 		this.label = label;
 		this.value = value;

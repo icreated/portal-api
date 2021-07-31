@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DocumentLine {
+public class DocumentLineDto {
 	
 	int id;
 	int productId;
@@ -18,12 +18,12 @@ public class DocumentLine {
 	BigDecimal lineNetAmt;
 	
 	
-	public DocumentLine() {}
+	public DocumentLineDto() {}
 
 	
 	
 
-	public DocumentLine(int id, int productId,  int line, String name, String description, BigDecimal priceList, BigDecimal price, 
+	public DocumentLineDto(int id, int productId,  int line, String name, String description, BigDecimal priceList, BigDecimal price, 
 			BigDecimal qty, BigDecimal lineNetAmt) {
 		super();
 		this.id = id;
