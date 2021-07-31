@@ -23,7 +23,7 @@ public class InvoiceController {
 	InvoiceService invoiceService;
 
 	
-	@GetMapping("/all")
+	@GetMapping
 	public List<DocumentDto>  getInvoices(@AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findBPartnerInvoices(user.getPartnerId());
@@ -31,7 +31,7 @@ public class InvoiceController {
 	}
 	
 	
-	@GetMapping("/invoice/{invoiceId}")
+	@GetMapping("/{invoiceId}")
 	public InvoiceDto  getInvoiceById(@PathVariable int invoiceId, @AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findInvoiceById(invoiceId, user.getPartnerId());

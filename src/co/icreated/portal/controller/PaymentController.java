@@ -36,7 +36,7 @@ public class PaymentController {
 	InvoiceService invoiceService;
 
 	
-	@GetMapping("/all")
+	@GetMapping
 	public List<PaymentDto>  getInvoices(@AuthenticationPrincipal SessionUser sessionUser) {
 		
 		return paymentService.findPayments(0, sessionUser.getPartnerId());
