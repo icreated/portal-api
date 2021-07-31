@@ -24,8 +24,11 @@ public class CommonService {
 	
 	
 	public String getReferenceValue(String AD_Language, int AD_Reference_ID, String value) {
-		
-		return MRefList.getListName(AD_Language, AD_Reference_ID, value);
+		String result = MRefList.getListName(AD_Language, AD_Reference_ID, value);
+		if (result.equals("")) {
+			result = MRefList.getListName("en_US", AD_Reference_ID, value);
+		}
+		return result;
 	}
 	
 	
