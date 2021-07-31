@@ -2,16 +2,16 @@ package co.icreated.portal.bean;
 
 import java.math.BigDecimal;
 
-public class Tax {
+public class TaxDto {
 	
 	String name;
 	BigDecimal tax;
 	
-	public Tax() {
+	public TaxDto() {
 		
 	}
 	
-	public Tax(String name, BigDecimal tax) {
+	public TaxDto(String name, BigDecimal tax) {
 		super();
 		this.name = name;
 		this.tax = tax;

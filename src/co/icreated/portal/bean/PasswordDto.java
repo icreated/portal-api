@@ -1,14 +1,14 @@
 package co.icreated.portal.bean;
 
-public class PasswordBean {
+public class PasswordDto {
 	
 	String password;
 	String newPassword;
 	String confirmPassword;
 	
-	public PasswordBean() {}
+	public PasswordDto() {}
 
-	public PasswordBean(String password, String newPassword, String confirmPassword) {
+	public PasswordDto(String password, String newPassword, String confirmPassword) {
 		super();
 		this.password = password;
 		this.newPassword = newPassword;

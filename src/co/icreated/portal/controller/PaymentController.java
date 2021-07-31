@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.bean.CreditCard;
-import co.icreated.portal.bean.Payment;
+import co.icreated.portal.bean.CreditCardDto;
+import co.icreated.portal.bean.PaymentDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItem;
+import co.icreated.portal.bean.VOpenItemDto;
 import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;
 
@@ -37,17 +37,17 @@ public class PaymentController {
 
 	
 	@GetMapping("/all")
-	public List<Payment>  getInvoices(@AuthenticationPrincipal SessionUser sessionUser) {
+	public List<PaymentDto>  getInvoices(@AuthenticationPrincipal SessionUser sessionUser) {
 		
 		return paymentService.findPayments(0, sessionUser.getPartnerId());
 	}
 	
 	
 	@PostMapping("/pay")
-	public void postPaymentCreditCard(@AuthenticationPrincipal SessionUser sessionUser, @RequestBody CreditCard creditCard) {
+	public void postPaymentCreditCard(@AuthenticationPrincipal SessionUser sessionUser, @RequestBody CreditCardDto creditCard) {
 		
-		List<VOpenItem> openItems = invoiceService.findOpenItems(sessionUser.getPartnerId());
-		BigDecimal openTotal = openItems.stream().map(VOpenItem::getOpenAmt).reduce(Env.ZERO, (subtotal, value)->subtotal.add(value));
+		List<VOpenItemDto> openItems = invoiceService.findOpenItems(sessionUser.getPartnerId());
+		BigDecimal openTotal = openItems.stream().map(VOpenItemDto::getOpenAmt).reduce(Env.ZERO, (subtotal, value)->subtotal.add(value));
 		
 		boolean isTotalEqual = openTotal.compareTo(creditCard.getAmt()) == 0;
 		if (!isTotalEqual) {

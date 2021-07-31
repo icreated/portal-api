@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-public class VOpenItem {
+public class VOpenItemDto {
 	
 
 	int invoiceId;
@@ -28,7 +28,7 @@ public class VOpenItem {
 	
 	
 	
-	public VOpenItem(int invoiceId, int orderId, int bpartnerId, int bpartnerLocationId, int currencyId, String documentNo, String description,
+	public VOpenItemDto(int invoiceId, int orderId, int bpartnerId, int bpartnerLocationId, int currencyId, String documentNo, String description,
 			String docStatus, boolean isSOTrx, boolean isActive, Date dateOrdered, Date dateInvoiced, Date dueDate, int netDays,
 			 BigDecimal totalLines, BigDecimal grandTotal, BigDecimal paidAmt, BigDecimal openAmt) {
 		super();

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Document {
+public class DocumentDto {
 	
 	int id = 0;
 	String documentNo;
@@ -22,15 +22,15 @@ public class Document {
 	String name;
 
 	
-	List<DocumentLine> lines = new ArrayList<DocumentLine>();
+	List<DocumentLineDto> lines = new ArrayList<DocumentLineDto>();
 	
-	Address shipAddress;
-	Address billAddress;
+	AddressDto shipAddress;
+	AddressDto billAddress;
 	
-	public Document() {}
+	public DocumentDto() {}
 
 
-	public Document(int id, String documentNo, String poReference,
+	public DocumentDto(int id, String documentNo, String poReference,
 			String description, String docStatus, Date date,
 			BigDecimal totalLines, BigDecimal grandTotal) {
 		super();
@@ -45,11 +45,11 @@ public class Document {
 		
 	}
 	
-	public List<DocumentLine> getLines() {
+	public List<DocumentLineDto> getLines() {
 		return lines;
 	}
 
-	public void setLines(List<DocumentLine> lines) {
+	public void setLines(List<DocumentLineDto> lines) {
 		this.lines = lines;
 	}
 
@@ -82,19 +82,19 @@ public class Document {
 	}
 
 
-	public Address getShipAddress() {
+	public AddressDto getShipAddress() {
 		return shipAddress;
 	}
 
-	public void setShipAddress(Address deliveryAddress) {
+	public void setShipAddress(AddressDto deliveryAddress) {
 		this.shipAddress = deliveryAddress;
 	}
 
-	public Address getBillAddress() {
+	public AddressDto getBillAddress() {
 		return billAddress;
 	}
 
-	public void setBillAddress(Address invoiceAddress) {
+	public void setBillAddress(AddressDto invoiceAddress) {
 		this.billAddress = invoiceAddress;
 	}
 

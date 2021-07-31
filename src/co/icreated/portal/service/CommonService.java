@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.ValueLabelBean;
+import co.icreated.portal.bean.ValueLabelDto;
 
 @Service
 public class CommonService {
@@ -29,7 +29,7 @@ public class CommonService {
 	}
 	
 	
-	public List<ValueLabelBean> getValueLabelList(String AD_Language, int AD_Reference_ID) {
+	public List<ValueLabelDto> getValueLabelList(String AD_Language, int AD_Reference_ID) {
 		
 	    String sql = "SELECT Value, COALESCE(trl.Name, l.Name) FROM AD_Ref_List l "
 	    		+ "LEFT JOIN AD_Ref_List_Trl trl ON l.AD_Ref_List_ID=trl.AD_Ref_List_ID AND trl.AD_Language = ? "
@@ -37,7 +37,7 @@ public class CommonService {
 			return jdbcTemplate.query(sql,
 					new Object[]{AD_Language, AD_Reference_ID},
 					(rs, rowNum) ->
-						new ValueLabelBean(rs.getString(2), rs.getString(1))
+						new ValueLabelDto(rs.getString(2), rs.getString(1))
 	        );	
 	}
 }

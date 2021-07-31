@@ -2,7 +2,7 @@ package co.icreated.portal.bean;
 
 import java.math.BigDecimal;
 
-public class CreditCard {
+public class CreditCardDto {
 	
     String cardType;
     String creditCard;

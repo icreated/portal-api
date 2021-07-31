@@ -33,7 +33,7 @@ Bundle-ClassPath: .,
 Automatic-Module-Name: co.icreated.portal.api
 Comment: Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.11))"
-Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
+Require-Bundle: org.adempiere.base,
  org.apache.servicemix.bundles.spring-beans;bundle-version="4.3.19",
  org.apache.servicemix.bundles.spring-context;bundle-version="4.3.19",
  org.apache.servicemix.bundles.spring-core;bundle-version="4.3.19",

@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Payment {
+public class PaymentDto {
 	
 	int id;
 	String documentNo;
@@ -18,11 +18,11 @@ public class Payment {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	Date date;
 	
-	public Payment() {
+	public PaymentDto() {
 		
 	}
 	
-	public Payment(int id, String documentNo, String description, String docStatus, BigDecimal payAmt, String trxid,
+	public PaymentDto(int id, String documentNo, String description, String docStatus, BigDecimal payAmt, String trxid,
 			String currency, String tenderType, Date date) {
 		super();
 		this.id = id;

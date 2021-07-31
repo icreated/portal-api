@@ -142,7 +142,12 @@
 							    <artifactId>classmate</artifactId>
 							    <version>1.5.1</version>
 							</artifactItem>
-																		
+							<artifactItem> 
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>1.18.20</version>
+								<scope>provided</scope>
+							</artifactItem>																		
 														
 							<!-- Swagger -->
 							<artifactItem>

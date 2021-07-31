@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.bean.Document;
-import co.icreated.portal.bean.Invoice;
+import co.icreated.portal.bean.DocumentDto;
+import co.icreated.portal.bean.InvoiceDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItem;
+import co.icreated.portal.bean.VOpenItemDto;
 import co.icreated.portal.service.InvoiceService;
 
 @RestController
@@ -24,7 +24,7 @@ public class InvoiceController {
 
 	
 	@GetMapping("/all")
-	public List<Document>  getInvoices(@AuthenticationPrincipal SessionUser user) {
+	public List<DocumentDto>  getInvoices(@AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findBPartnerInvoices(user.getPartnerId());
 		
@@ -32,7 +32,7 @@ public class InvoiceController {
 	
 	
 	@GetMapping("/invoice/{invoiceId}")
-	public Invoice  getInvoiceById(@PathVariable int invoiceId, @AuthenticationPrincipal SessionUser user) {
+	public InvoiceDto  getInvoiceById(@PathVariable int invoiceId, @AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findInvoiceById(invoiceId, user.getPartnerId());
 		
@@ -40,7 +40,7 @@ public class InvoiceController {
 	
 	
 	@GetMapping("/openitems")
-	public List<VOpenItem>  getOpenItems(@AuthenticationPrincipal SessionUser user) {
+	public List<VOpenItemDto>  getOpenItems(@AuthenticationPrincipal SessionUser user) {
 		
 		return invoiceService.findOpenItems(user.getPartnerId());
 		

@@ -1,6 +1,6 @@
 package co.icreated.portal.bean;
 
-public class IdNameBean {
+public class IdNameDto {
 	
 	int id = 0;
 	String name;
@@ -8,13 +8,13 @@ public class IdNameBean {
 	
 	
 	
-	public IdNameBean(int id, String name) {
+	public IdNameDto(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public IdNameBean() {}
+	public IdNameDto() {}
 
 	public int getId() {
 		return id;

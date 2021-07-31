@@ -7,7 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/classes" sourcepath="WEB-INF/classes"/>
+	<classpathentry kind="lib" path="WEB-INF/classes" sourcepath="WEB-INF/classes"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-api.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-impl.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-jackson.jar"/>

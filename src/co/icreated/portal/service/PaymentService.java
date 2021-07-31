@@ -21,10 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.CreditCard;
-import co.icreated.portal.bean.Payment;
+import co.icreated.portal.bean.CreditCardDto;
+import co.icreated.portal.bean.PaymentDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItem;
+import co.icreated.portal.bean.VOpenItemDto;
 
 @Service
 public class PaymentService {
@@ -39,7 +39,7 @@ public class PaymentService {
 	
 	
 
-	public List<Payment> findPayments(int C_Invoice_ID, int C_BPartner_ID) {
+	public List<PaymentDto> findPayments(int C_Invoice_ID, int C_BPartner_ID) {
 		
 		List<Object> params = new ArrayList<>();
 		String sql = "SELECT p.C_Payment_ID, p.DocumentNo, p.Description, p.docStatus, p.payAmt, p.orig_trxid, c.iso_code, " + 
@@ -64,21 +64,21 @@ public class PaymentService {
 		return jdbcTemplate.query(sql,
 				params.toArray(),
 				(rs, rowNum) ->
-					new Payment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+					new PaymentDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
 							rs.getBigDecimal(5),  rs.getString(6),  rs.getString(7),  rs.getString(8), rs.getTimestamp(9))
         );		
 	}
 	
 	
 	
-	public void createPayments(SessionUser sessionUser, List<VOpenItem> openItems, CreditCard creditCard, String trxName) {
+	public void createPayments(SessionUser sessionUser, List<VOpenItemDto> openItems, CreditCardDto creditCard, String trxName) {
 		
 		openItems.stream().forEach(openItem -> createCreditCardPayment(sessionUser, openItem, creditCard, trxName));
 		
 	}
 	
 	
-	public boolean createCreditCardPayment(SessionUser sessionUser, VOpenItem openItem, CreditCard creditCard, String trxName) {
+	public boolean createCreditCardPayment(SessionUser sessionUser, VOpenItemDto openItem, CreditCardDto creditCard, String trxName) {
 		
 		MPayment payment = new MPayment(ctx, 0, trxName);
 		payment.setAD_Org_ID(Env.getAD_Org_ID(ctx));
@@ -133,7 +133,7 @@ public class PaymentService {
 
 	
 	
-	public MBPBankAccount getBankAccount(SessionUser sessionUser, VOpenItem openItem, String trxName) {
+	public MBPBankAccount getBankAccount(SessionUser sessionUser, VOpenItemDto openItem, String trxName) {
 		
 		MBPartner bp = new MBPartner(ctx, sessionUser.getPartnerId(), trxName);
 
