@@ -35,7 +35,11 @@ public class PaymentController {
 	@Autowired
 	InvoiceService invoiceService;
 
-	
+	/**
+	 * Get payment List
+	 * @param sessionUser
+	 * @return
+	 */
 	@GetMapping
 	public List<PaymentDto>  getInvoices(@AuthenticationPrincipal SessionUser sessionUser) {
 		
@@ -43,6 +47,13 @@ public class PaymentController {
 	}
 	
 	
+	/**
+	 * Get Credit Card Payment
+	 * Here dont't forget to add @Valid before @RequestBody with corresponding annotations in CreditCardDto to
+	 * validate credit card fields with javax.validation. (You have to add validation.jar to classpath for it)
+	 * @param sessionUser
+	 * @param creditCard
+	 */
 	@PostMapping("/pay")
 	public void postPaymentCreditCard(@AuthenticationPrincipal SessionUser sessionUser, @RequestBody CreditCardDto creditCard) {
 		
@@ -54,6 +65,8 @@ public class PaymentController {
 			throw new AdempiereException("Totals from backend & frontend not are equal");
 		}
 		
+		// TODO It's a good idea to put this Idempiere Trx deal to AOP Spring Annotation @Around
+		// For instance it's a unique case, but later it's a "must be"
 		String trxName = Trx.createTrxName("portalPayments");
 		Trx trx = Trx.get(trxName, true);
 		

@@ -23,6 +23,11 @@ public class InvoiceController {
 	InvoiceService invoiceService;
 
 	
+	/**
+	 * Get Invoice list
+	 * @param user
+	 * @return
+	 */
 	@GetMapping
 	public List<DocumentDto>  getInvoices(@AuthenticationPrincipal SessionUser user) {
 		
@@ -30,7 +35,12 @@ public class InvoiceController {
 		
 	}
 	
-	
+	/**
+	 * Get Invoice with invoiceId
+	 * @param invoiceId
+	 * @param user
+	 * @return
+	 */
 	@GetMapping("/{invoiceId}")
 	public InvoiceDto  getInvoiceById(@PathVariable int invoiceId, @AuthenticationPrincipal SessionUser user) {
 		
@@ -38,7 +48,11 @@ public class InvoiceController {
 		
 	}
 	
-	
+	/**
+	 * Get OpenItems
+	 * @param user
+	 * @return
+	 */
 	@GetMapping("/openitems")
 	public List<VOpenItemDto>  getOpenItems(@AuthenticationPrincipal SessionUser user) {
 		
