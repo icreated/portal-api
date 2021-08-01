@@ -12,8 +12,10 @@ This plugin is fully dependent on Spring Framework and integrates its features:
 
 *   Spring configuration with @Configuration annotation
 *	Idempiere context injected by application.properties
-*	Simple architecture with @Autowire annotation 
+*	Simple architecture with @Autowired annotation 
 *   JdbcTemplate used over native DB Idempiere static database connection
+*	Possibility to map Idempiere Model with BeanPropertyRowMapper
+*	Spring Security integrated
  
 
 From a functional point of view this plugin provides following features:
@@ -32,21 +34,13 @@ To build this plugin you need to get sources in your project directory:
 ```shell
 git clone https://github.com/icreated/portal-api.git
 ```
-**Important!**
-Edit pom.xml to link native Idempiere libraries with parent project.
-If you put sources directly in Idempiere sources folder, it will be
-
-```xml
-<relativePath>../org.idempiere.parent/pom.xml</relativePath>
-```
-like others Idempiere plugins, otherwise modify it.
 
 Be sure to satisfy all required dependencies. All needed jars are added directly to lib folder.
 
 
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
-[http://localhost:8080/portal/api/swagger-ui.html](http://localhost:8080/portal/api/swagger-ui.html) 
+[http://localhost:8888/portal/api](http://localhost:8888/portal/api) 
 To connect to API you have to provide AD_User Value and Password. For example: gardenusr / GardenUser
 
 !["Swagger UI"](Swagger_UI.png "Swagger UI") 
