@@ -77,7 +77,7 @@ public class UserService {
      */
 	public boolean changePassword(String newPassword, int AD_User_ID) {
 		
-		MUser user = MUser.get(ctx, AD_User_ID);
+		MUser user = new MUser(ctx, AD_User_ID, null);
 		user.setPassword(newPassword);
 		user.setIsLocked(false);
 		user.setDatePasswordChanged(new Timestamp(System.currentTimeMillis()));

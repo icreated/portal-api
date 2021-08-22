@@ -86,7 +86,7 @@ public class UserController {
 			.body("User doesn't exist");
 		}
 		
-		MUser user = MUser.get(ctx, AD_User_ID);
+		MUser user = new MUser(ctx, AD_User_ID, null);
 		
 		
 		MClient client = MClient.get(ctx);
@@ -148,7 +148,7 @@ public class UserController {
 			.body("User doesn't exist");
 		}
 		
-		MUser user = MUser.get(ctx, AD_User_ID);
+		MUser user = new MUser(ctx, AD_User_ID, null);
 
 		passwordEncoder.setSalt(user.getSalt());
         CharSequence pass = passwordBean.getPassword();
