@@ -99,10 +99,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//       auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-//    }
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+       auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    }
 
 
     
