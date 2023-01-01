@@ -18,89 +18,86 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.icreated.portal.api.SecurityConfig;
 import co.icreated.portal.bean.Credentials;
 import co.icreated.portal.bean.FrontendUser;
 import co.icreated.portal.bean.SessionUser;
+import co.icreated.portal.config.SecurityConfig;
 import io.jsonwebtoken.Jwts;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	
-    private long jwtExpirationTime;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, long jwtExpirationTime) {
+  private long jwtExpirationTime;
 
-        	this.setAuthenticationManager(authenticationManager);
-            this.jwtExpirationTime = jwtExpirationTime;           
-            setFilterProcessesUrl("/api/login");
-        }
-    
-    
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-            HttpServletResponse response) throws AuthenticationException {
-    	
-        if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
-        }
-        
+  public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+      long jwtExpirationTime) {
 
-        Credentials credentials = null;
-		try {
-			credentials = new ObjectMapper()
-			        .readValue(request.getInputStream(), Credentials.class);
-			
-		} catch (IOException e) {
-
-            throw new AuthenticationServiceException(
-                    "Authentication json format not respected: " + request.getMethod());
-		}
+    this.setAuthenticationManager(authenticationManager);
+    this.jwtExpirationTime = jwtExpirationTime;
+    setFilterProcessesUrl("/api/login");
+  }
 
 
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-        		credentials.getUsername(), credentials.getPassword());
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest request,
+      HttpServletResponse response) throws AuthenticationException {
 
-        // Allow subclasses to set the "details" property
-        setDetails(request, authRequest);
-
-        return this.getAuthenticationManager().authenticate(authRequest);
+    if (!request.getMethod().equals("POST")) {
+      throw new AuthenticationServiceException(
+          "Authentication method not supported: " + request.getMethod());
     }
-    
-    
-    @Override
-    protected void successfulAuthentication(
-            HttpServletRequest request, HttpServletResponse response,
-            FilterChain filterChain, Authentication authentication) {
-    	
-        SessionUser user = (SessionUser)authentication.getPrincipal();
-        String token = Jwts.builder()
-                .signWith(SecurityConfig.SECRET)
-                .setSubject(user.getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
-                .compact();
-        response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
-        
-        FrontendUser fuser = new FrontendUser(user.getUserId(), user.getUsername(), user.getName(), token);
-        
-        String body = "";
-        ObjectMapper mapper = new ObjectMapper();
-        
-        try {
-			body = mapper.writeValueAsString(fuser);
-			
-	        PrintWriter out = response.getWriter();
-	        response.setContentType("application/json");
-	        response.setCharacterEncoding("UTF-8");
-	        out.print(body);
-	        out.flush(); 
-	        
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-         
-        
+
+
+    Credentials credentials = null;
+    try {
+      credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
+
+    } catch (IOException e) {
+
+      throw new AuthenticationServiceException(
+          "Authentication json format not respected: " + request.getMethod());
     }
+
+
+    UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+        credentials.getUsername(), credentials.getPassword());
+
+    // Allow subclasses to set the "details" property
+    setDetails(request, authRequest);
+
+    return this.getAuthenticationManager().authenticate(authRequest);
+  }
+
+
+  @Override
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain, Authentication authentication) {
+
+    SessionUser user = (SessionUser) authentication.getPrincipal();
+    String token = Jwts.builder().signWith(SecurityConfig.SECRET).setSubject(user.getUsername())
+        .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
+    response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+
+    FrontendUser fuser =
+        new FrontendUser(user.getUserId(), user.getUsername(), user.getName(), token);
+
+    String body = "";
+    ObjectMapper mapper = new ObjectMapper();
+
+    try {
+      body = mapper.writeValueAsString(fuser);
+
+      PrintWriter out = response.getWriter();
+      response.setContentType("application/json");
+      response.setCharacterEncoding("UTF-8");
+      out.print(body);
+      out.flush();
+
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+
+
+  }
 }

@@ -10,57 +10,55 @@ import org.compiere.util.CLogger;
 import org.compiere.util.SecureEngine;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class IdempierePasswordEncoder implements PasswordEncoder  {
-	
-	private CLogger log = CLogger.getCLogger(IdempierePasswordEncoder.class);
-	
-	String salt = null;
+public class IdempierePasswordEncoder implements PasswordEncoder {
 
-	
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+  private CLogger log = CLogger.getCLogger(IdempierePasswordEncoder.class);
+
+  String salt = null;
 
 
-	@Override
-	public String encode(CharSequence arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  public void setSalt(String salt) {
+    this.salt = salt;
+  }
 
 
-	@Override
-	public boolean matches(CharSequence password, String hash) {
-		
-		boolean valid = false;
-		String encoded = null;
-		
-		boolean hash_password = MSysConfig.getBooleanValue(MSysConfig.USER_PASSWORD_HASH, false);
-		if (!hash_password) {
-			return password.toString().equals(hash);
-		}
+  @Override
+  public String encode(CharSequence arg0) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-		// Uses a secure Random not a simple Random
-		SecureRandom random;
-		try {
-			random = SecureRandom.getInstance("SHA1PRNG");
-			// Salt generation 64 bits long
-			byte[] bSalt = new byte[8];
-			random.nextBytes(bSalt);
-			// Digest computation
-			encoded = SecureEngine.getSHA512Hash(1000, password.toString(), bSalt);
-	        valid= encoded.equals(hash);
-	        
-		} catch (NoSuchAlgorithmException e) {
-			log.log(Level.SEVERE, "", e);
-		} catch (UnsupportedEncodingException e) {
-			log.log(Level.SEVERE, "", e);
-		}
-		
-		return valid;
-	}
 
-	
+  @Override
+  public boolean matches(CharSequence password, String hash) {
+
+    boolean valid = false;
+    String encoded = null;
+
+    boolean hash_password = MSysConfig.getBooleanValue(MSysConfig.USER_PASSWORD_HASH, false);
+    if (!hash_password) {
+      return password.toString().equals(hash);
+    }
+
+    // Uses a secure Random not a simple Random
+    SecureRandom random;
+    try {
+      random = SecureRandom.getInstance("SHA1PRNG");
+      // Salt generation 64 bits long
+      byte[] bSalt = new byte[8];
+      random.nextBytes(bSalt);
+      // Digest computation
+      encoded = SecureEngine.getSHA512Hash(1000, password.toString(), bSalt);
+      valid = encoded.equals(hash);
+
+    } catch (NoSuchAlgorithmException e) {
+      log.log(Level.SEVERE, "", e);
+    } catch (UnsupportedEncodingException e) {
+      log.log(Level.SEVERE, "", e);
+    }
+
+    return valid;
+  }
 
 
 

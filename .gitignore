@@ -2,3 +2,5 @@
 /WEB-INF/lib
 /classes/
 /target/
+/.apt_generated/
+.DS_Store

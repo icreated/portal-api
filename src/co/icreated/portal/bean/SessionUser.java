@@ -7,120 +7,119 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class SessionUser implements UserDetails {
-	
 
-	private static final long serialVersionUID = 4033276243673320690L;
-	
-	int userId;
-	String value;
-	String name;
-	String email;
-	String password;
-	String salt;
-	int partnerId;
 
-	boolean isAccountNonExpired = true;
-	boolean isAccountNonLocked = true;
-	boolean isCredentialsNonExpired = true;
-	boolean isEnabled = true;
-	
-	List<GrantedAuthority> authorities;
-	
-	
-	
-	
+  private static final long serialVersionUID = 4033276243673320690L;
 
-	public SessionUser(int userId, String value, String name, String email, String password, String salt, int partnerId,
-			boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
-		super();
-		this.userId = userId;
-		this.value = value;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.salt = salt;
-		this.partnerId = partnerId;
-		this.isAccountNonExpired = isAccountNonExpired;
-		this.isAccountNonLocked = isAccountNonLocked;
-		this.isCredentialsNonExpired = isCredentialsNonExpired;
-		this.isEnabled = isEnabled;
-	}
+  int userId;
+  String value;
+  String name;
+  String email;
+  String password;
+  String salt;
+  int partnerId;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
-		return authorities;
-	}
+  boolean isAccountNonExpired = true;
+  boolean isAccountNonLocked = true;
+  boolean isCredentialsNonExpired = true;
+  boolean isEnabled = true;
 
-	@Override
-	public String getPassword() {
+  List<GrantedAuthority> authorities;
 
-		return this.password;
-	}
 
-	@Override
-	public String getUsername() {
 
-		return value;
-	}
+  public SessionUser(int userId, String value, String name, String email, String password,
+      String salt, int partnerId, boolean isAccountNonExpired, boolean isAccountNonLocked,
+      boolean isCredentialsNonExpired, boolean isEnabled) {
+    super();
+    this.userId = userId;
+    this.value = value;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.salt = salt;
+    this.partnerId = partnerId;
+    this.isAccountNonExpired = isAccountNonExpired;
+    this.isAccountNonLocked = isAccountNonLocked;
+    this.isCredentialsNonExpired = isCredentialsNonExpired;
+    this.isEnabled = isEnabled;
+  }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		
-		return this.isAccountNonExpired;
-	}
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
 
-	@Override
-	public boolean isAccountNonLocked() {
-		
-		return this.isAccountNonLocked;
-	}
+    return authorities;
+  }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		
-		return this.isCredentialsNonExpired;
-	}
+  @Override
+  public String getPassword() {
 
-	@Override
-	public boolean isEnabled() {
-		
-		return this.isEnabled;
-	}
+    return this.password;
+  }
 
-	public void setAuthorities(List<GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
+  @Override
+  public String getUsername() {
 
-	public int getUserId() {
-		return userId;
-	}
+    return value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  @Override
+  public boolean isAccountNonExpired() {
 
-	public String getName() {
-		return name;
-	}
+    return this.isAccountNonExpired;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  @Override
+  public boolean isAccountNonLocked() {
 
-	public String getSalt() {
-		return salt;
-	}
+    return this.isAccountNonLocked;
+  }
 
-	public int getPartnerId() {
-		return partnerId;
-	}
+  @Override
+  public boolean isCredentialsNonExpired() {
 
-	@Override
-	public String toString() {
-		return "SessionUser [userId=" + userId + ", name=" + name + ", email=" + email + "]";
-	}
+    return this.isCredentialsNonExpired;
+  }
 
-	
-	
+  @Override
+  public boolean isEnabled() {
+
+    return this.isEnabled;
+  }
+
+  public void setAuthorities(List<GrantedAuthority> authorities) {
+    this.authorities = authorities;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getSalt() {
+    return salt;
+  }
+
+  public int getPartnerId() {
+    return partnerId;
+  }
+
+  @Override
+  public String toString() {
+    return "SessionUser [userId=" + userId + ", name=" + name + ", email=" + email + "]";
+  }
+
+
+
 }

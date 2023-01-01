@@ -1,0 +1,7 @@
+src/co/icreated/portal/api/ApiUtil.java
+src/co/icreated/portal/api/InvoicesApi.java
+src/co/icreated/portal/model/AddressDto.java
+src/co/icreated/portal/model/InvoiceDto.java
+src/co/icreated/portal/model/InvoiceLineDto.java
+src/co/icreated/portal/model/PaymentDto.java
+src/co/icreated/portal/model/TaxDto.java

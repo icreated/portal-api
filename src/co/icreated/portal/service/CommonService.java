@@ -5,42 +5,38 @@ import java.util.Properties;
 
 import org.compiere.model.MRefList;
 import org.compiere.util.CLogger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.compiere.util.ValueNamePair;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.ValueLabelDto;
+import co.icreated.portal.mapper.CommonMapper;
+import co.icreated.portal.model.ValueLabelDto;
 
 @Service
 public class CommonService {
-	
-	CLogger log = CLogger.getCLogger(CommonService.class);
-	
-	@Autowired
-	Properties ctx;
-	
-	@Autowired
-	JdbcTemplate jdbcTemplate;
-	
-	
-	public String getReferenceValue(String AD_Language, int AD_Reference_ID, String value) {
-		String result = MRefList.getListName(AD_Language, AD_Reference_ID, value);
-		if (result.equals("")) {
-			result = MRefList.getListName("en_US", AD_Reference_ID, value);
-		}
-		return result;
-	}
-	
-	
-	public List<ValueLabelDto> getValueLabelList(String AD_Language, int AD_Reference_ID) {
-		
-	    String sql = "SELECT Value, COALESCE(trl.Name, l.Name) FROM AD_Ref_List l "
-	    		+ "LEFT JOIN AD_Ref_List_Trl trl ON l.AD_Ref_List_ID=trl.AD_Ref_List_ID AND trl.AD_Language = ? "
-	    		+ "WHERE l.AD_Reference_ID = ? AND l.isActive='Y'";
-			return jdbcTemplate.query(sql,
-					new Object[]{AD_Language, AD_Reference_ID},
-					(rs, rowNum) ->
-						new ValueLabelDto(rs.getString(2), rs.getString(1))
-	        );	
-	}
+
+  CLogger log = CLogger.getCLogger(CommonService.class);
+
+  Properties ctx;
+  CommonMapper commonMapper;
+
+  public CommonService(Properties ctx, CommonMapper commonMapper) {
+    this.ctx = ctx;
+    this.commonMapper = commonMapper;
+  }
+
+
+  public String getReferenceValue(String AD_Language, int AD_Reference_ID, String value) {
+    String result = MRefList.getListName(AD_Language, AD_Reference_ID, value);
+    if (result.isBlank()) {
+      result = MRefList.getListName("en_US", AD_Reference_ID, value);
+    }
+    return result;
+  }
+
+
+  public List<ValueLabelDto> getValueLabelList(int AD_Reference_ID) {
+
+    ValueNamePair[] valueNamePairList = MRefList.getList(ctx, AD_Reference_ID, false);
+    return commonMapper.vnpListToValueLabelDtoList(valueNamePairList);
+  }
 }

@@ -6,53 +6,55 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import co.icreated.portal.model.TaxDto;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InvoiceDto extends DocumentDto {
 
-	List<PaymentDto> payments;
-	List<DocumentDto> invoices;
-	List<TaxDto> taxes;
-	
-	public InvoiceDto() {}
+  List<PaymentDto> payments;
+  List<DocumentDto> invoices;
+  List<TaxDto> taxes;
 
-	public InvoiceDto(int id, String documentNo,String description, String docStatus,
-			Date date, BigDecimal totalLines, BigDecimal grandTotal) {
-		
-		super(id, documentNo, null, description, docStatus, date, totalLines, grandTotal);
+  public InvoiceDto() {}
 
-	}
-	
-	public int getC_Invoice_ID() {
-		return id;
-	}
+  public InvoiceDto(int id, String documentNo, String description, String docStatus, Date date,
+      BigDecimal totalLines, BigDecimal grandTotal) {
 
-	public void setC_Invoice_ID(int C_Invoice_ID) {
-		this.id = C_Invoice_ID;
-	}
-	
-	public List<PaymentDto> getPayments() {
-		return payments;
-	}
+    super(id, documentNo, null, description, docStatus, date, totalLines, grandTotal);
 
-	public void setPayments(List<PaymentDto> payments) {
-		this.payments = payments;
-	}
+  }
 
-	public List<DocumentDto> getInvoices() {
-		return invoices;
-	}
+  public int getC_Invoice_ID() {
+    return id;
+  }
 
-	public void setInvoices(List<DocumentDto> invoices) {
-		this.invoices = invoices;
-	}
+  public void setC_Invoice_ID(int C_Invoice_ID) {
+    this.id = C_Invoice_ID;
+  }
 
-	public List<TaxDto> getTaxes() {
-		return taxes;
-	}
+  public List<PaymentDto> getPayments() {
+    return payments;
+  }
 
-	public void setTaxes(List<TaxDto> taxes) {
-		this.taxes = taxes;
-	}
+  public void setPayments(List<PaymentDto> payments) {
+    this.payments = payments;
+  }
+
+  public List<DocumentDto> getInvoices() {
+    return invoices;
+  }
+
+  public void setInvoices(List<DocumentDto> invoices) {
+    this.invoices = invoices;
+  }
+
+  public List<TaxDto> getTaxes() {
+    return taxes;
+  }
+
+  public void setTaxes(List<TaxDto> taxes) {
+    this.taxes = taxes;
+  }
 
 
 }
