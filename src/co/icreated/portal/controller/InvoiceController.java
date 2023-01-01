@@ -3,15 +3,12 @@ package co.icreated.portal.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.icreated.portal.api.InvoicesApi;
-import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItemDto;
 import co.icreated.portal.model.DocumentDto;
 import co.icreated.portal.model.InvoiceDto;
+import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.InvoiceService;
 
@@ -40,17 +37,10 @@ public class InvoiceController implements InvoicesApi, Authenticated {
   }
 
 
-  /**
-   * Get OpenItems
-   *
-   * @param user
-   * @return
-   */
-  @GetMapping("/openitems")
-  public List<VOpenItemDto> getOpenItems(@AuthenticationPrincipal SessionUser user) {
+  public ResponseEntity<List<OpenItemDto>> getOpenItems() {
 
-    return invoiceService.findOpenItems(user.getPartnerId());
-
+	List<OpenItemDto> openItems = invoiceService.findOpenItems(getSessionUser().getPartnerId());
+	return ResponseEntity.ok(openItems);
   }
 
 

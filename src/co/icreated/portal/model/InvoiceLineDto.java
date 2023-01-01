@@ -35,16 +35,16 @@ public class InvoiceLineDto {
   private String description;
 
   @JsonProperty("qty")
-  private Double qty;
+  private java.math.BigDecimal qty;
 
   @JsonProperty("price")
-  private Double price;
+  private java.math.BigDecimal price;
 
   @JsonProperty("priceList")
-  private Double priceList;
+  private java.math.BigDecimal priceList;
 
   @JsonProperty("lineNetAmt")
-  private Double lineNetAmt;
+  private java.math.BigDecimal lineNetAmt;
 
   public InvoiceLineDto id(Integer id) {
     this.id = id;
@@ -122,7 +122,7 @@ public class InvoiceLineDto {
     this.description = description;
   }
 
-  public InvoiceLineDto qty(Double qty) {
+  public InvoiceLineDto qty(java.math.BigDecimal qty) {
     this.qty = qty;
     return this;
   }
@@ -133,15 +133,15 @@ public class InvoiceLineDto {
   */
   
   @Schema(name = "qty", example = "1.0", description = "The quantity of the invoice line.", required = false)
-  public Double getQty() {
+  public java.math.BigDecimal getQty() {
     return qty;
   }
 
-  public void setQty(Double qty) {
+  public void setQty(java.math.BigDecimal qty) {
     this.qty = qty;
   }
 
-  public InvoiceLineDto price(Double price) {
+  public InvoiceLineDto price(java.math.BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -152,15 +152,15 @@ public class InvoiceLineDto {
   */
   
   @Schema(name = "price", example = "100.0", description = "The price of the invoice line.", required = false)
-  public Double getPrice() {
+  public java.math.BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(java.math.BigDecimal price) {
     this.price = price;
   }
 
-  public InvoiceLineDto priceList(Double priceList) {
+  public InvoiceLineDto priceList(java.math.BigDecimal priceList) {
     this.priceList = priceList;
     return this;
   }
@@ -171,15 +171,15 @@ public class InvoiceLineDto {
   */
   
   @Schema(name = "priceList", example = "100.0", description = "The price list of the invoice line.", required = false)
-  public Double getPriceList() {
+  public java.math.BigDecimal getPriceList() {
     return priceList;
   }
 
-  public void setPriceList(Double priceList) {
+  public void setPriceList(java.math.BigDecimal priceList) {
     this.priceList = priceList;
   }
 
-  public InvoiceLineDto lineNetAmt(Double lineNetAmt) {
+  public InvoiceLineDto lineNetAmt(java.math.BigDecimal lineNetAmt) {
     this.lineNetAmt = lineNetAmt;
     return this;
   }
@@ -190,11 +190,11 @@ public class InvoiceLineDto {
   */
   
   @Schema(name = "lineNetAmt", example = "100.0", description = "The line net amount of the invoice line.", required = false)
-  public Double getLineNetAmt() {
+  public java.math.BigDecimal getLineNetAmt() {
     return lineNetAmt;
   }
 
-  public void setLineNetAmt(Double lineNetAmt) {
+  public void setLineNetAmt(java.math.BigDecimal lineNetAmt) {
     this.lineNetAmt = lineNetAmt;
   }
 

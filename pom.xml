@@ -61,7 +61,9 @@
 		                <globalProperties>
 		                	<apiTests>false</apiTests>
 		                </globalProperties>
-		                
+		                <typeMappings>
+			                <typeMapping>Double=java.math.BigDecimal</typeMapping>
+			            </typeMappings>
 		                <configOptions>
 		                   <sourceFolder>/src</sourceFolder>
 		                   <interfaceOnly>true</interfaceOnly>
@@ -179,13 +181,13 @@
 							    <groupId>org.mapstruct</groupId>
 							    <artifactId>mapstruct-processor</artifactId>
 							    <version>${mapstruct.version}</version>
+							    <scope>provided</scope>
 							</artifactItem>
 							<artifactItem>
 							    <groupId>com.fasterxml.jackson.datatype</groupId>
 							    <artifactId>jackson-datatype-jsr310</artifactId>
 							    <version>2.14.1</version>
 							</artifactItem>
-							
 																																																																																											
 						</artifactItems>
 						<outputDirectory>WEB-INF/lib</outputDirectory>

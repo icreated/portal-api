@@ -1,18 +1,24 @@
 package co.icreated.portal.service;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.MInvoice;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
+import org.compiere.util.Env;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.VOpenItemDto;
 import co.icreated.portal.exceptions.PortalNotFoundException;
 import co.icreated.portal.mapper.InvoiceMapper;
 import co.icreated.portal.model.DocumentDto;
 import co.icreated.portal.model.InvoiceDto;
+import co.icreated.portal.model.OpenItemDto;
 
 @Service
 public class InvoiceService {
@@ -68,7 +74,7 @@ public class InvoiceService {
    * @param C_BPartner_ID
    * @return
    */
-  public List<VOpenItemDto> findOpenItems(int C_BPartner_ID) {
+  public List<OpenItemDto> findOpenItems(int C_BPartner_ID) {
 
     String sql =
         "SELECT C_Invoice_ID, C_Order_ID, C_BPartner_ID, C_BPartner_Location_ID, C_Currency_ID,"
@@ -78,16 +84,44 @@ public class InvoiceService {
             + "FROM RV_OpenItem WHERE AD_Client_ID = ? AND C_BPartner_ID = ? AND isSOTrx='Y' "
             + "ORDER BY dateInvoiced DESC";
 
-    return null;
-    // return jdbcTemplate.query(sql, new Object[] { Env.getAD_Client_ID(ctx), C_BPartner_ID },
-    // (rs, rowNum) -> new VOpenItemDto(rs.getInt("C_Invoice_ID"), rs.getInt("C_Order_ID"),
-    // rs.getInt("C_BPartner_ID"), rs.getInt("C_BPartner_Location_ID"), rs.getInt("C_Currency_ID"),
-    // rs.getString("documentNo"), rs.getString("description"), rs.getString("docStatus"),
-    // rs.getString("isSOTrx").equals("Y"), rs.getString("isActive").equals("Y"),
-    // rs.getTimestamp("dateOrdered"), rs.getTimestamp("dateInvoiced"), rs.getTimestamp("dueDate"),
-    // rs.getInt("netDays"), rs.getBigDecimal("totalLines"), rs.getBigDecimal("grandTotal"),
-    // rs.getBigDecimal("paidAmt"), rs.getBigDecimal("openAmt")));
+    ArrayList<OpenItemDto> list = new ArrayList<OpenItemDto>();
+	try (PreparedStatement pstmtActual = DB.prepareStatement(sql, null);)
+	{
+		pstmtActual.setInt(1, Env.getAD_Client_ID(ctx));
+		pstmtActual.setInt(2, C_BPartner_ID);
+		ResultSet rs = pstmtActual.executeQuery();
 
+		while (rs.next())
+		{
+			list.add(
+					new OpenItemDto()
+						.invoiceId(rs.getInt("C_Invoice_ID"))
+						.orderId(rs.getInt("C_Order_ID"))
+						.bpartnerId(rs.getInt("C_BPartner_ID"))
+						.bpartnerLocationId(rs.getInt("C_BPartner_Location_ID"))
+						.currencyId(rs.getInt("C_Currency_ID"))
+						.documentNo(rs.getString("documentNo"))
+						.description(rs.getString("description"))
+						.docStatus(rs.getString("docStatus"))
+						.isSOTRX(rs.getString("isSOTrx").equals("Y"))
+						.isActive(rs.getString("isActive").equals("Y"))
+						.dateOrdered(rs.getTimestamp("dateOrdered").toLocalDateTime().toLocalDate())
+						.dateInvoiced(rs.getTimestamp("dateInvoiced").toLocalDateTime().toLocalDate())
+						.dueDate(rs.getTimestamp("dueDate").toLocalDateTime().toLocalDate())
+						.netDays(rs.getInt("netDays"))
+						.totalLines(rs.getBigDecimal("totalLines"))
+						.grandTotal(rs.getBigDecimal("grandTotal"))
+						.paidAmt(rs.getBigDecimal("paidAmt"))
+						.openAmt(rs.getBigDecimal("openAmt"))
+					);
+		}
+
+
+	
+	  } catch (SQLException e) {
+		e.printStackTrace();
+	  }
+	
+    return list;
   }
-
 }

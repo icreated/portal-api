@@ -37,7 +37,7 @@ public class PaymentDto {
   private String docStatus;
 
   @JsonProperty("payAmt")
-  private Double payAmt;
+  private java.math.BigDecimal payAmt;
 
   @JsonProperty("trxid")
   private String trxid;
@@ -128,7 +128,7 @@ public class PaymentDto {
     this.docStatus = docStatus;
   }
 
-  public PaymentDto payAmt(Double payAmt) {
+  public PaymentDto payAmt(java.math.BigDecimal payAmt) {
     this.payAmt = payAmt;
     return this;
   }
@@ -139,11 +139,11 @@ public class PaymentDto {
   */
   
   @Schema(name = "payAmt", example = "100.0", description = "The amount of the payment.", required = false)
-  public Double getPayAmt() {
+  public java.math.BigDecimal getPayAmt() {
     return payAmt;
   }
 
-  public void setPayAmt(Double payAmt) {
+  public void setPayAmt(java.math.BigDecimal payAmt) {
     this.payAmt = payAmt;
   }
 

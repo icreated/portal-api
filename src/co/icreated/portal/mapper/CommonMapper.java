@@ -19,6 +19,4 @@ public abstract class CommonMapper {
 
   public abstract List<ValueLabelDto> vnpListToValueLabelDtoList(ValueNamePair[] valueNamePairList);
 
-
-
 }

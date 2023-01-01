@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.icreated.portal.bean.CreditCardDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItemDto;
+import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.model.PaymentDto;
 import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;
@@ -61,8 +61,8 @@ public class PaymentController {
   public void postPaymentCreditCard(@AuthenticationPrincipal SessionUser sessionUser,
       @RequestBody CreditCardDto creditCard) {
 
-    List<VOpenItemDto> openItems = invoiceService.findOpenItems(sessionUser.getPartnerId());
-    BigDecimal openTotal = openItems.stream().map(VOpenItemDto::getOpenAmt).reduce(Env.ZERO,
+    List<OpenItemDto> openItems = invoiceService.findOpenItems(sessionUser.getPartnerId());
+    BigDecimal openTotal = openItems.stream().map(OpenItemDto::getOpenAmt).reduce(Env.ZERO,
         (subtotal, value) -> subtotal.add(value));
 
     boolean isTotalEqual = openTotal.compareTo(creditCard.getAmt()) == 0;

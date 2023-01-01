@@ -41,10 +41,10 @@ public class DocumentDto {
   private String docStatus;
 
   @JsonProperty("totalLines")
-  private Double totalLines;
+  private java.math.BigDecimal totalLines;
 
   @JsonProperty("grandTotal")
-  private Double grandTotal;
+  private java.math.BigDecimal grandTotal;
 
   @JsonProperty("currency")
   private String currency;
@@ -151,7 +151,7 @@ public class DocumentDto {
     this.docStatus = docStatus;
   }
 
-  public DocumentDto totalLines(Double totalLines) {
+  public DocumentDto totalLines(java.math.BigDecimal totalLines) {
     this.totalLines = totalLines;
     return this;
   }
@@ -162,15 +162,15 @@ public class DocumentDto {
   */
   
   @Schema(name = "totalLines", example = "100.0", description = "The total lines of the order / invoice.", required = false)
-  public Double getTotalLines() {
+  public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
 
-  public void setTotalLines(Double totalLines) {
+  public void setTotalLines(java.math.BigDecimal totalLines) {
     this.totalLines = totalLines;
   }
 
-  public DocumentDto grandTotal(Double grandTotal) {
+  public DocumentDto grandTotal(java.math.BigDecimal grandTotal) {
     this.grandTotal = grandTotal;
     return this;
   }
@@ -181,11 +181,11 @@ public class DocumentDto {
   */
   
   @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the order / invoice.", required = false)
-  public Double getGrandTotal() {
+  public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
 
-  public void setGrandTotal(Double grandTotal) {
+  public void setGrandTotal(java.math.BigDecimal grandTotal) {
     this.grandTotal = grandTotal;
   }
 

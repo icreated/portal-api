@@ -7,6 +7,7 @@ package co.icreated.portal.api;
 
 import co.icreated.portal.model.DocumentDto;
 import co.icreated.portal.model.InvoiceDto;
+import co.icreated.portal.model.OpenItemDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -104,6 +105,42 @@ public interface InvoicesApi {
         produces = { "application/json" }
     )
     ResponseEntity<List<DocumentDto>> getInvoices(
+        
+    );
+
+
+    /**
+     * GET /invoices/openitems : Get open items
+     * Get open items
+     *
+     * @return OK (status code 200)
+     *         or Bad Request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not Found (status code 404)
+     *         or Internal Server Error (status code 500)
+     */
+    @Operation(
+        operationId = "getOpenItems",
+        summary = "Get open items",
+        tags = { "invoices" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenItemDto.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/invoices/openitems",
+        produces = { "application/json" }
+    )
+    ResponseEntity<List<OpenItemDto>> getOpenItems(
         
     );
 

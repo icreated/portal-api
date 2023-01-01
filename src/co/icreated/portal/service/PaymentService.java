@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.CreditCardDto;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.VOpenItemDto;
 import co.icreated.portal.mapper.PaymentMapper;
+import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.model.PaymentDto;
 
 @Service
@@ -77,7 +77,7 @@ public class PaymentService {
 
 
 
-  public void createPayments(SessionUser sessionUser, List<VOpenItemDto> openItems,
+  public void createPayments(SessionUser sessionUser, List<OpenItemDto> openItems,
       CreditCardDto creditCard, String trxName) {
 
     openItems.stream()
@@ -86,7 +86,7 @@ public class PaymentService {
   }
 
 
-  public boolean createCreditCardPayment(SessionUser sessionUser, VOpenItemDto openItem,
+  public boolean createCreditCardPayment(SessionUser sessionUser, OpenItemDto openItem,
       CreditCardDto creditCard, String trxName) {
 
     MPayment payment = new MPayment(ctx, 0, trxName);
@@ -140,7 +140,7 @@ public class PaymentService {
 
 
 
-  public MBPBankAccount getBankAccount(SessionUser sessionUser, VOpenItemDto openItem,
+  public MBPBankAccount getBankAccount(SessionUser sessionUser, OpenItemDto openItem,
       String trxName) {
 
     MBPartner bp = new MBPartner(ctx, sessionUser.getPartnerId(), trxName);

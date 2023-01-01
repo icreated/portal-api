@@ -26,7 +26,7 @@ public class TaxDto {
   private String name;
 
   @JsonProperty("tax")
-  private Double tax;
+  private java.math.BigDecimal tax;
 
   public TaxDto name(String name) {
     this.name = name;
@@ -47,7 +47,7 @@ public class TaxDto {
     this.name = name;
   }
 
-  public TaxDto tax(Double tax) {
+  public TaxDto tax(java.math.BigDecimal tax) {
     this.tax = tax;
     return this;
   }
@@ -58,11 +58,11 @@ public class TaxDto {
   */
   
   @Schema(name = "tax", example = "0.05", description = "The tax rate.", required = false)
-  public Double getTax() {
+  public java.math.BigDecimal getTax() {
     return tax;
   }
 
-  public void setTax(Double tax) {
+  public void setTax(java.math.BigDecimal tax) {
     this.tax = tax;
   }
 
