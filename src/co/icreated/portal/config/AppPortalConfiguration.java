@@ -26,12 +26,16 @@ import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.PortalExceptionHandler;
 
 @Configuration
-@Import({SecurityConfig.class, MvcConfig.class, PortalExceptionHandler.class,
-    SessionUserDetailsService.class, CommonController.class, CommonService.class,
-    CommonMapperImpl.class, InvoiceController.class, InvoiceService.class, InvoiceMapperImpl.class,
-    PaymentController.class, PaymentService.class, PaymentMapperImpl.class, UserController.class,
-    UserService.class, UserMapperImpl.class})
-@PropertySource(value = {"classpath:application.properties"})
+//@formatter:off
+@Import({
+	SecurityConfig.class, MvcConfig.class, PortalExceptionHandler.class, SessionUserDetailsService.class,
+	CommonController.class, CommonService.class, CommonMapperImpl.class,
+	InvoiceController.class, InvoiceService.class, InvoiceMapperImpl.class,
+    PaymentController.class, PaymentService.class, PaymentMapperImpl.class,
+    UserController.class, UserService.class, UserMapperImpl.class
+    })
+//@formatter:on
+@PropertySource(value = {"classpath:webportal.properties"})
 @EnableWebMvc
 public class AppPortalConfiguration {
 

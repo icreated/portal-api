@@ -2,17 +2,25 @@ package co.icreated.portal.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.icreated.portal.api.CommonApi;
 import co.icreated.portal.model.ValueLabelDto;
 import co.icreated.portal.service.CommonService;
 
 @RestController
-@RequestMapping("/common")
-public class CommonController {
+public class CommonController implements CommonApi {
+
+  @Value("${reference.creditCardType}")
+  int REFERENCE_CREDIT_CARD_TYPE;
+
+  @Value("${reference._docStatus}")
+  int REFERENCE_DOCSTATUS;
+
+  @Value("${reference.tenderType}")
+  int REFERENCE_TENDERTYPE;
 
   CommonService commonService;
 
@@ -20,18 +28,18 @@ public class CommonController {
     this.commonService = commonService;
   }
 
+
   /**
-   * Get docStatus Value with translation
+   * Get credit card list
    *
-   * @param language
-   * @param value
    * @return
    */
-  @GetMapping("/reference/docstatus/{language}/{value}")
-  public String getReferenceDocStatus(@PathVariable String language, @PathVariable String value) {
-    // AD_Reference_ID = 131 _DocStatus
-    return commonService.getReferenceValue(language, 131, value);
+  @Override
+  public ResponseEntity<List<ValueLabelDto>> getCreditCardTypes() {
+    // AD_Reference_ID = 149 CreditCardType
+    return ResponseEntity.ok(commonService.getValueLabelList(REFERENCE_CREDIT_CARD_TYPE));
   }
+
 
   /**
    * Get tenderTyper with translation
@@ -40,21 +48,25 @@ public class CommonController {
    * @param value
    * @return
    */
-  @GetMapping("/reference/tendertype/{language}/{value}")
-  public String getReferenceTenderType(@PathVariable String language, @PathVariable String value) {
-    // AD_Reference_ID = 214 C_Payment TenderType
-    return commonService.getReferenceValue(language, 214, value);
+  @Override
+  public ResponseEntity<String> getDocStatus(String language, String value) {
+    // AD_Reference_ID = 131 _DocStatus
+    return ResponseEntity.ok(commonService.getReferenceValue(language, REFERENCE_DOCSTATUS, value));
   }
 
+
   /**
-   * Get credit card list
+   * Get docStatus Value with translation
    *
+   * @param language
+   * @param value
    * @return
    */
-  @GetMapping("/reference/creditcardtypes")
-  public List<ValueLabelDto> getReferenceCreditCard() {
-    // AD_Reference_ID = 149 CreditCardType
-    return commonService.getValueLabelList(149);
+  @Override
+  public ResponseEntity<String> getTenderType(String language, String value) {
+    // AD_Reference_ID = 214 C_Payment TenderType
+    return ResponseEntity
+        .ok(commonService.getReferenceValue(language, REFERENCE_TENDERTYPE, value));
   }
 
 }

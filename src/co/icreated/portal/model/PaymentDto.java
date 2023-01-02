@@ -1,20 +1,19 @@
 package co.icreated.portal.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.time.OffsetDateTime;
+import java.util.*;
+import java.util.Objects;
+
+import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-
-
-import java.util.*;
-import javax.annotation.Generated;
 
 /**
  * PaymentDto
@@ -59,9 +58,10 @@ public class PaymentDto {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
+
   @Schema(name = "id", example = "4", required = false)
   public Integer getId() {
     return id;
@@ -78,10 +78,12 @@ public class PaymentDto {
 
   /**
    * The document number of the payment.
+   *
    * @return documentNo
-  */
-  
-  @Schema(name = "documentNo", example = "1000001", description = "The document number of the payment.", required = false)
+   */
+
+  @Schema(name = "documentNo", example = "1000001",
+      description = "The document number of the payment.", required = false)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -97,10 +99,12 @@ public class PaymentDto {
 
   /**
    * The description of the payment.
+   *
    * @return description
-  */
-  
-  @Schema(name = "description", example = "Payment for order 1000001", description = "The description of the payment.", required = false)
+   */
+
+  @Schema(name = "description", example = "Payment for order 1000001",
+      description = "The description of the payment.", required = false)
   public String getDescription() {
     return description;
   }
@@ -116,10 +120,12 @@ public class PaymentDto {
 
   /**
    * The document status of the payment.
+   *
    * @return docStatus
-  */
-  
-  @Schema(name = "docStatus", example = "CO", description = "The document status of the payment.", required = false)
+   */
+
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the payment.",
+      required = false)
   public String getDocStatus() {
     return docStatus;
   }
@@ -135,10 +141,12 @@ public class PaymentDto {
 
   /**
    * The amount of the payment.
+   *
    * @return payAmt
-  */
-  
-  @Schema(name = "payAmt", example = "100.0", description = "The amount of the payment.", required = false)
+   */
+
+  @Schema(name = "payAmt", example = "100.0", description = "The amount of the payment.",
+      required = false)
   public java.math.BigDecimal getPayAmt() {
     return payAmt;
   }
@@ -154,10 +162,12 @@ public class PaymentDto {
 
   /**
    * The transaction ID of the payment.
+   *
    * @return trxid
-  */
-  
-  @Schema(name = "trxid", example = "1000001", description = "The transaction ID of the payment.", required = false)
+   */
+
+  @Schema(name = "trxid", example = "1000001", description = "The transaction ID of the payment.",
+      required = false)
   public String getTrxid() {
     return trxid;
   }
@@ -173,10 +183,12 @@ public class PaymentDto {
 
   /**
    * The currency of the payment.
+   *
    * @return currency
-  */
-  
-  @Schema(name = "currency", example = "USD", description = "The currency of the payment.", required = false)
+   */
+
+  @Schema(name = "currency", example = "USD", description = "The currency of the payment.",
+      required = false)
   public String getCurrency() {
     return currency;
   }
@@ -192,10 +204,12 @@ public class PaymentDto {
 
   /**
    * The tender type of the payment.
+   *
    * @return tenderType
-  */
-  
-  @Schema(name = "tenderType", example = "C", description = "The tender type of the payment.", required = false)
+   */
+
+  @Schema(name = "tenderType", example = "C", description = "The tender type of the payment.",
+      required = false)
   public String getTenderType() {
     return tenderType;
   }
@@ -211,10 +225,12 @@ public class PaymentDto {
 
   /**
    * The transaction date of the payment.
+   *
    * @return date
-  */
-  @Valid 
-  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the payment.", required = false)
+   */
+  @Valid
+  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021",
+      description = "The transaction date of the payment.", required = false)
   public LocalDate getDate() {
     return date;
   }
@@ -232,20 +248,20 @@ public class PaymentDto {
       return false;
     }
     PaymentDto payment = (PaymentDto) o;
-    return Objects.equals(this.id, payment.id) &&
-        Objects.equals(this.documentNo, payment.documentNo) &&
-        Objects.equals(this.description, payment.description) &&
-        Objects.equals(this.docStatus, payment.docStatus) &&
-        Objects.equals(this.payAmt, payment.payAmt) &&
-        Objects.equals(this.trxid, payment.trxid) &&
-        Objects.equals(this.currency, payment.currency) &&
-        Objects.equals(this.tenderType, payment.tenderType) &&
-        Objects.equals(this.date, payment.date);
+    return Objects.equals(this.id, payment.id)
+        && Objects.equals(this.documentNo, payment.documentNo)
+        && Objects.equals(this.description, payment.description)
+        && Objects.equals(this.docStatus, payment.docStatus)
+        && Objects.equals(this.payAmt, payment.payAmt) && Objects.equals(this.trxid, payment.trxid)
+        && Objects.equals(this.currency, payment.currency)
+        && Objects.equals(this.tenderType, payment.tenderType)
+        && Objects.equals(this.date, payment.date);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, documentNo, description, docStatus, payAmt, trxid, currency, tenderType, date);
+    return Objects.hash(id, documentNo, description, docStatus, payAmt, trxid, currency, tenderType,
+        date);
   }
 
   @Override
@@ -266,8 +282,7 @@ public class PaymentDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

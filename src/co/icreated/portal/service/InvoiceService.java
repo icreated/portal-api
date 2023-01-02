@@ -85,43 +85,33 @@ public class InvoiceService {
             + "ORDER BY dateInvoiced DESC";
 
     ArrayList<OpenItemDto> list = new ArrayList<OpenItemDto>();
-	try (PreparedStatement pstmtActual = DB.prepareStatement(sql, null);)
-	{
-		pstmtActual.setInt(1, Env.getAD_Client_ID(ctx));
-		pstmtActual.setInt(2, C_BPartner_ID);
-		ResultSet rs = pstmtActual.executeQuery();
+    try (PreparedStatement pstmtActual = DB.prepareStatement(sql, null);) {
+      pstmtActual.setInt(1, Env.getAD_Client_ID(ctx));
+      pstmtActual.setInt(2, C_BPartner_ID);
+      ResultSet rs = pstmtActual.executeQuery();
 
-		while (rs.next())
-		{
-			list.add(
-					new OpenItemDto()
-						.invoiceId(rs.getInt("C_Invoice_ID"))
-						.orderId(rs.getInt("C_Order_ID"))
-						.bpartnerId(rs.getInt("C_BPartner_ID"))
-						.bpartnerLocationId(rs.getInt("C_BPartner_Location_ID"))
-						.currencyId(rs.getInt("C_Currency_ID"))
-						.documentNo(rs.getString("documentNo"))
-						.description(rs.getString("description"))
-						.docStatus(rs.getString("docStatus"))
-						.isSOTRX(rs.getString("isSOTrx").equals("Y"))
-						.isActive(rs.getString("isActive").equals("Y"))
-						.dateOrdered(rs.getTimestamp("dateOrdered").toLocalDateTime().toLocalDate())
-						.dateInvoiced(rs.getTimestamp("dateInvoiced").toLocalDateTime().toLocalDate())
-						.dueDate(rs.getTimestamp("dueDate").toLocalDateTime().toLocalDate())
-						.netDays(rs.getInt("netDays"))
-						.totalLines(rs.getBigDecimal("totalLines"))
-						.grandTotal(rs.getBigDecimal("grandTotal"))
-						.paidAmt(rs.getBigDecimal("paidAmt"))
-						.openAmt(rs.getBigDecimal("openAmt"))
-					);
-		}
+      while (rs.next()) {
+        list.add(new OpenItemDto().invoiceId(rs.getInt("C_Invoice_ID"))
+            .orderId(rs.getInt("C_Order_ID")).bpartnerId(rs.getInt("C_BPartner_ID"))
+            .bpartnerLocationId(rs.getInt("C_BPartner_Location_ID"))
+            .currencyId(rs.getInt("C_Currency_ID")).documentNo(rs.getString("documentNo"))
+            .description(rs.getString("description")).docStatus(rs.getString("docStatus"))
+            .isSOTRX(rs.getString("isSOTrx").equals("Y"))
+            .isActive(rs.getString("isActive").equals("Y"))
+            .dateOrdered(rs.getTimestamp("dateOrdered").toLocalDateTime().toLocalDate())
+            .dateInvoiced(rs.getTimestamp("dateInvoiced").toLocalDateTime().toLocalDate())
+            .dueDate(rs.getTimestamp("dueDate").toLocalDateTime().toLocalDate())
+            .netDays(rs.getInt("netDays")).totalLines(rs.getBigDecimal("totalLines"))
+            .grandTotal(rs.getBigDecimal("grandTotal")).paidAmt(rs.getBigDecimal("paidAmt"))
+            .openAmt(rs.getBigDecimal("openAmt")));
+      }
 
 
-	
-	  } catch (SQLException e) {
-		e.printStackTrace();
-	  }
-	
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
     return list;
   }
 }

@@ -1,18 +1,15 @@
 package co.icreated.portal.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-
 import java.util.*;
+import java.util.Objects;
+
 import javax.annotation.Generated;
+import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * AddressDto
@@ -47,9 +44,10 @@ public class AddressDto {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
+
   @Schema(name = "id", example = "4", required = false)
   public Integer getId() {
     return id;
@@ -66,10 +64,12 @@ public class AddressDto {
 
   /**
    * The first line of the address.
+   *
    * @return address1
-  */
-  
-  @Schema(name = "address1", example = "123 Main Street", description = "The first line of the address.", required = false)
+   */
+
+  @Schema(name = "address1", example = "123 Main Street",
+      description = "The first line of the address.", required = false)
   public String getAddress1() {
     return address1;
   }
@@ -85,10 +85,12 @@ public class AddressDto {
 
   /**
    * The second line of the address.
+   *
    * @return address2
-  */
-  
-  @Schema(name = "address2", example = "Apt 1", description = "The second line of the address.", required = false)
+   */
+
+  @Schema(name = "address2", example = "Apt 1", description = "The second line of the address.",
+      required = false)
   public String getAddress2() {
     return address2;
   }
@@ -104,10 +106,12 @@ public class AddressDto {
 
   /**
    * The city of the address.
+   *
    * @return city
-  */
-  
-  @Schema(name = "city", example = "New York", description = "The city of the address.", required = false)
+   */
+
+  @Schema(name = "city", example = "New York", description = "The city of the address.",
+      required = false)
   public String getCity() {
     return city;
   }
@@ -123,10 +127,12 @@ public class AddressDto {
 
   /**
    * The zip code of the address.
+   *
    * @return postal
-  */
-  
-  @Schema(name = "postal", example = "10001", description = "The zip code of the address.", required = false)
+   */
+
+  @Schema(name = "postal", example = "10001", description = "The zip code of the address.",
+      required = false)
   public String getPostal() {
     return postal;
   }
@@ -142,9 +148,10 @@ public class AddressDto {
 
   /**
    * The country name
+   *
    * @return countryName
-  */
-  
+   */
+
   @Schema(name = "countryName", description = "The country name", required = false)
   public String getCountryName() {
     return countryName;
@@ -163,12 +170,10 @@ public class AddressDto {
       return false;
     }
     AddressDto address = (AddressDto) o;
-    return Objects.equals(this.id, address.id) &&
-        Objects.equals(this.address1, address.address1) &&
-        Objects.equals(this.address2, address.address2) &&
-        Objects.equals(this.city, address.city) &&
-        Objects.equals(this.postal, address.postal) &&
-        Objects.equals(this.countryName, address.countryName);
+    return Objects.equals(this.id, address.id) && Objects.equals(this.address1, address.address1)
+        && Objects.equals(this.address2, address.address2)
+        && Objects.equals(this.city, address.city) && Objects.equals(this.postal, address.postal)
+        && Objects.equals(this.countryName, address.countryName);
   }
 
   @Override
@@ -191,8 +196,7 @@ public class AddressDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

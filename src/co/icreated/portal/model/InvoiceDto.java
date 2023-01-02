@@ -1,26 +1,21 @@
 package co.icreated.portal.model;
 
-import java.net.URI;
-import java.util.Objects;
-import co.icreated.portal.model.AddressDto;
-import co.icreated.portal.model.InvoiceLineDto;
-import co.icreated.portal.model.PaymentDto;
-import co.icreated.portal.model.TaxDto;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-
-
-import java.util.*;
-import javax.annotation.Generated;
 
 /**
  * InvoiceDto
@@ -83,9 +78,10 @@ public class InvoiceDto {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
+
   @Schema(name = "id", example = "4", required = false)
   public Integer getId() {
     return id;
@@ -102,10 +98,12 @@ public class InvoiceDto {
 
   /**
    * The document number of the invoice.
+   *
    * @return documentNo
-  */
-  
-  @Schema(name = "documentNo", example = "1000001", description = "The document number of the invoice.", required = false)
+   */
+
+  @Schema(name = "documentNo", example = "1000001",
+      description = "The document number of the invoice.", required = false)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -121,10 +119,12 @@ public class InvoiceDto {
 
   /**
    * The PO reference of the invoice.
+   *
    * @return poReference
-  */
-  
-  @Schema(name = "poReference", example = "1000001", description = "The PO reference of the invoice.", required = false)
+   */
+
+  @Schema(name = "poReference", example = "1000001",
+      description = "The PO reference of the invoice.", required = false)
   public String getPoReference() {
     return poReference;
   }
@@ -140,10 +140,12 @@ public class InvoiceDto {
 
   /**
    * The Business Partner of the order / invoice.
+   *
    * @return bpartnerName
-  */
-  
-  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = false)
+   */
+
+  @Schema(name = "bpartnerName", example = "John Smith",
+      description = "The Business Partner of the order / invoice.", required = false)
   public String getBpartnerName() {
     return bpartnerName;
   }
@@ -159,10 +161,12 @@ public class InvoiceDto {
 
   /**
    * The description of the invoice.
+   *
    * @return description
-  */
-  
-  @Schema(name = "description", example = "Invoice for order 1000001", description = "The description of the invoice.", required = false)
+   */
+
+  @Schema(name = "description", example = "Invoice for order 1000001",
+      description = "The description of the invoice.", required = false)
   public String getDescription() {
     return description;
   }
@@ -178,10 +182,12 @@ public class InvoiceDto {
 
   /**
    * The document status of the invoice.
+   *
    * @return docStatus
-  */
-  
-  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.", required = false)
+   */
+
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.",
+      required = false)
   public String getDocStatus() {
     return docStatus;
   }
@@ -197,10 +203,12 @@ public class InvoiceDto {
 
   /**
    * The total lines of the invoice.
+   *
    * @return totalLines
-  */
-  
-  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.", required = false)
+   */
+
+  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.",
+      required = false)
   public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
@@ -216,10 +224,12 @@ public class InvoiceDto {
 
   /**
    * The grand total of the invoice.
+   *
    * @return grandTotal
-  */
-  
-  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.", required = false)
+   */
+
+  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.",
+      required = false)
   public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
@@ -235,10 +245,12 @@ public class InvoiceDto {
 
   /**
    * The currency of the invoice.
+   *
    * @return currency
-  */
-  
-  @Schema(name = "currency", example = "USD", description = "The currency of the invoice.", required = false)
+   */
+
+  @Schema(name = "currency", example = "USD", description = "The currency of the invoice.",
+      required = false)
   public String getCurrency() {
     return currency;
   }
@@ -254,10 +266,12 @@ public class InvoiceDto {
 
   /**
    * The transaction date of the invoice.
+   *
    * @return date
-  */
-  @Valid 
-  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the invoice.", required = false)
+   */
+  @Valid
+  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021",
+      description = "The transaction date of the invoice.", required = false)
   public LocalDate getDate() {
     return date;
   }
@@ -273,9 +287,10 @@ public class InvoiceDto {
 
   /**
    * Get billAddress
+   *
    * @return billAddress
-  */
-  @Valid 
+   */
+  @Valid
   @Schema(name = "billAddress", required = false)
   public AddressDto getBillAddress() {
     return billAddress;
@@ -300,9 +315,10 @@ public class InvoiceDto {
 
   /**
    * Get lines
+   *
    * @return lines
-  */
-  @Valid 
+   */
+  @Valid
   @Schema(name = "lines", required = false)
   public List<InvoiceLineDto> getLines() {
     return lines;
@@ -327,9 +343,10 @@ public class InvoiceDto {
 
   /**
    * Get payments
+   *
    * @return payments
-  */
-  @Valid 
+   */
+  @Valid
   @Schema(name = "payments", required = false)
   public List<PaymentDto> getPayments() {
     return payments;
@@ -354,9 +371,10 @@ public class InvoiceDto {
 
   /**
    * Get taxes
+   *
    * @return taxes
-  */
-  @Valid 
+   */
+  @Valid
   @Schema(name = "taxes", required = false)
   public List<TaxDto> getTaxes() {
     return taxes;
@@ -375,25 +393,26 @@ public class InvoiceDto {
       return false;
     }
     InvoiceDto invoice = (InvoiceDto) o;
-    return Objects.equals(this.id, invoice.id) &&
-        Objects.equals(this.documentNo, invoice.documentNo) &&
-        Objects.equals(this.poReference, invoice.poReference) &&
-        Objects.equals(this.bpartnerName, invoice.bpartnerName) &&
-        Objects.equals(this.description, invoice.description) &&
-        Objects.equals(this.docStatus, invoice.docStatus) &&
-        Objects.equals(this.totalLines, invoice.totalLines) &&
-        Objects.equals(this.grandTotal, invoice.grandTotal) &&
-        Objects.equals(this.currency, invoice.currency) &&
-        Objects.equals(this.date, invoice.date) &&
-        Objects.equals(this.billAddress, invoice.billAddress) &&
-        Objects.equals(this.lines, invoice.lines) &&
-        Objects.equals(this.payments, invoice.payments) &&
-        Objects.equals(this.taxes, invoice.taxes);
+    return Objects.equals(this.id, invoice.id)
+        && Objects.equals(this.documentNo, invoice.documentNo)
+        && Objects.equals(this.poReference, invoice.poReference)
+        && Objects.equals(this.bpartnerName, invoice.bpartnerName)
+        && Objects.equals(this.description, invoice.description)
+        && Objects.equals(this.docStatus, invoice.docStatus)
+        && Objects.equals(this.totalLines, invoice.totalLines)
+        && Objects.equals(this.grandTotal, invoice.grandTotal)
+        && Objects.equals(this.currency, invoice.currency)
+        && Objects.equals(this.date, invoice.date)
+        && Objects.equals(this.billAddress, invoice.billAddress)
+        && Objects.equals(this.lines, invoice.lines)
+        && Objects.equals(this.payments, invoice.payments)
+        && Objects.equals(this.taxes, invoice.taxes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, documentNo, poReference, bpartnerName, description, docStatus, totalLines, grandTotal, currency, date, billAddress, lines, payments, taxes);
+    return Objects.hash(id, documentNo, poReference, bpartnerName, description, docStatus,
+        totalLines, grandTotal, currency, date, billAddress, lines, payments, taxes);
   }
 
   @Override
@@ -419,8 +438,7 @@ public class InvoiceDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

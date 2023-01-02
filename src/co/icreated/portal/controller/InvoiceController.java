@@ -39,8 +39,8 @@ public class InvoiceController implements InvoicesApi, Authenticated {
 
   public ResponseEntity<List<OpenItemDto>> getOpenItems() {
 
-	List<OpenItemDto> openItems = invoiceService.findOpenItems(getSessionUser().getPartnerId());
-	return ResponseEntity.ok(openItems);
+    List<OpenItemDto> openItems = invoiceService.findOpenItems(getSessionUser().getPartnerId());
+    return ResponseEntity.ok(openItems);
   }
 
 

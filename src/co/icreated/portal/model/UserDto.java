@@ -1,18 +1,15 @@
 package co.icreated.portal.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-
 import java.util.*;
+import java.util.Objects;
+
 import javax.annotation.Generated;
+import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * UserDto
@@ -53,9 +50,10 @@ public class UserDto {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
+
   @Schema(name = "id", required = false)
   public Integer getId() {
     return id;
@@ -72,9 +70,10 @@ public class UserDto {
 
   /**
    * Get username
+   *
    * @return username
-  */
-  
+   */
+
   @Schema(name = "username", required = false)
   public String getUsername() {
     return username;
@@ -91,9 +90,10 @@ public class UserDto {
 
   /**
    * Get firstName
+   *
    * @return firstName
-  */
-  
+   */
+
   @Schema(name = "firstName", required = false)
   public String getFirstName() {
     return firstName;
@@ -110,9 +110,10 @@ public class UserDto {
 
   /**
    * Get lastName
+   *
    * @return lastName
-  */
-  
+   */
+
   @Schema(name = "lastName", required = false)
   public String getLastName() {
     return lastName;
@@ -129,9 +130,10 @@ public class UserDto {
 
   /**
    * Get email
+   *
    * @return email
-  */
-  
+   */
+
   @Schema(name = "email", required = false)
   public String getEmail() {
     return email;
@@ -148,9 +150,10 @@ public class UserDto {
 
   /**
    * Get password
+   *
    * @return password
-  */
-  
+   */
+
   @Schema(name = "password", required = false)
   public String getPassword() {
     return password;
@@ -167,9 +170,10 @@ public class UserDto {
 
   /**
    * Get phone
+   *
    * @return phone
-  */
-  
+   */
+
   @Schema(name = "phone", required = false)
   public String getPhone() {
     return phone;
@@ -186,9 +190,10 @@ public class UserDto {
 
   /**
    * User Status
+   *
    * @return userStatus
-  */
-  
+   */
+
   @Schema(name = "userStatus", description = "User Status", required = false)
   public Integer getUserStatus() {
     return userStatus;
@@ -207,14 +212,11 @@ public class UserDto {
       return false;
     }
     UserDto user = (UserDto) o;
-    return Objects.equals(this.id, user.id) &&
-        Objects.equals(this.username, user.username) &&
-        Objects.equals(this.firstName, user.firstName) &&
-        Objects.equals(this.lastName, user.lastName) &&
-        Objects.equals(this.email, user.email) &&
-        Objects.equals(this.password, user.password) &&
-        Objects.equals(this.phone, user.phone) &&
-        Objects.equals(this.userStatus, user.userStatus);
+    return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username)
+        && Objects.equals(this.firstName, user.firstName)
+        && Objects.equals(this.lastName, user.lastName) && Objects.equals(this.email, user.email)
+        && Objects.equals(this.password, user.password) && Objects.equals(this.phone, user.phone)
+        && Objects.equals(this.userStatus, user.userStatus);
   }
 
   @Override
@@ -239,8 +241,7 @@ public class UserDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

@@ -11,6 +11,8 @@ info:
     
 
 tags:
+  - name: common
+    description: Common operations
   - name: users
     description: Operations about users
   - name: invoices
@@ -19,6 +21,85 @@ tags:
     description: Operations about payments
 
 paths:
+  /common/reference/docstatus/{language}/{value}:
+    get:
+      tags:
+        - common
+      summary: Get document status
+      description: Get document status
+      operationId: getDocStatus
+      parameters:
+        - name: language
+          in: path
+          description: Language
+          example: en
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          description: Value
+          example: CO
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+  /common/reference/tendertype/{language}/{value}:
+    get:
+      tags:
+        - common
+      summary: Get tender type
+      description: Get tender type
+      operationId: getTenderType
+      parameters:
+        - name: language
+          in: path
+          description: Language
+          example: en
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          description: Value
+          example: C
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+  /common/reference/creditcardtypes:
+    get:
+      tags:
+        - common
+      summary: Get credit card types
+      description: Get credit card types
+      operationId: getCreditCardTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValueLabel'
+
   /invoices:
     get:
       tags:

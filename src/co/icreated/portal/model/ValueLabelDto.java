@@ -1,18 +1,15 @@
 package co.icreated.portal.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-
 import java.util.*;
+import java.util.Objects;
+
 import javax.annotation.Generated;
+import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * ValueLabelDto
@@ -35,9 +32,10 @@ public class ValueLabelDto {
 
   /**
    * Get label
+   *
    * @return label
-  */
-  
+   */
+
   @Schema(name = "label", required = false)
   public String getLabel() {
     return label;
@@ -54,9 +52,10 @@ public class ValueLabelDto {
 
   /**
    * Get value
+   *
    * @return value
-  */
-  
+   */
+
   @Schema(name = "value", required = false)
   public String getValue() {
     return value;
@@ -75,8 +74,8 @@ public class ValueLabelDto {
       return false;
     }
     ValueLabelDto valueLabel = (ValueLabelDto) o;
-    return Objects.equals(this.label, valueLabel.label) &&
-        Objects.equals(this.value, valueLabel.value);
+    return Objects.equals(this.label, valueLabel.label)
+        && Objects.equals(this.value, valueLabel.value);
   }
 
   @Override
@@ -95,8 +94,7 @@ public class ValueLabelDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
