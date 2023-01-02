@@ -91,19 +91,29 @@ public class InvoiceService {
       ResultSet rs = pstmtActual.executeQuery();
 
       while (rs.next()) {
-        list.add(new OpenItemDto().invoiceId(rs.getInt("C_Invoice_ID"))
-            .orderId(rs.getInt("C_Order_ID")).bpartnerId(rs.getInt("C_BPartner_ID"))
-            .bpartnerLocationId(rs.getInt("C_BPartner_Location_ID"))
-            .currencyId(rs.getInt("C_Currency_ID")).documentNo(rs.getString("documentNo"))
-            .description(rs.getString("description")).docStatus(rs.getString("docStatus"))
-            .isSOTRX(rs.getString("isSOTrx").equals("Y"))
-            .isActive(rs.getString("isActive").equals("Y"))
-            .dateOrdered(rs.getTimestamp("dateOrdered").toLocalDateTime().toLocalDate())
-            .dateInvoiced(rs.getTimestamp("dateInvoiced").toLocalDateTime().toLocalDate())
-            .dueDate(rs.getTimestamp("dueDate").toLocalDateTime().toLocalDate())
-            .netDays(rs.getInt("netDays")).totalLines(rs.getBigDecimal("totalLines"))
-            .grandTotal(rs.getBigDecimal("grandTotal")).paidAmt(rs.getBigDecimal("paidAmt"))
-            .openAmt(rs.getBigDecimal("openAmt")));
+        list.add(
+        //@formatter:off
+	        	new OpenItemDto()
+	        	.invoiceId(rs.getInt("C_Invoice_ID"))
+	            .orderId(rs.getInt("C_Order_ID"))
+	            .bpartnerId(rs.getInt("C_BPartner_ID"))
+	            .bpartnerLocationId(rs.getInt("C_BPartner_Location_ID"))
+	            .currencyId(rs.getInt("C_Currency_ID"))
+	            .documentNo(rs.getString("documentNo"))
+	            .description(rs.getString("description"))
+	            .docStatus(rs.getString("docStatus"))
+	            .isSOTRX(rs.getString("isSOTrx").equals("Y"))
+	            .isActive(rs.getString("isActive").equals("Y"))
+	            .dateOrdered(rs.getTimestamp("dateOrdered").toLocalDateTime().toLocalDate())
+	            .dateInvoiced(rs.getTimestamp("dateInvoiced").toLocalDateTime().toLocalDate())
+	            .dueDate(rs.getTimestamp("dueDate").toLocalDateTime().toLocalDate())
+	            .netDays(rs.getInt("netDays"))
+	            .totalLines(rs.getBigDecimal("totalLines"))
+	            .grandTotal(rs.getBigDecimal("grandTotal"))
+	            .paidAmt(rs.getBigDecimal("paidAmt"))
+	            .openAmt(rs.getBigDecimal("openAmt"))
+            //@formatter:on
+        );
       }
 
 

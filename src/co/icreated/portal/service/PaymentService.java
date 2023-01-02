@@ -19,9 +19,9 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Service;
 
-import co.icreated.portal.bean.CreditCardDto;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.mapper.PaymentMapper;
+import co.icreated.portal.model.CreditCardDto;
 import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.model.PaymentDto;
 
@@ -43,36 +43,16 @@ public class PaymentService {
 
     List<MPayment> list = new Query(ctx, I_C_Payment.Table_Name, "C_Invoice_ID=?", null)
         .setParameters(C_Invoice_ID).setOrderBy("dateTrx DESC").list();
-
     return paymentMapper.toDtoList(list);
+  }
 
-    // List<Object> params = new ArrayList<>();
-    // String sql =
-    // "SELECT p.C_Payment_ID, p.DocumentNo, p.Description, p.docStatus, p.payAmt, p.orig_trxid,
-    // c.iso_code, "
-    // + "p.tenderType, p.dateTrx " + "FROM C_Payment p "
-    // + "INNER JOIN C_Currency c ON p.C_Currency_ID = c.C_Currency_ID "
-    // + "WHERE DocStatus NOT IN ('DR') AND p.AD_Client_ID = ? ";
-    //
-    // params.add(Env.getAD_Client_ID(ctx));
-    //
-    // if (C_Invoice_ID > 0) {
-    // sql += "AND C_Invoice_ID = ? ";
-    // params.add(C_Invoice_ID);
-    // }
-    // if (C_BPartner_ID > 0) {
-    // sql += "AND C_BPartner_ID = ? ";
-    // params.add(C_BPartner_ID);
-    // }
-    //
-    // sql += "ORDER BY DocumentNo DESC";
 
-    // return jdbcTemplate.query(sql,
-    // params.toArray(),
-    // (rs, rowNum) ->
-    // new PaymentDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-    // rs.getBigDecimal(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getTimestamp(9))
-    // );
+
+  public List<PaymentDto> findBPartnerPayments(int C_BPartner_ID) {
+
+    List<MPayment> list = new Query(ctx, I_C_Payment.Table_Name, "C_BPartner_ID=?", null)
+        .setParameters(C_BPartner_ID).setOrderBy("dateTrx DESC").list();
+    return paymentMapper.toDtoList(list);
   }
 
 
@@ -127,10 +107,10 @@ public class PaymentService {
 
     // add TransactionId from Bank Return!
     // payment.setOrig_TrxID(paymentInfo.getTransactionId());
-    payment.setCreditCardType(creditCard.getCardType());
-    payment.setCreditCardNumber(creditCard.getCreditCard());
-    payment.setCreditCardExpMM(creditCard.getExpirationMonth());
-    payment.setCreditCardExpYY(creditCard.getExpirationYear());
+    payment.setCreditCardType(creditCard.getCreditCardType());
+    payment.setCreditCardNumber(creditCard.getCreditCardNumber());
+    payment.setCreditCardExpMM(creditCard.getCreditCardExpMM());
+    payment.setCreditCardExpYY(creditCard.getCreditCardExpYY());
 
 
     payment.processIt(DocAction.ACTION_Complete);

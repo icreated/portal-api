@@ -1,10 +1,10 @@
-openapi: 3.0.0
+openapi: 3.0.3
 servers:
   - url: 'http://localhost:8080/portal/api'
 info:
-  description: 
+  description: Icreated Web Portal OpenApi seed
   version: 1.0.0
-  title: Icreated Web Portal
+  title: Web Portal
   license:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -99,6 +99,47 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ValueLabel'
+
+  /payments:
+    get:
+      tags:
+        - payments
+      summary: Get payments
+      description: Get user payments
+      operationId: getPayments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+    post:
+      tags:
+        - payments
+      summary: Create payment
+      description: Create payment
+      operationId: createPayment
+      requestBody:
+        description: Payment object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCard'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
 
   /invoices:
     get:
@@ -245,6 +286,42 @@ components:
         countryName:
           type: string
           description: The country name
+    
+    CreditCard:
+      type: object
+      properties:
+        creditCardType:
+          type: string
+          description: The credit card type.
+          example: Visa
+        creditCardNumber:
+          type: string
+          description: The credit card number.
+          example: 4111111111111111
+        creditCardExpMM:
+          type: integer
+          format: int32
+          description: The credit card expiration month.
+          example: 12
+        creditCardExpYY:
+          type: integer
+          format: int32
+          description: The credit card expiration year.
+          example: 2020
+        creditCardName:
+          type: string
+          description: The credit card name.
+          example: John Doe
+        creditCardVV:
+          type: string
+          description: The credit card verification value.
+          example: 123
+        paymentAmount:
+          type: number
+          description: The payment amount.
+          format: double
+          example: 100.00
+
     Document: 
       type: object
       description: Order or Invoice for table display
