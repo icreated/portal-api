@@ -11,32 +11,33 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
+import javax.validation.Valid;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MClient;
 import org.compiere.model.MUser;
 import org.compiere.util.DB;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.bean.FrontendUser;
-import co.icreated.portal.bean.PasswordDto;
+import co.icreated.portal.api.UsersApi;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.bean.TokenDto;
 import co.icreated.portal.config.SecurityConfig;
+import co.icreated.portal.exceptions.PortalPreconditionException;
+import co.icreated.portal.model.CommonStringDto;
+import co.icreated.portal.model.PasswordDto;
+import co.icreated.portal.model.UserDto;
+import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
 import co.icreated.portal.utils.StringUtils;
 import io.jsonwebtoken.Jwts;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+public class UserController implements UsersApi, Authenticated {
 
   @Value("${frontend-url}")
   private String frontendUrl;
@@ -77,19 +78,17 @@ public class UserController {
    * @param email
    * @return
    */
-  @PostMapping("/password/emaillink")
-  public ResponseEntity sendEmailLink(@RequestBody TokenDto email) {
+  @Override
+  public ResponseEntity<Void> sendEmailLink(@Valid CommonStringDto commonStringDto) {
 
     int AD_User_ID = DB.getSQLValue(null,
         "SELECT AD_User_ID FROM AD_User WHERE isActive='Y' AND UPPER(email) LIKE ?",
-        email.getToken().toUpperCase());
+        commonStringDto.getValue().toUpperCase());
     if (AD_User_ID <= 0) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("User doesn't exist");
+      throw new AdempiereException("User doesn't exist");
     }
 
     MUser user = MUser.get(ctx, AD_User_ID);
-
-
     MClient client = MClient.get(ctx);
 
     InputStream inputStream = servletContext.getResourceAsStream(this.emaillinkBodyFile);
@@ -102,14 +101,13 @@ public class UserController {
     // Binding variables: Name, Frontend URL for changing password
     bodyEmail = MessageFormat.format(bodyEmail, user.getName(), this.frontendUrl + "/" + uuid);
 
-    if (client.sendEMail(email.getToken(), this.emaillinkTitle, bodyEmail, null, true)) {
+    if (client.sendEMail(commonStringDto.getValue(), this.emaillinkTitle, bodyEmail, null, true)) {
       user.setLastResult(uuid);
-      return user.save() ? ResponseEntity.ok().build()
-          : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving token");
-
-    } else {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email not sent");
+      if (user.save()) {
+        return ResponseEntity.ok().build();
+      }
     }
+    throw new AdempiereException("Email not sent");
 
   }
 
@@ -120,43 +118,38 @@ public class UserController {
    * @param passwordBean
    * @return
    */
-  @PostMapping("/password/validate")
-  public ResponseEntity passwordValidate(@RequestBody PasswordDto passwordBean) {
+  @Override
+  public ResponseEntity<Void> validateToken(@Valid PasswordDto passwordDto) {
 
 
 
-    if (!StringUtils.areSet(passwordBean.getPassword(), passwordBean.getNewPassword(),
-        passwordBean.getConfirmPassword())) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("Passwords are not set");
+    if (!StringUtils.areSet(passwordDto.getPassword(), passwordDto.getNewPassword(),
+        passwordDto.getConfirmPassword())) {
+      throw new PortalPreconditionException("Passwords are not set");
     }
 
-    if (!passwordBean.getNewPassword().equals(passwordBean.getConfirmPassword())) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-          .body("Passwords are not matching");
+    if (!passwordDto.getNewPassword().equals(passwordDto.getConfirmPassword())) {
+      throw new PortalPreconditionException("Passwords are not matching");
     }
 
     // Here is our token
-    String token = passwordBean.getPassword();
+    String token = passwordDto.getPassword();
 
     int AD_User_ID = DB.getSQLValue(null,
         "SELECT AD_User_ID FROM AD_User WHERE isActive='Y' AND lastResult LIKE ?", token);
     if (AD_User_ID <= 0) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("User doesn't exist");
+      throw new PortalPreconditionException("User doesn't exist");
     }
 
     MUser user = MUser.get(ctx, AD_User_ID);
-
     passwordEncoder.setSalt(user.getSalt());
-    CharSequence pass = passwordBean.getPassword();
 
-    boolean ok =
-        userService.changePassword(passwordBean.getConfirmPassword(), user.getAD_User_ID());
+    boolean ok = userService.changePassword(passwordDto.getConfirmPassword(), user.getAD_User_ID());
 
     if (ok) {
       return ResponseEntity.ok().build();
-    } else {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password not updated");
     }
+    throw new PortalPreconditionException("Password not updated");
 
   }
 
@@ -164,46 +157,48 @@ public class UserController {
   /**
    * Password changing
    *
-   * @param passwordBean
-   * @param sessionUser
+   * @param passwordDto
    * @return
    */
-  @PostMapping("/password/change")
-  public ResponseEntity<FrontendUser> changePassword(@RequestBody PasswordDto passwordBean,
-      @AuthenticationPrincipal SessionUser sessionUser) {
+  @Override
+  public ResponseEntity<UserDto> changePassword(@RequestBody PasswordDto passwordDto) {
 
-    if (!StringUtils.areSet(passwordBean.getPassword(), passwordBean.getNewPassword(),
-        passwordBean.getConfirmPassword())) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+    if (!StringUtils.areSet(passwordDto.getPassword(), passwordDto.getNewPassword(),
+        passwordDto.getConfirmPassword())) {
+      throw new PortalPreconditionException("Passwords are not set");
     }
 
-    passwordEncoder.setSalt(sessionUser.getSalt());
-    CharSequence pass = passwordBean.getPassword();
-    boolean isValid = passwordEncoder.matches(pass, sessionUser.getPassword());
+    passwordEncoder.setSalt(getSessionUser().getSalt());
+    CharSequence pass = passwordDto.getPassword();
+    boolean isValid = passwordEncoder.matches(pass, getSessionUser().getPassword());
 
     if (!isValid) {
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+      throw new PortalPreconditionException("Password not valid");
     }
 
     boolean ok =
-        userService.changePassword(passwordBean.getConfirmPassword(), sessionUser.getUserId());
+        userService.changePassword(passwordDto.getConfirmPassword(), getSessionUser().getUserId());
     if (ok) {
 
       final SessionUser authenticatedUser =
-          userService.findSessionUserByValue(sessionUser.getUsername());
+          userService.findSessionUserByValue(getSessionUser().getUsername());
 
       String token =
           Jwts.builder().signWith(SecurityConfig.SECRET).setSubject(authenticatedUser.getUsername())
               .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
 
-      FrontendUser frontendUser = new FrontendUser(sessionUser.getUserId(),
-          sessionUser.getUsername(), sessionUser.getName(), token);
+      UserDto userDto = new UserDto() //
+          .id(getSessionUser().getUserId()) //
+          .username(getSessionUser().getUsername()) //
+          .name(getSessionUser().getName()) //
+          .token(token);
 
-      return ResponseEntity.status(HttpStatus.OK).body(frontendUser);
+      return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    throw new AdempiereException("Password not updated");
 
   }
+
 
 }

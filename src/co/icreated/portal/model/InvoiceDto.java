@@ -1,21 +1,26 @@
 package co.icreated.portal.model;
 
+import java.net.URI;
+import java.util.Objects;
+import co.icreated.portal.model.AddressDto;
+import co.icreated.portal.model.InvoiceLineDto;
+import co.icreated.portal.model.PaymentDto;
+import co.icreated.portal.model.TaxDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.Generated;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import javax.annotation.Generated;
 
 /**
  * InvoiceDto

@@ -19,9 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.icreated.portal.bean.Credentials;
-import co.icreated.portal.bean.FrontendUser;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.config.SecurityConfig;
+import co.icreated.portal.model.UserDto;
 import io.jsonwebtoken.Jwts;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -73,18 +73,24 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       FilterChain filterChain, Authentication authentication) {
 
     SessionUser user = (SessionUser) authentication.getPrincipal();
-    String token = Jwts.builder().signWith(SecurityConfig.SECRET).setSubject(user.getUsername())
-        .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
+    String token = Jwts.builder() //
+        .signWith(SecurityConfig.SECRET) //
+        .setSubject(user.getUsername()) //
+        .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)) //
+        .compact();
     response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
 
-    FrontendUser fuser =
-        new FrontendUser(user.getUserId(), user.getUsername(), user.getName(), token);
+    UserDto userDto = new UserDto() //
+        .id(user.getUserId()) //
+        .username(user.getUsername()) //
+        .name(user.getName()) //
+        .token(token);
 
     String body = "";
     ObjectMapper mapper = new ObjectMapper();
 
     try {
-      body = mapper.writeValueAsString(fuser);
+      body = mapper.writeValueAsString(userDto);
 
       PrintWriter out = response.getWriter();
       response.setContentType("application/json");

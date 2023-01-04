@@ -15,40 +15,17 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ValueLabelDto
+ * CommonStringDto
  */
 
-@JsonTypeName("ValueLabel")
+@JsonTypeName("CommonString")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class ValueLabelDto {
-
-  @JsonProperty("label")
-  private String label;
+public class CommonStringDto {
 
   @JsonProperty("value")
   private String value;
 
-  public ValueLabelDto label(String label) {
-    this.label = label;
-    return this;
-  }
-
-  /**
-   * Get label
-   *
-   * @return label
-   */
-
-  @Schema(name = "label", required = false)
-  public String getLabel() {
-    return label;
-  }
-
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-  public ValueLabelDto value(String value) {
+  public CommonStringDto value(String value) {
     this.value = value;
     return this;
   }
@@ -76,21 +53,19 @@ public class ValueLabelDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValueLabelDto valueLabel = (ValueLabelDto) o;
-    return Objects.equals(this.label, valueLabel.label)
-        && Objects.equals(this.value, valueLabel.value);
+    CommonStringDto commonString = (CommonStringDto) o;
+    return Objects.equals(this.value, commonString.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(label, value);
+    return Objects.hash(value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ValueLabelDto {\n");
-    sb.append("    label: ").append(toIndentedString(label)).append("\n");
+    sb.append("class CommonStringDto {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();

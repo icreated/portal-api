@@ -100,6 +100,75 @@ paths:
                 items:
                   $ref: '#/components/schemas/ValueLabel'
 
+  /users/password/emaillink:
+    post:
+      tags:
+        - users
+      summary: Send email link
+      description: Send email link
+      operationId: sendEmailLink
+      requestBody:
+        description: Token
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommonString'
+      responses:
+        '200':
+          description: OK
+        '412':
+          description: Precondition Failed
+        '500':
+          description: Internal Server Error
+  /users/password/validate:
+    post:
+      tags:
+        - users
+      summary: Validate token
+      description: Validate token
+      operationId: validateToken
+      requestBody:
+        description: Validate new password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Password'
+      responses:
+        '200':
+          description: OK
+        '412':
+          description: Precondition Failed
+        '500':
+          description: Internal Server Error
+          
+  /users/password/change:
+    post:
+      tags:
+        - users
+      summary: Change password
+      description: Change password
+      operationId: changePassword
+      requestBody:
+        description: Change password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Password'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '412':
+          description: Precondition Failed
+        '500':
+          description: Internal Server Error
+
   /payments:
     get:
       tags:
@@ -237,7 +306,21 @@ components:
         label:
           type: string
         value:
-          type: string    	
+          type: string
+    CommonString:
+      type: object
+      properties:
+        value:
+          type: string
+    Password:
+      type: object
+      properties:
+        password:
+          type: string
+        newPassword:
+          type: string
+        confirmPassword:
+          type: string
     User:
       type: object
       properties:
@@ -246,20 +329,10 @@ components:
           format: int32
         username:
           type: string
-        firstName:
+        name:
           type: string
-        lastName:
+        token:
           type: string
-        email:
-          type: string
-        password:
-          type: string
-        phone:
-          type: string
-        userStatus:
-          type: integer
-          format: int32
-          description: User Status
     Address:
       type: object
       properties:

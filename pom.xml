@@ -102,6 +102,10 @@
 		        <removeUnused>true</removeUnused>
 		        <staticGroups>*</staticGroups>
 		        <groups>java.,javax.,org.,com.</groups>
+		        <excludes>
+		        	<exclude>co/icreated/portal/api/*.java</exclude>
+		        	<exclude>co/icreated/portal/model/*.java</exclude>
+		        </excludes>
 		    </configuration>
 		    <executions>
 		        <execution>

@@ -1,15 +1,18 @@
 package co.icreated.portal.model;
 
-import java.util.*;
+import java.net.URI;
 import java.util.Objects;
-
-import javax.annotation.Generated;
-import javax.validation.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
+import java.time.OffsetDateTime;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import javax.annotation.Generated;
 
 /**
  * UserDto
@@ -25,23 +28,11 @@ public class UserDto {
   @JsonProperty("username")
   private String username;
 
-  @JsonProperty("firstName")
-  private String firstName;
+  @JsonProperty("name")
+  private String name;
 
-  @JsonProperty("lastName")
-  private String lastName;
-
-  @JsonProperty("email")
-  private String email;
-
-  @JsonProperty("password")
-  private String password;
-
-  @JsonProperty("phone")
-  private String phone;
-
-  @JsonProperty("userStatus")
-  private Integer userStatus;
+  @JsonProperty("token")
+  private String token;
 
   public UserDto id(Integer id) {
     this.id = id;
@@ -83,124 +74,44 @@ public class UserDto {
     this.username = username;
   }
 
-  public UserDto firstName(String firstName) {
-    this.firstName = firstName;
+  public UserDto name(String name) {
+    this.name = name;
     return this;
   }
 
   /**
-   * Get firstName
+   * Get name
    *
-   * @return firstName
+   * @return name
    */
 
-  @Schema(name = "firstName", required = false)
-  public String getFirstName() {
-    return firstName;
+  @Schema(name = "name", required = false)
+  public String getName() {
+    return name;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public UserDto lastName(String lastName) {
-    this.lastName = lastName;
+  public UserDto token(String token) {
+    this.token = token;
     return this;
   }
 
   /**
-   * Get lastName
+   * Get token
    *
-   * @return lastName
+   * @return token
    */
 
-  @Schema(name = "lastName", required = false)
-  public String getLastName() {
-    return lastName;
+  @Schema(name = "token", required = false)
+  public String getToken() {
+    return token;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public UserDto email(String email) {
-    this.email = email;
-    return this;
-  }
-
-  /**
-   * Get email
-   *
-   * @return email
-   */
-
-  @Schema(name = "email", required = false)
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserDto password(String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
-   * Get password
-   *
-   * @return password
-   */
-
-  @Schema(name = "password", required = false)
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public UserDto phone(String phone) {
-    this.phone = phone;
-    return this;
-  }
-
-  /**
-   * Get phone
-   *
-   * @return phone
-   */
-
-  @Schema(name = "phone", required = false)
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public UserDto userStatus(Integer userStatus) {
-    this.userStatus = userStatus;
-    return this;
-  }
-
-  /**
-   * User Status
-   *
-   * @return userStatus
-   */
-
-  @Schema(name = "userStatus", description = "User Status", required = false)
-  public Integer getUserStatus() {
-    return userStatus;
-  }
-
-  public void setUserStatus(Integer userStatus) {
-    this.userStatus = userStatus;
+  public void setToken(String token) {
+    this.token = token;
   }
 
   @Override
@@ -213,15 +124,12 @@ public class UserDto {
     }
     UserDto user = (UserDto) o;
     return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username)
-        && Objects.equals(this.firstName, user.firstName)
-        && Objects.equals(this.lastName, user.lastName) && Objects.equals(this.email, user.email)
-        && Objects.equals(this.password, user.password) && Objects.equals(this.phone, user.phone)
-        && Objects.equals(this.userStatus, user.userStatus);
+        && Objects.equals(this.name, user.name) && Objects.equals(this.token, user.token);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, firstName, lastName, email, password, phone, userStatus);
+    return Objects.hash(id, username, name, token);
   }
 
   @Override
@@ -230,12 +138,8 @@ public class UserDto {
     sb.append("class UserDto {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
-    sb.append("    userStatus: ").append(toIndentedString(userStatus)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();
   }
