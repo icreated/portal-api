@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class PortalNotFoundException extends RuntimeException {
 
-  public PortalNotFoundException() {
+  private static final long serialVersionUID = 1L;
+
+public PortalNotFoundException() {
     super();
   }
 

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.compiere.util.CLogger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,10 +60,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     if (token != null && token.startsWith("Bearer ")) {
       token = token.replace("Bearer ", "");
       try {
-        String username = Jwts.parser().setSigningKey(SecurityConfig.SECRET).parseClaimsJws(token)
-            .getBody().getSubject();
+        String username = Jwts //
+        		.parserBuilder() //
+        		.setSigningKey(SecurityConfig.SECRET) //
+        		.build() //
+        		.parseClaimsJws(token) //
+        		.getBody() //
+        		.getSubject();
 
-        if ("".equals(username) || username == null) {
+        
+        if (StringUtils.isBlank(username)) {
           return null;
         }
 

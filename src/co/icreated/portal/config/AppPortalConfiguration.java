@@ -2,11 +2,6 @@ package co.icreated.portal.config;
 
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
-
-import org.adempiere.util.ServerContext;
-import org.adempiere.util.ServerContextProvider;
-import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

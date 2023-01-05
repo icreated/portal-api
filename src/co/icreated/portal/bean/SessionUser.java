@@ -28,22 +28,95 @@ public class SessionUser implements UserDetails {
 
 
 
-  public SessionUser(int userId, String value, String name, String email, String password,
-      String salt, int partnerId, boolean isAccountNonExpired, boolean isAccountNonLocked,
-      boolean isCredentialsNonExpired, boolean isEnabled) {
-    super();
-    this.userId = userId;
-    this.value = value;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.salt = salt;
-    this.partnerId = partnerId;
-    this.isAccountNonExpired = isAccountNonExpired;
-    this.isAccountNonLocked = isAccountNonLocked;
-    this.isCredentialsNonExpired = isCredentialsNonExpired;
-    this.isEnabled = isEnabled;
+  public static class Builder  {
+
+    int userId;
+    String value;
+    String name;
+    String email;
+    String password;
+    String salt;
+    int partnerId;
+
+    boolean isAccountNonExpired = true;
+    boolean isAccountNonLocked = true;
+    boolean isCredentialsNonExpired = true;
+    boolean isEnabled = true;
+    
+    List<GrantedAuthority> authorities;
+
+    public SessionUser build() {
+      return new SessionUser(this);
+    }
+
+    public Builder userId(int userId) {
+      this.userId = userId;
+      return this;
+    }
+    public Builder value(String value) {
+      this.value = value;
+      return this;
+    }
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+    public Builder email(String email) {
+      this.email = email;
+      return this;
+    }
+    public Builder password(String password) {
+      this.password = password;
+      return this;
+    }
+    public Builder salt(String salt) {
+      this.salt = salt;
+      return this;
+    }
+    public Builder partnerId(int partnerId) {
+      this.partnerId = partnerId;
+      return this;
+    }
+    public Builder accountNonExpired(boolean isAccountNonExpired) {
+      this.isAccountNonExpired = isAccountNonExpired;
+      return this;
+    }
+    public Builder accountNonLocked(boolean isAccountNonLocked) {
+      this.isAccountNonLocked = isAccountNonLocked;
+      return this;
+    }
+    public Builder credentialsNonExpired(boolean isCredentialsNonExpired) {
+      this.isCredentialsNonExpired = isCredentialsNonExpired;
+      return this;
+    }
+    public Builder enabled(boolean isEnabled) {
+      this.isEnabled = isEnabled;
+      return this;
+    }
+    public Builder authorities(List<GrantedAuthority> authorities) {
+	    this.authorities = authorities;
+	    return this;
+	  }
+
   }
+  
+
+  private SessionUser(Builder builder) {
+    this.userId = builder.userId;
+    this.value = builder.value;
+    this.name = builder.name;
+    this.email = builder.email;
+    this.password = builder.password;
+    this.salt = builder.salt;
+    this.partnerId = builder.partnerId;
+    this.isAccountNonExpired = builder.isAccountNonExpired;
+    this.isAccountNonLocked = builder.isAccountNonLocked;
+    this.isCredentialsNonExpired = builder.isCredentialsNonExpired;
+    this.isEnabled = builder.isEnabled;
+    this.authorities = builder.authorities;
+  }
+
+
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -87,9 +160,6 @@ public class SessionUser implements UserDetails {
     return this.isEnabled;
   }
 
-  public void setAuthorities(List<GrantedAuthority> authorities) {
-    this.authorities = authorities;
-  }
 
   public int getUserId() {
     return userId;
