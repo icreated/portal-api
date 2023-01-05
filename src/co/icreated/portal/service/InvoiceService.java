@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.MInvoice;
-import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -19,6 +18,7 @@ import co.icreated.portal.mapper.InvoiceMapper;
 import co.icreated.portal.model.DocumentDto;
 import co.icreated.portal.model.InvoiceDto;
 import co.icreated.portal.model.OpenItemDto;
+import co.icreated.portal.utils.PQuery;
 
 @Service
 public class InvoiceService {
@@ -44,8 +44,10 @@ public class InvoiceService {
    * @return
    */
   public List<DocumentDto> findBPartnerInvoices(int C_BPartner_ID) {
-    List<MInvoice> invoices = new Query(ctx, MInvoice.Table_Name, "C_BPartner_ID=?", null)
-        .setParameters(C_BPartner_ID).setOrderBy("DocumentNo DESC").list();
+    List<MInvoice> invoices = new PQuery(ctx, MInvoice.Table_Name, "C_BPartner_ID=?", null)
+        .setParameters(C_BPartner_ID) //
+        .setOrderBy("DocumentNo DESC") //
+        .list();
     return invoiceMapper.toDocumentDtoList(invoices);
   }
 

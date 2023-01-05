@@ -13,7 +13,6 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MLocation;
 import org.compiere.model.MPayment;
 import org.compiere.model.MUser;
-import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -24,6 +23,7 @@ import co.icreated.portal.mapper.PaymentMapper;
 import co.icreated.portal.model.CreditCardDto;
 import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.model.PaymentDto;
+import co.icreated.portal.utils.PQuery;
 
 @Service
 public class PaymentService {
@@ -41,8 +41,10 @@ public class PaymentService {
 
   public List<PaymentDto> findInvoicePayments(int C_Invoice_ID) {
 
-    List<MPayment> list = new Query(ctx, I_C_Payment.Table_Name, "C_Invoice_ID=?", null)
-        .setParameters(C_Invoice_ID).setOrderBy("dateTrx DESC").list();
+    List<MPayment> list = new PQuery(ctx, I_C_Payment.Table_Name, "C_Invoice_ID=?", null)
+        .setParameters(C_Invoice_ID) //
+        .setOrderBy("dateTrx DESC") //
+        .list();
     return paymentMapper.toDtoList(list);
   }
 
@@ -50,8 +52,10 @@ public class PaymentService {
 
   public List<PaymentDto> findBPartnerPayments(int C_BPartner_ID) {
 
-    List<MPayment> list = new Query(ctx, I_C_Payment.Table_Name, "C_BPartner_ID=?", null)
-        .setParameters(C_BPartner_ID).setOrderBy("dateTrx DESC").list();
+    List<MPayment> list = new PQuery(ctx, I_C_Payment.Table_Name, "C_BPartner_ID=?", null)
+        .setParameters(C_BPartner_ID) //
+        .setOrderBy("dateTrx DESC") //
+        .list();
     return paymentMapper.toDtoList(list);
   }
 
@@ -91,9 +95,10 @@ public class PaymentService {
 
 
     MBankAccount ba =
-        new Query(ctx, MBankAccount.Table_Name, "AD_Org_ID=? AND C_Currency_ID=?", trxName)
-            .setParameters(Env.getAD_Org_ID(ctx), openItem.getCurrencyId())
-            .setOrderBy("IsDefault DESC").first();
+        new PQuery(ctx, MBankAccount.Table_Name, "AD_Org_ID=? AND C_Currency_ID=?", trxName)
+            .setParameters(Env.getAD_Org_ID(ctx), openItem.getCurrencyId()) //
+            .setOrderBy("IsDefault DESC") //
+            .first();
     if (ba != null)
       payment.setC_BankAccount_ID(ba.getC_BankAccount_ID());
 
@@ -127,7 +132,8 @@ public class PaymentService {
 
     Stream<MBPBankAccount> stream = Arrays.stream(bp.getBankAccounts(true));
     MBPBankAccount retValue =
-        stream.filter(item -> item.getAD_User_ID() == sessionUser.getUserId() && item.isActive())
+        stream //
+        	.filter(item -> item.getAD_User_ID() == sessionUser.getUserId() && item.isActive()) //
             .findFirst().orElse(null);
 
     // create new

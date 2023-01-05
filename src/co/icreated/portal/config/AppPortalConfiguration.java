@@ -2,6 +2,11 @@ package co.icreated.portal.config;
 
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
+import org.adempiere.util.ServerContext;
+import org.adempiere.util.ServerContextProvider;
+import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,13 +43,14 @@ import co.icreated.portal.utils.PortalExceptionHandler;
 @PropertySource(value = {"classpath:webportal.properties"})
 @EnableWebMvc
 public class AppPortalConfiguration {
-
+	
+	
   @Autowired
   private Environment env;
 
   @Bean("ctx")
   Properties getCtx() {
-
+	 
     Properties props = new Properties();
     props.setProperty("#AD_Client_ID", env.getProperty("ctx.AD_Client_ID"));
     props.setProperty("#AD_Org_ID", env.getProperty("ctx.AD_Org_ID"));
