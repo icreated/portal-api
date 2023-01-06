@@ -50,12 +50,10 @@ public class CreditCardDto {
 
   /**
    * The credit card type.
-   *
    * @return creditCardType
-   */
-
-  @Schema(name = "creditCardType", example = "Visa", description = "The credit card type.",
-      required = false)
+  */
+  
+  @Schema(name = "creditCardType", example = "Visa", description = "The credit card type.", required = false)
   public String getCreditCardType() {
     return creditCardType;
   }
@@ -71,12 +69,10 @@ public class CreditCardDto {
 
   /**
    * The credit card number.
-   *
    * @return creditCardNumber
-   */
-
-  @Schema(name = "creditCardNumber", example = "4111111111111111",
-      description = "The credit card number.", required = false)
+  */
+  
+  @Schema(name = "creditCardNumber", example = "4111111111111111", description = "The credit card number.", required = false)
   public String getCreditCardNumber() {
     return creditCardNumber;
   }
@@ -92,12 +88,10 @@ public class CreditCardDto {
 
   /**
    * The credit card expiration month.
-   *
    * @return creditCardExpMM
-   */
-
-  @Schema(name = "creditCardExpMM", example = "12",
-      description = "The credit card expiration month.", required = false)
+  */
+  
+  @Schema(name = "creditCardExpMM", example = "12", description = "The credit card expiration month.", required = false)
   public Integer getCreditCardExpMM() {
     return creditCardExpMM;
   }
@@ -113,12 +107,10 @@ public class CreditCardDto {
 
   /**
    * The credit card expiration year.
-   *
    * @return creditCardExpYY
-   */
-
-  @Schema(name = "creditCardExpYY", example = "2020",
-      description = "The credit card expiration year.", required = false)
+  */
+  
+  @Schema(name = "creditCardExpYY", example = "2020", description = "The credit card expiration year.", required = false)
   public Integer getCreditCardExpYY() {
     return creditCardExpYY;
   }
@@ -134,12 +126,10 @@ public class CreditCardDto {
 
   /**
    * The credit card name.
-   *
    * @return creditCardName
-   */
-
-  @Schema(name = "creditCardName", example = "John Doe", description = "The credit card name.",
-      required = false)
+  */
+  
+  @Schema(name = "creditCardName", example = "John Doe", description = "The credit card name.", required = false)
   public String getCreditCardName() {
     return creditCardName;
   }
@@ -155,12 +145,10 @@ public class CreditCardDto {
 
   /**
    * The credit card verification value.
-   *
    * @return creditCardVV
-   */
-
-  @Schema(name = "creditCardVV", example = "123",
-      description = "The credit card verification value.", required = false)
+  */
+  
+  @Schema(name = "creditCardVV", example = "123", description = "The credit card verification value.", required = false)
   public String getCreditCardVV() {
     return creditCardVV;
   }
@@ -176,12 +164,10 @@ public class CreditCardDto {
 
   /**
    * The payment amount.
-   *
    * @return paymentAmount
-   */
-
-  @Schema(name = "paymentAmount", example = "100.0", description = "The payment amount.",
-      required = false)
+  */
+  
+  @Schema(name = "paymentAmount", example = "100.0", description = "The payment amount.", required = false)
   public java.math.BigDecimal getPaymentAmount() {
     return paymentAmount;
   }
@@ -199,19 +185,18 @@ public class CreditCardDto {
       return false;
     }
     CreditCardDto creditCard = (CreditCardDto) o;
-    return Objects.equals(this.creditCardType, creditCard.creditCardType)
-        && Objects.equals(this.creditCardNumber, creditCard.creditCardNumber)
-        && Objects.equals(this.creditCardExpMM, creditCard.creditCardExpMM)
-        && Objects.equals(this.creditCardExpYY, creditCard.creditCardExpYY)
-        && Objects.equals(this.creditCardName, creditCard.creditCardName)
-        && Objects.equals(this.creditCardVV, creditCard.creditCardVV)
-        && Objects.equals(this.paymentAmount, creditCard.paymentAmount);
+    return Objects.equals(this.creditCardType, creditCard.creditCardType) &&
+        Objects.equals(this.creditCardNumber, creditCard.creditCardNumber) &&
+        Objects.equals(this.creditCardExpMM, creditCard.creditCardExpMM) &&
+        Objects.equals(this.creditCardExpYY, creditCard.creditCardExpYY) &&
+        Objects.equals(this.creditCardName, creditCard.creditCardName) &&
+        Objects.equals(this.creditCardVV, creditCard.creditCardVV) &&
+        Objects.equals(this.paymentAmount, creditCard.paymentAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(creditCardType, creditCardNumber, creditCardExpMM, creditCardExpYY,
-        creditCardName, creditCardVV, paymentAmount);
+    return Objects.hash(creditCardType, creditCardNumber, creditCardExpMM, creditCardExpYY, creditCardName, creditCardVV, paymentAmount);
   }
 
   @Override
@@ -230,7 +215,8 @@ public class CreditCardDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

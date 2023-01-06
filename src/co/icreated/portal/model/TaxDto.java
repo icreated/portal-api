@@ -35,12 +35,10 @@ public class TaxDto {
 
   /**
    * The name of the tax.
-   *
    * @return name
-   */
-
-  @Schema(name = "name", example = "State Tax", description = "The name of the tax.",
-      required = false)
+  */
+  
+  @Schema(name = "name", example = "State Tax", description = "The name of the tax.", required = false)
   public String getName() {
     return name;
   }
@@ -56,10 +54,9 @@ public class TaxDto {
 
   /**
    * The tax rate.
-   *
    * @return tax
-   */
-
+  */
+  
   @Schema(name = "tax", example = "0.05", description = "The tax rate.", required = false)
   public java.math.BigDecimal getTax() {
     return tax;
@@ -78,7 +75,8 @@ public class TaxDto {
       return false;
     }
     TaxDto tax = (TaxDto) o;
-    return Objects.equals(this.name, tax.name) && Objects.equals(this.tax, tax.tax);
+    return Objects.equals(this.name, tax.name) &&
+        Objects.equals(this.tax, tax.tax);
   }
 
   @Override
@@ -97,7 +95,8 @@ public class TaxDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

@@ -8,7 +8,7 @@ info:
   license:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-    
+
 
 tags:
   - name: common
@@ -142,7 +142,7 @@ paths:
           description: Precondition Failed
         '500':
           description: Internal Server Error
-          
+
   /users/password/change:
     post:
       tags:
@@ -236,7 +236,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-  
+
   /invoices/{id}:
     get:
       tags:
@@ -269,7 +269,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-  
+
   /invoices/openitems:
     get:
       tags:
@@ -297,7 +297,7 @@ paths:
         '500':
           description: Internal Server Error
 
-      
+
 components:
   schemas:
     ValueLabel:
@@ -359,7 +359,7 @@ components:
         countryName:
           type: string
           description: The country name
-    
+
     CreditCard:
       type: object
       properties:
@@ -395,7 +395,7 @@ components:
           format: double
           example: 100.00
 
-    Document: 
+    Document:
       type: object
       description: Order or Invoice for table display
       properties:
@@ -442,7 +442,7 @@ components:
           type: string
           description: The Business Partner of the order / invoice.
           example: John Smith
-    Invoice: 
+    Invoice:
       type: object
       properties:
         id:
@@ -451,7 +451,7 @@ components:
           example: 4
         documentNo:
           type: string
-          description: The document number of the invoice. 
+          description: The document number of the invoice.
           example: 1000001
         poReference:
           type: string
@@ -490,15 +490,15 @@ components:
           example: 2021-01-01
         billAddress:
           $ref: '#/components/schemas/Address'
-        lines:  
+        lines:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceLine'
-        payments:  
+        payments:
           type: array
           items:
             $ref: '#/components/schemas/Payment'
-        taxes:  
+        taxes:
           type: array
           items:
             $ref: '#/components/schemas/Tax'
@@ -588,7 +588,7 @@ components:
 
     Tax:
       type: object
-      properties: 
+      properties:
         name:
           type: string
           description: The name of the tax.
@@ -597,10 +597,16 @@ components:
           type: number
           description: The tax rate.
           format: double
-          example: 0.05 
+          example: 0.05
 
     OpenItem:
         type: object
+        required:
+          - id
+          - documentNo
+          - totalLines
+          - grandTotal
+          - openAmt
         properties:
           invoiceId:
             type: integer
@@ -647,12 +653,12 @@ components:
             format: date
             description: The order date of the invoice.
             example: 2021-01-01
-          dateInvoiced: 
+          dateInvoiced:
             type: string
             format: date
             description: The invoice date of the invoice.
             example: 2021-01-01
-          dueDate: 
+          dueDate:
             type: string
             format: date
             description: The due date of the invoice.
@@ -666,12 +672,12 @@ components:
             description: The total lines of the invoice.
             format: double
             example: 100.00
-          grandTotal: 
+          grandTotal:
             type: number
             description: The grand total of the invoice.
             format: double
             example: 100.00
-          openAmt:  
+          openAmt:
             type: number
             description: The open amount of the invoice.
             format: double

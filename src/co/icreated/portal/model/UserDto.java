@@ -41,10 +41,9 @@ public class UserDto {
 
   /**
    * Get id
-   *
    * @return id
-   */
-
+  */
+  
   @Schema(name = "id", required = false)
   public Integer getId() {
     return id;
@@ -61,10 +60,9 @@ public class UserDto {
 
   /**
    * Get username
-   *
    * @return username
-   */
-
+  */
+  
   @Schema(name = "username", required = false)
   public String getUsername() {
     return username;
@@ -81,10 +79,9 @@ public class UserDto {
 
   /**
    * Get name
-   *
    * @return name
-   */
-
+  */
+  
   @Schema(name = "name", required = false)
   public String getName() {
     return name;
@@ -101,10 +98,9 @@ public class UserDto {
 
   /**
    * Get token
-   *
    * @return token
-   */
-
+  */
+  
   @Schema(name = "token", required = false)
   public String getToken() {
     return token;
@@ -123,8 +119,10 @@ public class UserDto {
       return false;
     }
     UserDto user = (UserDto) o;
-    return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username)
-        && Objects.equals(this.name, user.name) && Objects.equals(this.token, user.token);
+    return Objects.equals(this.id, user.id) &&
+        Objects.equals(this.username, user.username) &&
+        Objects.equals(this.name, user.name) &&
+        Objects.equals(this.token, user.token);
   }
 
   @Override
@@ -145,7 +143,8 @@ public class UserDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

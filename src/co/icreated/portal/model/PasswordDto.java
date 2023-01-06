@@ -38,10 +38,9 @@ public class PasswordDto {
 
   /**
    * Get password
-   *
    * @return password
-   */
-
+  */
+  
   @Schema(name = "password", required = false)
   public String getPassword() {
     return password;
@@ -58,10 +57,9 @@ public class PasswordDto {
 
   /**
    * Get newPassword
-   *
    * @return newPassword
-   */
-
+  */
+  
   @Schema(name = "newPassword", required = false)
   public String getNewPassword() {
     return newPassword;
@@ -78,10 +76,9 @@ public class PasswordDto {
 
   /**
    * Get confirmPassword
-   *
    * @return confirmPassword
-   */
-
+  */
+  
   @Schema(name = "confirmPassword", required = false)
   public String getConfirmPassword() {
     return confirmPassword;
@@ -100,9 +97,9 @@ public class PasswordDto {
       return false;
     }
     PasswordDto password = (PasswordDto) o;
-    return Objects.equals(this.password, password.password)
-        && Objects.equals(this.newPassword, password.newPassword)
-        && Objects.equals(this.confirmPassword, password.confirmPassword);
+    return Objects.equals(this.password, password.password) &&
+        Objects.equals(this.newPassword, password.newPassword) &&
+        Objects.equals(this.confirmPassword, password.confirmPassword);
   }
 
   @Override
@@ -122,7 +119,8 @@ public class PasswordDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

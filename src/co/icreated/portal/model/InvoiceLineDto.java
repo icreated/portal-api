@@ -53,10 +53,9 @@ public class InvoiceLineDto {
 
   /**
    * Get id
-   *
    * @return id
-   */
-
+  */
+  
   @Schema(name = "id", example = "4", required = false)
   public Integer getId() {
     return id;
@@ -73,12 +72,10 @@ public class InvoiceLineDto {
 
   /**
    * The line number of the invoice line.
-   *
    * @return line
-   */
-
-  @Schema(name = "line", example = "10", description = "The line number of the invoice line.",
-      required = false)
+  */
+  
+  @Schema(name = "line", example = "10", description = "The line number of the invoice line.", required = false)
   public Long getLine() {
     return line;
   }
@@ -94,12 +91,10 @@ public class InvoiceLineDto {
 
   /**
    * The name of the invoice line.
-   *
    * @return name
-   */
-
-  @Schema(name = "name", example = "Product 1", description = "The name of the invoice line.",
-      required = false)
+  */
+  
+  @Schema(name = "name", example = "Product 1", description = "The name of the invoice line.", required = false)
   public String getName() {
     return name;
   }
@@ -115,12 +110,10 @@ public class InvoiceLineDto {
 
   /**
    * The description of the invoice line.
-   *
    * @return description
-   */
-
-  @Schema(name = "description", example = "Invoice line for order 1000001",
-      description = "The description of the invoice line.", required = false)
+  */
+  
+  @Schema(name = "description", example = "Invoice line for order 1000001", description = "The description of the invoice line.", required = false)
   public String getDescription() {
     return description;
   }
@@ -136,12 +129,10 @@ public class InvoiceLineDto {
 
   /**
    * The quantity of the invoice line.
-   *
    * @return qty
-   */
-
-  @Schema(name = "qty", example = "1.0", description = "The quantity of the invoice line.",
-      required = false)
+  */
+  
+  @Schema(name = "qty", example = "1.0", description = "The quantity of the invoice line.", required = false)
   public java.math.BigDecimal getQty() {
     return qty;
   }
@@ -157,12 +148,10 @@ public class InvoiceLineDto {
 
   /**
    * The price of the invoice line.
-   *
    * @return price
-   */
-
-  @Schema(name = "price", example = "100.0", description = "The price of the invoice line.",
-      required = false)
+  */
+  
+  @Schema(name = "price", example = "100.0", description = "The price of the invoice line.", required = false)
   public java.math.BigDecimal getPrice() {
     return price;
   }
@@ -178,12 +167,10 @@ public class InvoiceLineDto {
 
   /**
    * The price list of the invoice line.
-   *
    * @return priceList
-   */
-
-  @Schema(name = "priceList", example = "100.0",
-      description = "The price list of the invoice line.", required = false)
+  */
+  
+  @Schema(name = "priceList", example = "100.0", description = "The price list of the invoice line.", required = false)
   public java.math.BigDecimal getPriceList() {
     return priceList;
   }
@@ -199,12 +186,10 @@ public class InvoiceLineDto {
 
   /**
    * The line net amount of the invoice line.
-   *
    * @return lineNetAmt
-   */
-
-  @Schema(name = "lineNetAmt", example = "100.0",
-      description = "The line net amount of the invoice line.", required = false)
+  */
+  
+  @Schema(name = "lineNetAmt", example = "100.0", description = "The line net amount of the invoice line.", required = false)
   public java.math.BigDecimal getLineNetAmt() {
     return lineNetAmt;
   }
@@ -222,13 +207,14 @@ public class InvoiceLineDto {
       return false;
     }
     InvoiceLineDto invoiceLine = (InvoiceLineDto) o;
-    return Objects.equals(this.id, invoiceLine.id) && Objects.equals(this.line, invoiceLine.line)
-        && Objects.equals(this.name, invoiceLine.name)
-        && Objects.equals(this.description, invoiceLine.description)
-        && Objects.equals(this.qty, invoiceLine.qty)
-        && Objects.equals(this.price, invoiceLine.price)
-        && Objects.equals(this.priceList, invoiceLine.priceList)
-        && Objects.equals(this.lineNetAmt, invoiceLine.lineNetAmt);
+    return Objects.equals(this.id, invoiceLine.id) &&
+        Objects.equals(this.line, invoiceLine.line) &&
+        Objects.equals(this.name, invoiceLine.name) &&
+        Objects.equals(this.description, invoiceLine.description) &&
+        Objects.equals(this.qty, invoiceLine.qty) &&
+        Objects.equals(this.price, invoiceLine.price) &&
+        Objects.equals(this.priceList, invoiceLine.priceList) &&
+        Objects.equals(this.lineNetAmt, invoiceLine.lineNetAmt);
   }
 
   @Override
@@ -253,7 +239,8 @@ public class InvoiceLineDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

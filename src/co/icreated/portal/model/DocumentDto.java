@@ -63,10 +63,9 @@ public class DocumentDto {
 
   /**
    * Get id
-   *
    * @return id
-   */
-
+  */
+  
   @Schema(name = "id", example = "4", required = false)
   public Integer getId() {
     return id;
@@ -83,12 +82,10 @@ public class DocumentDto {
 
   /**
    * The document number of the order / invoice.
-   *
    * @return documentNo
-   */
-
-  @Schema(name = "documentNo", example = "1000001",
-      description = "The document number of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "documentNo", example = "1000001", description = "The document number of the order / invoice.", required = false)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -104,12 +101,10 @@ public class DocumentDto {
 
   /**
    * The PO reference of the order / invoice.
-   *
    * @return poReference
-   */
-
-  @Schema(name = "poReference", example = "1000001",
-      description = "The PO reference of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "poReference", example = "1000001", description = "The PO reference of the order / invoice.", required = false)
   public String getPoReference() {
     return poReference;
   }
@@ -125,12 +120,10 @@ public class DocumentDto {
 
   /**
    * The description of the order / invoice.
-   *
    * @return description
-   */
-
-  @Schema(name = "description", example = "Invoice for order 1000001",
-      description = "The description of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "description", example = "Invoice for order 1000001", description = "The description of the order / invoice.", required = false)
   public String getDescription() {
     return description;
   }
@@ -146,12 +139,10 @@ public class DocumentDto {
 
   /**
    * The document status of the order / invoice.
-   *
    * @return docStatus
-   */
-
-  @Schema(name = "docStatus", example = "CO",
-      description = "The document status of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the order / invoice.", required = false)
   public String getDocStatus() {
     return docStatus;
   }
@@ -167,12 +158,10 @@ public class DocumentDto {
 
   /**
    * The total lines of the order / invoice.
-   *
    * @return totalLines
-   */
-
-  @Schema(name = "totalLines", example = "100.0",
-      description = "The total lines of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the order / invoice.", required = false)
   public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
@@ -188,12 +177,10 @@ public class DocumentDto {
 
   /**
    * The grand total of the order / invoice.
-   *
    * @return grandTotal
-   */
-
-  @Schema(name = "grandTotal", example = "100.0",
-      description = "The grand total of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the order / invoice.", required = false)
   public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
@@ -209,12 +196,10 @@ public class DocumentDto {
 
   /**
    * The currency of the order / invoice.
-   *
    * @return currency
-   */
-
-  @Schema(name = "currency", example = "USD", description = "The currency of the order / invoice.",
-      required = false)
+  */
+  
+  @Schema(name = "currency", example = "USD", description = "The currency of the order / invoice.", required = false)
   public String getCurrency() {
     return currency;
   }
@@ -230,12 +215,10 @@ public class DocumentDto {
 
   /**
    * The transaction date of the order / invoice.
-   *
    * @return date
-   */
-  @Valid
-  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021",
-      description = "The transaction date of the order / invoice.", required = false)
+  */
+  @Valid 
+  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the order / invoice.", required = false)
   public LocalDate getDate() {
     return date;
   }
@@ -251,12 +234,10 @@ public class DocumentDto {
 
   /**
    * The Business Partner of the order / invoice.
-   *
    * @return bpartnerName
-   */
-
-  @Schema(name = "bpartnerName", example = "John Smith",
-      description = "The Business Partner of the order / invoice.", required = false)
+  */
+  
+  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = false)
   public String getBpartnerName() {
     return bpartnerName;
   }
@@ -274,22 +255,21 @@ public class DocumentDto {
       return false;
     }
     DocumentDto document = (DocumentDto) o;
-    return Objects.equals(this.id, document.id)
-        && Objects.equals(this.documentNo, document.documentNo)
-        && Objects.equals(this.poReference, document.poReference)
-        && Objects.equals(this.description, document.description)
-        && Objects.equals(this.docStatus, document.docStatus)
-        && Objects.equals(this.totalLines, document.totalLines)
-        && Objects.equals(this.grandTotal, document.grandTotal)
-        && Objects.equals(this.currency, document.currency)
-        && Objects.equals(this.date, document.date)
-        && Objects.equals(this.bpartnerName, document.bpartnerName);
+    return Objects.equals(this.id, document.id) &&
+        Objects.equals(this.documentNo, document.documentNo) &&
+        Objects.equals(this.poReference, document.poReference) &&
+        Objects.equals(this.description, document.description) &&
+        Objects.equals(this.docStatus, document.docStatus) &&
+        Objects.equals(this.totalLines, document.totalLines) &&
+        Objects.equals(this.grandTotal, document.grandTotal) &&
+        Objects.equals(this.currency, document.currency) &&
+        Objects.equals(this.date, document.date) &&
+        Objects.equals(this.bpartnerName, document.bpartnerName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, documentNo, poReference, description, docStatus, totalLines, grandTotal,
-        currency, date, bpartnerName);
+    return Objects.hash(id, documentNo, poReference, description, docStatus, totalLines, grandTotal, currency, date, bpartnerName);
   }
 
   @Override
@@ -311,7 +291,8 @@ public class DocumentDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

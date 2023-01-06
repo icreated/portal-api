@@ -88,10 +88,9 @@ public class OpenItemDto {
 
   /**
    * Get invoiceId
-   *
    * @return invoiceId
-   */
-
+  */
+  
   @Schema(name = "invoiceId", example = "4", required = false)
   public Integer getInvoiceId() {
     return invoiceId;
@@ -108,10 +107,9 @@ public class OpenItemDto {
 
   /**
    * Get orderId
-   *
    * @return orderId
-   */
-
+  */
+  
   @Schema(name = "orderId", example = "4", required = false)
   public Integer getOrderId() {
     return orderId;
@@ -128,10 +126,9 @@ public class OpenItemDto {
 
   /**
    * Get bpartnerId
-   *
    * @return bpartnerId
-   */
-
+  */
+  
   @Schema(name = "bpartnerId", example = "4", required = false)
   public Integer getBpartnerId() {
     return bpartnerId;
@@ -148,10 +145,9 @@ public class OpenItemDto {
 
   /**
    * Get bpartnerLocationId
-   *
    * @return bpartnerLocationId
-   */
-
+  */
+  
   @Schema(name = "bpartnerLocationId", example = "4", required = false)
   public Integer getBpartnerLocationId() {
     return bpartnerLocationId;
@@ -168,10 +164,9 @@ public class OpenItemDto {
 
   /**
    * Get currencyId
-   *
    * @return currencyId
-   */
-
+  */
+  
   @Schema(name = "currencyId", example = "4", required = false)
   public Integer getCurrencyId() {
     return currencyId;
@@ -188,12 +183,10 @@ public class OpenItemDto {
 
   /**
    * The document number of the invoice.
-   *
    * @return documentNo
-   */
-
-  @Schema(name = "documentNo", example = "1000001",
-      description = "The document number of the invoice.", required = false)
+  */
+  @NotNull 
+  @Schema(name = "documentNo", example = "1000001", description = "The document number of the invoice.", required = true)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -209,12 +202,10 @@ public class OpenItemDto {
 
   /**
    * The description of the invoice.
-   *
    * @return description
-   */
-
-  @Schema(name = "description", example = "Invoice for order 1000001",
-      description = "The description of the invoice.", required = false)
+  */
+  
+  @Schema(name = "description", example = "Invoice for order 1000001", description = "The description of the invoice.", required = false)
   public String getDescription() {
     return description;
   }
@@ -230,12 +221,10 @@ public class OpenItemDto {
 
   /**
    * The document status of the invoice.
-   *
    * @return docStatus
-   */
-
-  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.",
-      required = false)
+  */
+  
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.", required = false)
   public String getDocStatus() {
     return docStatus;
   }
@@ -251,12 +240,10 @@ public class OpenItemDto {
 
   /**
    * The transaction type is sale or purchase.
-   *
    * @return isSOTRX
-   */
-
-  @Schema(name = "isSOTRX", example = "true",
-      description = "The transaction type is sale or purchase.", required = false)
+  */
+  
+  @Schema(name = "isSOTRX", example = "true", description = "The transaction type is sale or purchase.", required = false)
   public Boolean getIsSOTRX() {
     return isSOTRX;
   }
@@ -272,12 +259,10 @@ public class OpenItemDto {
 
   /**
    * The invoice is active.
-   *
    * @return isActive
-   */
-
-  @Schema(name = "isActive", example = "true", description = "The invoice is active.",
-      required = false)
+  */
+  
+  @Schema(name = "isActive", example = "true", description = "The invoice is active.", required = false)
   public Boolean getIsActive() {
     return isActive;
   }
@@ -293,12 +278,10 @@ public class OpenItemDto {
 
   /**
    * The order date of the invoice.
-   *
    * @return dateOrdered
-   */
-  @Valid
-  @Schema(name = "dateOrdered", example = "Fri Jan 01 01:00:00 CET 2021",
-      description = "The order date of the invoice.", required = false)
+  */
+  @Valid 
+  @Schema(name = "dateOrdered", example = "Fri Jan 01 01:00:00 CET 2021", description = "The order date of the invoice.", required = false)
   public LocalDate getDateOrdered() {
     return dateOrdered;
   }
@@ -314,12 +297,10 @@ public class OpenItemDto {
 
   /**
    * The invoice date of the invoice.
-   *
    * @return dateInvoiced
-   */
-  @Valid
-  @Schema(name = "dateInvoiced", example = "Fri Jan 01 01:00:00 CET 2021",
-      description = "The invoice date of the invoice.", required = false)
+  */
+  @Valid 
+  @Schema(name = "dateInvoiced", example = "Fri Jan 01 01:00:00 CET 2021", description = "The invoice date of the invoice.", required = false)
   public LocalDate getDateInvoiced() {
     return dateInvoiced;
   }
@@ -335,12 +316,10 @@ public class OpenItemDto {
 
   /**
    * The due date of the invoice.
-   *
    * @return dueDate
-   */
-  @Valid
-  @Schema(name = "dueDate", example = "Fri Jan 01 01:00:00 CET 2021",
-      description = "The due date of the invoice.", required = false)
+  */
+  @Valid 
+  @Schema(name = "dueDate", example = "Fri Jan 01 01:00:00 CET 2021", description = "The due date of the invoice.", required = false)
   public LocalDate getDueDate() {
     return dueDate;
   }
@@ -356,10 +335,9 @@ public class OpenItemDto {
 
   /**
    * Get netDays
-   *
    * @return netDays
-   */
-
+  */
+  
   @Schema(name = "netDays", example = "20", required = false)
   public Integer getNetDays() {
     return netDays;
@@ -376,12 +354,10 @@ public class OpenItemDto {
 
   /**
    * The total lines of the invoice.
-   *
    * @return totalLines
-   */
-
-  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.",
-      required = false)
+  */
+  @NotNull 
+  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.", required = true)
   public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
@@ -397,12 +373,10 @@ public class OpenItemDto {
 
   /**
    * The grand total of the invoice.
-   *
    * @return grandTotal
-   */
-
-  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.",
-      required = false)
+  */
+  @NotNull 
+  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.", required = true)
   public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
@@ -418,12 +392,10 @@ public class OpenItemDto {
 
   /**
    * The open amount of the invoice.
-   *
    * @return openAmt
-   */
-
-  @Schema(name = "openAmt", example = "100.0", description = "The open amount of the invoice.",
-      required = false)
+  */
+  @NotNull 
+  @Schema(name = "openAmt", example = "100.0", description = "The open amount of the invoice.", required = true)
   public java.math.BigDecimal getOpenAmt() {
     return openAmt;
   }
@@ -439,12 +411,10 @@ public class OpenItemDto {
 
   /**
    * The paid amount of the invoice.
-   *
    * @return paidAmt
-   */
-
-  @Schema(name = "paidAmt", example = "100.0", description = "The paid amount of the invoice.",
-      required = false)
+  */
+  
+  @Schema(name = "paidAmt", example = "100.0", description = "The paid amount of the invoice.", required = false)
   public java.math.BigDecimal getPaidAmt() {
     return paidAmt;
   }
@@ -462,31 +432,29 @@ public class OpenItemDto {
       return false;
     }
     OpenItemDto openItem = (OpenItemDto) o;
-    return Objects.equals(this.invoiceId, openItem.invoiceId)
-        && Objects.equals(this.orderId, openItem.orderId)
-        && Objects.equals(this.bpartnerId, openItem.bpartnerId)
-        && Objects.equals(this.bpartnerLocationId, openItem.bpartnerLocationId)
-        && Objects.equals(this.currencyId, openItem.currencyId)
-        && Objects.equals(this.documentNo, openItem.documentNo)
-        && Objects.equals(this.description, openItem.description)
-        && Objects.equals(this.docStatus, openItem.docStatus)
-        && Objects.equals(this.isSOTRX, openItem.isSOTRX)
-        && Objects.equals(this.isActive, openItem.isActive)
-        && Objects.equals(this.dateOrdered, openItem.dateOrdered)
-        && Objects.equals(this.dateInvoiced, openItem.dateInvoiced)
-        && Objects.equals(this.dueDate, openItem.dueDate)
-        && Objects.equals(this.netDays, openItem.netDays)
-        && Objects.equals(this.totalLines, openItem.totalLines)
-        && Objects.equals(this.grandTotal, openItem.grandTotal)
-        && Objects.equals(this.openAmt, openItem.openAmt)
-        && Objects.equals(this.paidAmt, openItem.paidAmt);
+    return Objects.equals(this.invoiceId, openItem.invoiceId) &&
+        Objects.equals(this.orderId, openItem.orderId) &&
+        Objects.equals(this.bpartnerId, openItem.bpartnerId) &&
+        Objects.equals(this.bpartnerLocationId, openItem.bpartnerLocationId) &&
+        Objects.equals(this.currencyId, openItem.currencyId) &&
+        Objects.equals(this.documentNo, openItem.documentNo) &&
+        Objects.equals(this.description, openItem.description) &&
+        Objects.equals(this.docStatus, openItem.docStatus) &&
+        Objects.equals(this.isSOTRX, openItem.isSOTRX) &&
+        Objects.equals(this.isActive, openItem.isActive) &&
+        Objects.equals(this.dateOrdered, openItem.dateOrdered) &&
+        Objects.equals(this.dateInvoiced, openItem.dateInvoiced) &&
+        Objects.equals(this.dueDate, openItem.dueDate) &&
+        Objects.equals(this.netDays, openItem.netDays) &&
+        Objects.equals(this.totalLines, openItem.totalLines) &&
+        Objects.equals(this.grandTotal, openItem.grandTotal) &&
+        Objects.equals(this.openAmt, openItem.openAmt) &&
+        Objects.equals(this.paidAmt, openItem.paidAmt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoiceId, orderId, bpartnerId, bpartnerLocationId, currencyId, documentNo,
-        description, docStatus, isSOTRX, isActive, dateOrdered, dateInvoiced, dueDate, netDays,
-        totalLines, grandTotal, openAmt, paidAmt);
+    return Objects.hash(invoiceId, orderId, bpartnerId, bpartnerLocationId, currencyId, documentNo, description, docStatus, isSOTRX, isActive, dateOrdered, dateInvoiced, dueDate, netDays, totalLines, grandTotal, openAmt, paidAmt);
   }
 
   @Override
@@ -516,7 +484,8 @@ public class OpenItemDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
