@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.apache.commons.lang.StringUtils;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MUser;
 import org.compiere.util.CLogger;
@@ -24,6 +26,11 @@ public class UserService {
   Properties ctx;
   UserMapper userMapper;
 
+  /**
+   * 
+   * @param ctx
+   * @param userMapper
+   */
   public UserService(Properties ctx, UserMapper userMapper) {
     this.ctx = ctx;
     this.userMapper = userMapper;
@@ -63,7 +70,33 @@ public class UserService {
 	   		.build();
   }
 
+  
+  
+  /**
+   * 
+   * @param value
+   * @param sql
+   * @return
+   */
+  public MUser getUserByParam(String value, String sql) {
+	  
+	  if (StringUtils.isBlank(value)) {
+		  throw new AdempiereException("User not defined");
+	  }
+	  
+	   MUser user = new PQuery(ctx, MUser.Table_Name, sql, null)
+	            .setParameters(value) //
+	            .first();
+	   
+	   if (user == null) {
+		   throw new AdempiereException("User doesn't exist");
+	   }
+	   return user;
+  }
 
+
+
+  
   /**
    *
    * @param newPassword

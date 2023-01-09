@@ -46,6 +46,9 @@ public class PQuery extends Query {
 	public <T extends PO> T first() throws DBException {
 	
 		T t = super.first();
+		if (t == null) {
+			return null;
+		}
 		// Fix missing / lost context
 		t.getCtx().putAll(ctx);
 		return t;
@@ -56,6 +59,9 @@ public class PQuery extends Query {
 	public <T extends PO> T firstOnly() throws DBException {
 	
 		T t = super.firstOnly();
+		if (t == null) {
+			return null;
+		}
 		// Fix missing / lost context
 		t.getCtx().putAll(ctx);
 		return t;

@@ -28,6 +28,9 @@ import io.jsonwebtoken.Jwts;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
   CLogger log = CLogger.getCLogger(JwtAuthorizationFilter.class);
+  
+  static String BEARER_PREFIX = "Bearer ";
+  
   SessionUserDetailsService userDetailsService;
 
   public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
@@ -41,9 +44,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res,
       FilterChain chain) throws IOException, ServletException {
-    String header = req.getHeader("Authorization");
+    String header = req.getHeader(HttpHeaders.AUTHORIZATION);
 
-    if (header == null || !header.startsWith("Bearer ")) {
+    if (header == null || !header.startsWith(BEARER_PREFIX)) {
       chain.doFilter(req, res);
       return;
     }
@@ -57,8 +60,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
     String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-    if (token != null && token.startsWith("Bearer ")) {
-      token = token.replace("Bearer ", "");
+    if (token != null && token.startsWith(BEARER_PREFIX)) {
+      token = token.replace(BEARER_PREFIX, "");
       try {
         String username = Jwts //
         		.parserBuilder() //
@@ -75,10 +78,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         SessionUser sessionUser =
             (SessionUser) this.userDetailsService.loadUserByUsername(username);
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new UsernamePasswordAuthenticationToken(sessionUser, null, authorities);
+        return new UsernamePasswordAuthenticationToken(sessionUser, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
       } catch (JwtException exception) {
         log.log(Level.SEVERE, token, exception.getMessage());
       }

@@ -20,6 +20,7 @@ import co.icreated.portal.mapper.PaymentMapperImpl;
 import co.icreated.portal.mapper.UserMapperImpl;
 import co.icreated.portal.security.SessionUserDetailsService;
 import co.icreated.portal.service.CommonService;
+import co.icreated.portal.service.EmailService;
 import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;
 import co.icreated.portal.service.UserService;
@@ -29,6 +30,7 @@ import co.icreated.portal.utils.PortalExceptionHandler;
 //@formatter:off
 @Import({
 	SecurityConfig.class, MvcConfig.class, PortalExceptionHandler.class, SessionUserDetailsService.class,
+	EmailService.class,
 	CommonController.class, CommonService.class, CommonMapperImpl.class,
 	InvoiceController.class, InvoiceService.class, InvoiceMapperImpl.class,
     PaymentController.class, PaymentService.class, PaymentMapperImpl.class,
