@@ -1,22 +1,13 @@
 package co.icreated.portal.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.compiere.model.MClient;
 import org.compiere.model.MUser;
-import org.compiere.util.DB;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +50,7 @@ public class UserController implements UsersApi, Authenticated {
   Properties ctx;
 
   UserService userService;
-  
+
   EmailService emailService;
 
   IdempierePasswordEncoder passwordEncoder;
@@ -83,15 +74,14 @@ public class UserController implements UsersApi, Authenticated {
   @Override
   public ResponseEntity<Void> sendEmailLink(@Valid CommonStringDto commonStringDto) {
 
-    MUser user = userService.getUserByParam(commonStringDto.getValue().toUpperCase(), "isActive='Y' AND UPPER(email) LIKE ?");
-    
+    MUser user = userService.getUserByParam(commonStringDto.getValue().toUpperCase(),
+        "isActive='Y' AND UPPER(email) LIKE ?");
+
     String uuid = UUID.randomUUID().toString();
-    
-    String bodyEmail = emailService.getMsgBody(this.emaillinkBodyFile, 
-    		user.getName(),
-    		String.join("/", frontendUrl, uuid)
-    		);
-    
+
+    String bodyEmail = emailService.getMsgBody(this.emaillinkBodyFile, user.getName(),
+        String.join("/", frontendUrl, uuid));
+
     if (emailService.sendEmail(commonStringDto.getValue(), this.emaillinkTitle, bodyEmail)) {
       user.setLastResult(uuid);
       if (user.save()) {
@@ -124,7 +114,7 @@ public class UserController implements UsersApi, Authenticated {
 
     // Here is our token
     String token = passwordDto.getPassword();
-    
+
     MUser user = userService.getUserByParam(token, "isActive='Y' AND lastResult LIKE ?");
 
     passwordEncoder.setSalt(user.getSalt());
@@ -157,15 +147,15 @@ public class UserController implements UsersApi, Authenticated {
       throw new PortalPreconditionException("Password not valid");
     }
 
-    if (userService.changePassword(passwordDto.getConfirmPassword(), getSessionUser().getUserId())) {
+    if (userService.changePassword(passwordDto.getConfirmPassword(),
+        getSessionUser().getUserId())) {
       final SessionUser authenticatedUser =
           userService.findSessionUserByValue(getSessionUser().getUsername());
 
-      String token =
-          Jwts.builder() //
-          	.signWith(SecurityConfig.SECRET) //
-          	.setSubject(authenticatedUser.getUsername()) //
-            .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
+      String token = Jwts.builder() //
+          .signWith(SecurityConfig.SECRET) //
+          .setSubject(authenticatedUser.getUsername()) //
+          .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
 
       UserDto userDto = new UserDto() //
           .id(getSessionUser().getUserId()) //

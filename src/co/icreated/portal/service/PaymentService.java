@@ -41,10 +41,10 @@ public class PaymentService {
 
   public List<PaymentDto> findInvoicePayments(int C_Invoice_ID) {
 
-    List<MPayment> list = new PQuery(ctx, I_C_Payment.Table_Name, "C_Invoice_ID=?", null)
-        .setParameters(C_Invoice_ID) //
-        .setOrderBy("dateTrx DESC") //
-        .list();
+    List<MPayment> list =
+        new PQuery(ctx, I_C_Payment.Table_Name, "C_Invoice_ID=?", null).setParameters(C_Invoice_ID) //
+            .setOrderBy("dateTrx DESC") //
+            .list();
     return paymentMapper.toDtoList(list);
   }
 
@@ -131,10 +131,9 @@ public class PaymentService {
     MBPartner bp = new MBPartner(ctx, sessionUser.getPartnerId(), trxName);
 
     Stream<MBPBankAccount> stream = Arrays.stream(bp.getBankAccounts(true));
-    MBPBankAccount retValue =
-        stream //
-        	.filter(item -> item.getAD_User_ID() == sessionUser.getUserId() && item.isActive()) //
-            .findFirst().orElse(null);
+    MBPBankAccount retValue = stream //
+        .filter(item -> item.getAD_User_ID() == sessionUser.getUserId() && item.isActive()) //
+        .findFirst().orElse(null);
 
     // create new
     if (retValue == null) {

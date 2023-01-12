@@ -44,10 +44,10 @@ public class InvoiceService {
    * @return
    */
   public List<DocumentDto> findBPartnerInvoices(int C_BPartner_ID) {
-    List<MInvoice> invoices = new PQuery(ctx, MInvoice.Table_Name, "C_BPartner_ID=?", null)
-        .setParameters(C_BPartner_ID) //
-        .setOrderBy("DocumentNo DESC") //
-        .list();
+    List<MInvoice> invoices =
+        new PQuery(ctx, MInvoice.Table_Name, "C_BPartner_ID=?", null).setParameters(C_BPartner_ID) //
+            .setOrderBy("DocumentNo DESC") //
+            .list();
     return invoiceMapper.toDocumentDtoList(invoices);
   }
 

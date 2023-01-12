@@ -61,8 +61,9 @@ public class PaymentController implements PaymentsApi, Authenticated {
   public ResponseEntity<Void> createPayment(@Valid CreditCardDto creditCardDto) {
 
     List<OpenItemDto> openItems = invoiceService.findOpenItems(getSessionUser().getPartnerId());
-    BigDecimal openTotal = openItems.stream().map(OpenItemDto::getOpenAmt).reduce(Env.ZERO,
-        (subtotal, value) -> subtotal.add(value));
+    BigDecimal openTotal = openItems.stream() //
+        .map(OpenItemDto::getOpenAmt) //
+        .reduce(Env.ZERO, (subtotal, value) -> subtotal.add(value));
 
     boolean isTotalEqual = openTotal.compareTo(creditCardDto.getPaymentAmount()) == 0;
     if (!isTotalEqual) {

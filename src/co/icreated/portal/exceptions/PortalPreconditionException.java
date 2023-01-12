@@ -8,7 +8,7 @@ public class PortalPreconditionException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-public PortalPreconditionException() {
+  public PortalPreconditionException() {
     super();
   }
 

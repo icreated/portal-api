@@ -8,7 +8,7 @@ public class PortalNotFoundException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-public PortalNotFoundException() {
+  public PortalNotFoundException() {
     super();
   }
 

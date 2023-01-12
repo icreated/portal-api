@@ -40,21 +40,19 @@ import co.icreated.portal.utils.PortalExceptionHandler;
 @PropertySource(value = {"classpath:webportal.properties"})
 @EnableWebMvc
 public class AppPortalConfiguration {
-	
-	
+
+
   @Autowired
   private Environment env;
 
   @Bean("ctx")
   Properties getCtx() {
-	 
+
     Properties props = new Properties();
     props.setProperty("#AD_Client_ID", env.getProperty("ctx.AD_Client_ID"));
     props.setProperty("#AD_Org_ID", env.getProperty("ctx.AD_Org_ID"));
     return props;
   }
-
-
 
 }
 

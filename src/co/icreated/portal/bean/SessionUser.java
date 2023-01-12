@@ -28,7 +28,7 @@ public class SessionUser implements UserDetails {
 
 
 
-  public static class Builder  {
+  public static class Builder {
 
     int userId;
     String value;
@@ -42,7 +42,7 @@ public class SessionUser implements UserDetails {
     boolean isAccountNonLocked = true;
     boolean isCredentialsNonExpired = true;
     boolean isEnabled = true;
-    
+
     List<GrantedAuthority> authorities;
 
     public SessionUser build() {
@@ -53,53 +53,64 @@ public class SessionUser implements UserDetails {
       this.userId = userId;
       return this;
     }
+
     public Builder value(String value) {
       this.value = value;
       return this;
     }
+
     public Builder name(String name) {
       this.name = name;
       return this;
     }
+
     public Builder email(String email) {
       this.email = email;
       return this;
     }
+
     public Builder password(String password) {
       this.password = password;
       return this;
     }
+
     public Builder salt(String salt) {
       this.salt = salt;
       return this;
     }
+
     public Builder partnerId(int partnerId) {
       this.partnerId = partnerId;
       return this;
     }
+
     public Builder accountNonExpired(boolean isAccountNonExpired) {
       this.isAccountNonExpired = isAccountNonExpired;
       return this;
     }
+
     public Builder accountNonLocked(boolean isAccountNonLocked) {
       this.isAccountNonLocked = isAccountNonLocked;
       return this;
     }
+
     public Builder credentialsNonExpired(boolean isCredentialsNonExpired) {
       this.isCredentialsNonExpired = isCredentialsNonExpired;
       return this;
     }
+
     public Builder enabled(boolean isEnabled) {
       this.isEnabled = isEnabled;
       return this;
     }
+
     public Builder authorities(List<GrantedAuthority> authorities) {
-	    this.authorities = authorities;
-	    return this;
-	  }
+      this.authorities = authorities;
+      return this;
+    }
 
   }
-  
+
 
   private SessionUser(Builder builder) {
     this.userId = builder.userId;

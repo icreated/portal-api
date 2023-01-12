@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     http.authorizeRequests() //
-    	.antMatchers(HttpMethod.POST, "/api/user/password/emaillink").permitAll() //
-    	.antMatchers(HttpMethod.POST, "/api/user/password/validate").permitAll() //
+        .antMatchers(HttpMethod.POST, "/api/user/password/emaillink").permitAll() //
+        .antMatchers(HttpMethod.POST, "/api/user/password/validate").permitAll() //
         .antMatchers("/api/swagger-ui.html").authenticated() //
         .antMatchers("/api/v2/api-docs").authenticated() //
         .and().httpBasic();
