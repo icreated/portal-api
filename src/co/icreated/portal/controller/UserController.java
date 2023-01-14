@@ -6,29 +6,33 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MUser;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.api.UsersApi;
+import co.icreated.portal.api.model.CommonStringDto;
+import co.icreated.portal.api.model.ForgottenPasswordDto;
+import co.icreated.portal.api.model.PasswordDto;
+import co.icreated.portal.api.model.UserDto;
+import co.icreated.portal.api.service.UsersApi;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.config.SecurityConfig;
-import co.icreated.portal.exceptions.PortalPreconditionException;
-import co.icreated.portal.model.CommonStringDto;
-import co.icreated.portal.model.PasswordDto;
-import co.icreated.portal.model.UserDto;
+import co.icreated.portal.exceptions.PortalBusinessException;
+import co.icreated.portal.exceptions.PortalInvalidInputException;
 import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.EmailService;
 import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
-import co.icreated.portal.utils.StringUtils;
+import co.icreated.portal.utils.PStringUtils;
 import io.jsonwebtoken.Jwts;
 
 @RestController
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserController implements UsersApi, Authenticated {
 
   @Value("${frontend-url}")
@@ -36,14 +40,10 @@ public class UserController implements UsersApi, Authenticated {
 
   @Value("${jwt.expiration-time}")
   private long jwtExpirationTime;
-  /**
-   * Password forgot Email Title
-   */
+  // Email title
   @Value("${email.passwordlink.title}")
   private String emaillinkTitle;
-  /**
-   * Email template
-   */
+  // Email body template
   @Value("${email.passwordlink.body-file}")
   private String emaillinkBodyFile;
 
@@ -65,14 +65,10 @@ public class UserController implements UsersApi, Authenticated {
   }
 
 
-  /**
-   * Send email link for password updating
-   *
-   * @param email
-   * @return
-   */
   @Override
-  public ResponseEntity<Void> sendEmailLink(@Valid CommonStringDto commonStringDto) {
+  public ResponseEntity<Void> sendEmailToken(@Valid CommonStringDto commonStringDto) {
+
+
 
     MUser user = userService.getUserByParam(commonStringDto.getValue().toUpperCase(),
         "isActive='Y' AND UPPER(email) LIKE ?");
@@ -88,67 +84,52 @@ public class UserController implements UsersApi, Authenticated {
         return ResponseEntity.ok().build();
       }
     }
-    throw new AdempiereException("Email not sent");
+    throw new PortalBusinessException("Email not sent");
   }
 
 
-  /**
-   * Password Validation by Email
-   *
-   * @param passwordBean
-   * @return
-   */
   @Override
-  public ResponseEntity<Void> validateToken(@Valid PasswordDto passwordDto) {
+  public ResponseEntity<Void> updateForgottenPassword(String token,
+      @Valid ForgottenPasswordDto passwordDto) {
 
-
-
-    if (!StringUtils.areSet(passwordDto.getPassword(), passwordDto.getNewPassword(),
-        passwordDto.getConfirmPassword())) {
-      throw new PortalPreconditionException("Passwords are not set");
+    if (!PStringUtils.areSet(passwordDto.getNewPassword(), passwordDto.getConfirmPassword())) {
+      throw new PortalInvalidInputException("Passwords are not set");
     }
 
     if (!passwordDto.getNewPassword().equals(passwordDto.getConfirmPassword())) {
-      throw new PortalPreconditionException("Passwords are not matching");
+      throw new PortalInvalidInputException("Passwords are not matching");
     }
-
-    // Here is our token
-    String token = passwordDto.getPassword();
 
     MUser user = userService.getUserByParam(token, "isActive='Y' AND lastResult LIKE ?");
 
     passwordEncoder.setSalt(user.getSalt());
 
-    if (userService.changePassword(passwordDto.getConfirmPassword(), user.getAD_User_ID())) {
+    if (userService.changePassword(passwordDto.getConfirmPassword(), user)) {
       return ResponseEntity.ok().build();
     }
-    throw new PortalPreconditionException("Password not updated");
-
+    throw new PortalBusinessException("Password not updated");
   }
 
 
-  /**
-   * Password changing
-   *
-   * @param passwordDto
-   * @return
-   */
   @Override
-  public ResponseEntity<UserDto> changePassword(@RequestBody PasswordDto passwordDto) {
+  public ResponseEntity<UserDto> updatePassword(@Valid PasswordDto passwordDto) {
 
-    if (!StringUtils.areSet(passwordDto.getPassword(), passwordDto.getNewPassword(),
+    if (!PStringUtils.areSet(passwordDto.getPassword(), passwordDto.getNewPassword(),
         passwordDto.getConfirmPassword())) {
-      throw new PortalPreconditionException("Passwords are not set");
+      throw new PortalInvalidInputException("Passwords are not set");
     }
 
     passwordEncoder.setSalt(getSessionUser().getSalt());
     CharSequence pass = passwordDto.getPassword();
     if (!passwordEncoder.matches(pass, getSessionUser().getPassword())) {
-      throw new PortalPreconditionException("Password not valid");
+      throw new PortalInvalidInputException("Current Password not valid");
     }
 
-    if (userService.changePassword(passwordDto.getConfirmPassword(),
-        getSessionUser().getUserId())) {
+    MUser user =
+        userService.getUserByParam(getSessionUser().getUserId(), "isActive='Y' AND AD_User_ID = ?");
+
+
+    if (userService.changePassword(passwordDto.getConfirmPassword(), user)) {
       final SessionUser authenticatedUser =
           userService.findSessionUserByValue(getSessionUser().getUsername());
 
@@ -166,9 +147,7 @@ public class UserController implements UsersApi, Authenticated {
       return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
-    throw new AdempiereException("Password not updated");
-
+    throw new PortalBusinessException("Password not updated");
   }
-
 
 }

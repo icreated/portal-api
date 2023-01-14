@@ -18,11 +18,11 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Service;
 
+import co.icreated.portal.api.model.CreditCardDto;
+import co.icreated.portal.api.model.OpenItemDto;
+import co.icreated.portal.api.model.PaymentDto;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.mapper.PaymentMapper;
-import co.icreated.portal.model.CreditCardDto;
-import co.icreated.portal.model.OpenItemDto;
-import co.icreated.portal.model.PaymentDto;
 import co.icreated.portal.utils.PQuery;
 
 @Service

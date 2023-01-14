@@ -3,10 +3,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package co.icreated.portal.api;
+package co.icreated.portal.api.service;
 
-import co.icreated.portal.model.CreditCardDto;
-import co.icreated.portal.model.PaymentDto;
+import co.icreated.portal.api.model.CreditCardDto;
+import co.icreated.portal.api.model.PaymentDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -49,7 +49,7 @@ public interface PaymentsApi {
     @Operation(
         operationId = "createPayment",
         summary = "Create payment",
-        tags = { "payments" },
+        tags = { "Payments" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -77,7 +77,7 @@ public interface PaymentsApi {
     @Operation(
         operationId = "getPayments",
         summary = "Get payments",
-        tags = { "payments" },
+        tags = { "Payments" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDto.class))

@@ -13,11 +13,11 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Service;
 
+import co.icreated.portal.api.model.DocumentDto;
+import co.icreated.portal.api.model.InvoiceDto;
+import co.icreated.portal.api.model.OpenItemDto;
 import co.icreated.portal.exceptions.PortalNotFoundException;
 import co.icreated.portal.mapper.InvoiceMapper;
-import co.icreated.portal.model.DocumentDto;
-import co.icreated.portal.model.InvoiceDto;
-import co.icreated.portal.model.OpenItemDto;
 import co.icreated.portal.utils.PQuery;
 
 @Service

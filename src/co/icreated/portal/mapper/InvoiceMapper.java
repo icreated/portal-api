@@ -14,11 +14,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import co.icreated.portal.model.AddressDto;
-import co.icreated.portal.model.DocumentDto;
-import co.icreated.portal.model.InvoiceDto;
-import co.icreated.portal.model.InvoiceLineDto;
-import co.icreated.portal.model.TaxDto;
+import co.icreated.portal.api.model.AddressDto;
+import co.icreated.portal.api.model.DocumentDto;
+import co.icreated.portal.api.model.InvoiceDto;
+import co.icreated.portal.api.model.InvoiceLineDto;
+import co.icreated.portal.api.model.TaxDto;
 import co.icreated.portal.service.PaymentService;
 
 @Mapper(componentModel = "spring", uses = {PaymentService.class},

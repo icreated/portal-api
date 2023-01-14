@@ -6,7 +6,7 @@ import org.compiere.model.MPayment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import co.icreated.portal.model.PaymentDto;
+import co.icreated.portal.api.model.PaymentDto;
 
 @Mapper(componentModel = "spring")
 public abstract class PaymentMapper {

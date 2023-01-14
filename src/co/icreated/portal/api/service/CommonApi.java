@@ -3,9 +3,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package co.icreated.portal.api;
+package co.icreated.portal.api.service;
 
-import co.icreated.portal.model.ValueLabelDto;
+import co.icreated.portal.api.model.ValueLabelDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -43,7 +43,7 @@ public interface CommonApi {
     @Operation(
         operationId = "getCreditCardTypes",
         summary = "Get credit card types",
-        tags = { "common" },
+        tags = { "Common" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ValueLabelDto.class))
@@ -72,7 +72,7 @@ public interface CommonApi {
     @Operation(
         operationId = "getDocStatus",
         summary = "Get document status",
-        tags = { "common" },
+        tags = { "Common" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
@@ -103,7 +103,7 @@ public interface CommonApi {
     @Operation(
         operationId = "getTenderType",
         summary = "Get tender type",
-        tags = { "common" },
+        tags = { "Common" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))

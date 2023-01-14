@@ -3,11 +3,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package co.icreated.portal.api;
+package co.icreated.portal.api.service;
 
-import co.icreated.portal.model.DocumentDto;
-import co.icreated.portal.model.InvoiceDto;
-import co.icreated.portal.model.OpenItemDto;
+import co.icreated.portal.api.model.CommonStringDto;
+import co.icreated.portal.api.model.ForgottenPasswordDto;
+import co.icreated.portal.api.model.PasswordDto;
+import co.icreated.portal.api.model.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -33,115 +34,104 @@ import javax.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
-@Tag(name = "Invoices", description = "Operations about invoices")
-public interface InvoicesApi {
+@Tag(name = "Users", description = "Operations about users")
+public interface UsersApi {
 
     /**
-     * GET /invoices/{id} : Get invoice
-     * Get invoice by id
+     * POST /users/email/token : Send email token
+     * Send email with a token to reset password
      *
-     * @param id Invoice id (required)
+     * @param commonStringDto User mail to send link (required)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "getInvoice",
-        summary = "Get invoice",
-        tags = { "invoices" },
+        operationId = "sendEmailToken",
+        summary = "Send email token",
+        tags = { "Users" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InvoiceDto.class))
-            }),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/invoices/{id}",
-        produces = { "application/json" }
+        method = RequestMethod.POST,
+        value = "/users/email/token",
+        consumes = { "application/json" }
     )
-    ResponseEntity<InvoiceDto> getInvoice(
-        @Parameter(name = "id", description = "Invoice id", required = true) @PathVariable("id") Integer id
+    ResponseEntity<Void> sendEmailToken(
+        @Parameter(name = "CommonStringDto", description = "User mail to send link", required = true) @Valid @RequestBody CommonStringDto commonStringDto
     );
 
 
     /**
-     * GET /invoices : Get invoices
-     * Get user invoices
+     * PUT /users/password/{token} : Update forgotten password
+     * Update forgotten password with given token
      *
+     * @param token Token given by email (required)
+     * @param forgottenPasswordDto Password object (required)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "getInvoices",
-        summary = "Get invoices",
-        tags = { "invoices" },
+        operationId = "updateForgottenPassword",
+        summary = "Update forgotten password",
+        tags = { "Users" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = DocumentDto.class))
-            }),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/invoices",
-        produces = { "application/json" }
+        method = RequestMethod.PUT,
+        value = "/users/password/{token}",
+        consumes = { "application/json" }
     )
-    ResponseEntity<List<DocumentDto>> getInvoices(
-        
+    ResponseEntity<Void> updateForgottenPassword(
+        @Parameter(name = "token", description = "Token given by email", required = true) @PathVariable("token") String token,
+        @Parameter(name = "ForgottenPasswordDto", description = "Password object", required = true) @Valid @RequestBody ForgottenPasswordDto forgottenPasswordDto
     );
 
 
     /**
-     * GET /invoices/openitems : Get open items
-     * Get open items
+     * POST /users/password : Update password
+     * Update password of current user
      *
+     * @param passwordDto Password object (required)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "getOpenItems",
-        summary = "Get open items",
-        tags = { "invoices" },
+        operationId = "updatePassword",
+        summary = "Update password",
+        tags = { "Users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OpenItemDto.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/invoices/openitems",
-        produces = { "application/json" }
+        method = RequestMethod.POST,
+        value = "/users/password",
+        produces = { "application/json" },
+        consumes = { "application/json" }
     )
-    ResponseEntity<List<OpenItemDto>> getOpenItems(
-        
+    ResponseEntity<UserDto> updatePassword(
+        @Parameter(name = "PasswordDto", description = "Password object", required = true) @Valid @RequestBody PasswordDto passwordDto
     );
 
 }

@@ -1,11 +1,11 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
-import co.icreated.portal.model.AddressDto;
-import co.icreated.portal.model.InvoiceLineDto;
-import co.icreated.portal.model.PaymentDto;
-import co.icreated.portal.model.TaxDto;
+import co.icreated.portal.api.model.AddressDto;
+import co.icreated.portal.api.model.InvoiceLineDto;
+import co.icreated.portal.api.model.PaymentDto;
+import co.icreated.portal.api.model.TaxDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -23,9 +24,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * InvoiceDto
+ * Object Invoice
  */
 
+@Schema(name = "Invoice", description = "Object Invoice")
 @JsonTypeName("Invoice")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class InvoiceDto {
@@ -85,8 +87,8 @@ public class InvoiceDto {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "4", required = false)
+  @NotNull 
+  @Schema(name = "id", example = "4", required = true)
   public Integer getId() {
     return id;
   }
@@ -104,8 +106,8 @@ public class InvoiceDto {
    * The document number of the invoice.
    * @return documentNo
   */
-  
-  @Schema(name = "documentNo", example = "1000001", description = "The document number of the invoice.", required = false)
+  @NotNull 
+  @Schema(name = "documentNo", example = "1000001", description = "The document number of the invoice.", required = true)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -142,8 +144,8 @@ public class InvoiceDto {
    * The Business Partner of the order / invoice.
    * @return bpartnerName
   */
-  
-  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = true)
   public String getBpartnerName() {
     return bpartnerName;
   }
@@ -180,8 +182,8 @@ public class InvoiceDto {
    * The document status of the invoice.
    * @return docStatus
   */
-  
-  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.", required = false)
+  @NotNull 
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the invoice.", required = true)
   public String getDocStatus() {
     return docStatus;
   }
@@ -199,8 +201,8 @@ public class InvoiceDto {
    * The total lines of the invoice.
    * @return totalLines
   */
-  
-  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.", required = false)
+  @NotNull 
+  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the invoice.", required = true)
   public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
@@ -218,8 +220,8 @@ public class InvoiceDto {
    * The grand total of the invoice.
    * @return grandTotal
   */
-  
-  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.", required = false)
+  @NotNull 
+  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the invoice.", required = true)
   public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
@@ -237,8 +239,8 @@ public class InvoiceDto {
    * The currency of the invoice.
    * @return currency
   */
-  
-  @Schema(name = "currency", example = "USD", description = "The currency of the invoice.", required = false)
+  @NotNull 
+  @Schema(name = "currency", example = "USD", description = "The currency of the invoice.", required = true)
   public String getCurrency() {
     return currency;
   }
@@ -256,8 +258,8 @@ public class InvoiceDto {
    * The transaction date of the invoice.
    * @return date
   */
-  @Valid 
-  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the invoice.", required = false)
+  @NotNull @Valid 
+  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the invoice.", required = true)
   public LocalDate getDate() {
     return date;
   }

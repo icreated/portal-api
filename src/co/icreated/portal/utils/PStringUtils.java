@@ -1,6 +1,6 @@
 package co.icreated.portal.utils;
 
-public class StringUtils {
+public class PStringUtils {
 
   /**
    * Check if variables are set

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.api.CommonApi;
-import co.icreated.portal.model.ValueLabelDto;
+import co.icreated.portal.api.model.ValueLabelDto;
+import co.icreated.portal.api.service.CommonApi;
 import co.icreated.portal.service.CommonService;
 
 @RestController

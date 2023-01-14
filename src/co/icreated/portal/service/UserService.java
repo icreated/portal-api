@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.apache.commons.lang.StringUtils;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MUser;
@@ -13,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.SessionUser;
+import co.icreated.portal.exceptions.PortalInvalidInputException;
+import co.icreated.portal.exceptions.PortalNotFoundException;
 import co.icreated.portal.mapper.UserMapper;
 import co.icreated.portal.utils.PQuery;
 
@@ -76,17 +77,17 @@ public class UserService {
    * @param sql
    * @return
    */
-  public MUser getUserByParam(String value, String sql) {
+  public MUser getUserByParam(Object value, String sql) {
 
-    if (StringUtils.isBlank(value)) {
-      throw new AdempiereException("User not defined");
+    if (value instanceof String && StringUtils.isBlank((String) value)) {
+      throw new PortalInvalidInputException("User not defined");
     }
 
     MUser user = new PQuery(ctx, MUser.Table_Name, sql, null).setParameters(value) //
         .first();
 
     if (user == null) {
-      throw new AdempiereException("User doesn't exist");
+      throw new PortalNotFoundException("User not found");
     }
     return user;
   }
@@ -99,9 +100,8 @@ public class UserService {
    * @param AD_User_ID
    * @return
    */
-  public boolean changePassword(String newPassword, int AD_User_ID) {
+  public boolean changePassword(String newPassword, MUser user) {
 
-    MUser user = MUser.get(ctx, AD_User_ID);
     user.setPassword(newPassword);
     user.setIsLocked(false);
     user.setDatePasswordChanged(new Timestamp(System.currentTimeMillis()));

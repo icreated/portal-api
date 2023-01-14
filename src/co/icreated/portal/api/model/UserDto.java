@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -15,9 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * UserDto
+ * User object
  */
 
+@Schema(name = "User", description = "User object")
 @JsonTypeName("User")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class UserDto {
@@ -43,8 +45,8 @@ public class UserDto {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", required = false)
+  @NotNull 
+  @Schema(name = "id", required = true)
   public Integer getId() {
     return id;
   }
@@ -62,8 +64,8 @@ public class UserDto {
    * Get username
    * @return username
   */
-  
-  @Schema(name = "username", required = false)
+  @NotNull 
+  @Schema(name = "username", required = true)
   public String getUsername() {
     return username;
   }
@@ -81,8 +83,8 @@ public class UserDto {
    * Get name
    * @return name
   */
-  
-  @Schema(name = "name", required = false)
+  @NotNull 
+  @Schema(name = "name", required = true)
   public String getName() {
     return name;
   }

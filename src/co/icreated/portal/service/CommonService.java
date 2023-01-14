@@ -8,8 +8,8 @@ import org.compiere.util.CLogger;
 import org.compiere.util.ValueNamePair;
 import org.springframework.stereotype.Service;
 
+import co.icreated.portal.api.model.ValueLabelDto;
 import co.icreated.portal.mapper.CommonMapper;
-import co.icreated.portal.model.ValueLabelDto;
 
 @Service
 public class CommonService {

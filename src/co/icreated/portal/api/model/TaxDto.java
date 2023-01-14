@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -37,8 +38,8 @@ public class TaxDto {
    * The name of the tax.
    * @return name
   */
-  
-  @Schema(name = "name", example = "State Tax", description = "The name of the tax.", required = false)
+  @NotNull 
+  @Schema(name = "name", example = "State Tax", description = "The name of the tax.", required = true)
   public String getName() {
     return name;
   }
@@ -56,8 +57,8 @@ public class TaxDto {
    * The tax rate.
    * @return tax
   */
-  
-  @Schema(name = "tax", example = "0.05", description = "The tax rate.", required = false)
+  @NotNull 
+  @Schema(name = "tax", example = "0.05", description = "The tax rate.", required = true)
   public java.math.BigDecimal getTax() {
     return tax;
   }

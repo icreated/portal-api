@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.api.InvoicesApi;
-import co.icreated.portal.model.DocumentDto;
-import co.icreated.portal.model.InvoiceDto;
-import co.icreated.portal.model.OpenItemDto;
+import co.icreated.portal.api.model.DocumentDto;
+import co.icreated.portal.api.model.InvoiceDto;
+import co.icreated.portal.api.model.OpenItemDto;
+import co.icreated.portal.api.service.InvoicesApi;
 import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.InvoiceService;
 

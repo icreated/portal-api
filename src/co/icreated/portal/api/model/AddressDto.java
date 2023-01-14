@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -15,9 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * AddressDto
+ * Address object
  */
 
+@Schema(name = "Address", description = "Address object")
 @JsonTypeName("Address")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class AddressDto {
@@ -49,8 +51,8 @@ public class AddressDto {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "4", required = false)
+  @NotNull 
+  @Schema(name = "id", example = "4", required = true)
   public Integer getId() {
     return id;
   }
@@ -68,8 +70,8 @@ public class AddressDto {
    * The first line of the address.
    * @return address1
   */
-  
-  @Schema(name = "address1", example = "123 Main Street", description = "The first line of the address.", required = false)
+  @NotNull 
+  @Schema(name = "address1", example = "123 Main Street", description = "The first line of the address.", required = true)
   public String getAddress1() {
     return address1;
   }
@@ -106,8 +108,8 @@ public class AddressDto {
    * The city of the address.
    * @return city
   */
-  
-  @Schema(name = "city", example = "New York", description = "The city of the address.", required = false)
+  @NotNull 
+  @Schema(name = "city", example = "New York", description = "The city of the address.", required = true)
   public String getCity() {
     return city;
   }
@@ -125,8 +127,8 @@ public class AddressDto {
    * The zip code of the address.
    * @return postal
   */
-  
-  @Schema(name = "postal", example = "10001", description = "The zip code of the address.", required = false)
+  @NotNull 
+  @Schema(name = "postal", example = "10001", description = "The zip code of the address.", required = true)
   public String getPostal() {
     return postal;
   }
@@ -144,8 +146,8 @@ public class AddressDto {
    * The country name
    * @return countryName
   */
-  
-  @Schema(name = "countryName", description = "The country name", required = false)
+  @NotNull 
+  @Schema(name = "countryName", description = "The country name", required = true)
   public String getCountryName() {
     return countryName;
   }

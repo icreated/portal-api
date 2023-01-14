@@ -18,10 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.icreated.portal.api.model.UserDto;
 import co.icreated.portal.bean.Credentials;
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.config.SecurityConfig;
-import co.icreated.portal.model.UserDto;
 import io.jsonwebtoken.Jwts;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

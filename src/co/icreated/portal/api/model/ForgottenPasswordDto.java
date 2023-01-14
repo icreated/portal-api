@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -15,15 +16,13 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * PasswordDto
+ * ForgottenPassword object
  */
 
-@JsonTypeName("Password")
+@Schema(name = "ForgottenPassword", description = "ForgottenPassword object")
+@JsonTypeName("ForgottenPassword")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class PasswordDto {
-
-  @JsonProperty("password")
-  private String password;
+public class ForgottenPasswordDto {
 
   @JsonProperty("newPassword")
   private String newPassword;
@@ -31,26 +30,7 @@ public class PasswordDto {
   @JsonProperty("confirmPassword")
   private String confirmPassword;
 
-  public PasswordDto password(String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
-   * Get password
-   * @return password
-  */
-  
-  @Schema(name = "password", required = false)
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public PasswordDto newPassword(String newPassword) {
+  public ForgottenPasswordDto newPassword(String newPassword) {
     this.newPassword = newPassword;
     return this;
   }
@@ -59,8 +39,8 @@ public class PasswordDto {
    * Get newPassword
    * @return newPassword
   */
-  
-  @Schema(name = "newPassword", required = false)
+  @NotNull 
+  @Schema(name = "newPassword", required = true)
   public String getNewPassword() {
     return newPassword;
   }
@@ -69,7 +49,7 @@ public class PasswordDto {
     this.newPassword = newPassword;
   }
 
-  public PasswordDto confirmPassword(String confirmPassword) {
+  public ForgottenPasswordDto confirmPassword(String confirmPassword) {
     this.confirmPassword = confirmPassword;
     return this;
   }
@@ -78,8 +58,8 @@ public class PasswordDto {
    * Get confirmPassword
    * @return confirmPassword
   */
-  
-  @Schema(name = "confirmPassword", required = false)
+  @NotNull 
+  @Schema(name = "confirmPassword", required = true)
   public String getConfirmPassword() {
     return confirmPassword;
   }
@@ -96,22 +76,20 @@ public class PasswordDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PasswordDto password = (PasswordDto) o;
-    return Objects.equals(this.password, password.password) &&
-        Objects.equals(this.newPassword, password.newPassword) &&
-        Objects.equals(this.confirmPassword, password.confirmPassword);
+    ForgottenPasswordDto forgottenPassword = (ForgottenPasswordDto) o;
+    return Objects.equals(this.newPassword, forgottenPassword.newPassword) &&
+        Objects.equals(this.confirmPassword, forgottenPassword.confirmPassword);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(password, newPassword, confirmPassword);
+    return Objects.hash(newPassword, confirmPassword);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PasswordDto {\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("class ForgottenPasswordDto {\n");
     sb.append("    newPassword: ").append(toIndentedString(newPassword)).append("\n");
     sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
     sb.append("}");

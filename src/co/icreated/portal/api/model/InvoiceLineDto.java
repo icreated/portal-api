@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -55,8 +56,8 @@ public class InvoiceLineDto {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "4", required = false)
+  @NotNull 
+  @Schema(name = "id", example = "4", required = true)
   public Integer getId() {
     return id;
   }
@@ -74,8 +75,8 @@ public class InvoiceLineDto {
    * The line number of the invoice line.
    * @return line
   */
-  
-  @Schema(name = "line", example = "10", description = "The line number of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "line", example = "10", description = "The line number of the invoice line.", required = true)
   public Long getLine() {
     return line;
   }
@@ -93,8 +94,8 @@ public class InvoiceLineDto {
    * The name of the invoice line.
    * @return name
   */
-  
-  @Schema(name = "name", example = "Product 1", description = "The name of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "name", example = "Product 1", description = "The name of the invoice line.", required = true)
   public String getName() {
     return name;
   }
@@ -131,8 +132,8 @@ public class InvoiceLineDto {
    * The quantity of the invoice line.
    * @return qty
   */
-  
-  @Schema(name = "qty", example = "1.0", description = "The quantity of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "qty", example = "1.0", description = "The quantity of the invoice line.", required = true)
   public java.math.BigDecimal getQty() {
     return qty;
   }
@@ -150,8 +151,8 @@ public class InvoiceLineDto {
    * The price of the invoice line.
    * @return price
   */
-  
-  @Schema(name = "price", example = "100.0", description = "The price of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "price", example = "100.0", description = "The price of the invoice line.", required = true)
   public java.math.BigDecimal getPrice() {
     return price;
   }
@@ -169,8 +170,8 @@ public class InvoiceLineDto {
    * The price list of the invoice line.
    * @return priceList
   */
-  
-  @Schema(name = "priceList", example = "100.0", description = "The price list of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "priceList", example = "100.0", description = "The price list of the invoice line.", required = true)
   public java.math.BigDecimal getPriceList() {
     return priceList;
   }
@@ -188,8 +189,8 @@ public class InvoiceLineDto {
    * The line net amount of the invoice line.
    * @return lineNetAmt
   */
-  
-  @Schema(name = "lineNetAmt", example = "100.0", description = "The line net amount of the invoice line.", required = false)
+  @NotNull 
+  @Schema(name = "lineNetAmt", example = "100.0", description = "The line net amount of the invoice line.", required = true)
   public java.math.BigDecimal getLineNetAmt() {
     return lineNetAmt;
   }

@@ -14,10 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.api.PaymentsApi;
-import co.icreated.portal.model.CreditCardDto;
-import co.icreated.portal.model.OpenItemDto;
-import co.icreated.portal.model.PaymentDto;
+import co.icreated.portal.api.model.CreditCardDto;
+import co.icreated.portal.api.model.OpenItemDto;
+import co.icreated.portal.api.model.PaymentDto;
+import co.icreated.portal.api.service.PaymentsApi;
 import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;

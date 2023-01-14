@@ -19,6 +19,7 @@
   	<springsecurity.version>5.2.15.RELEASE</springsecurity.version>
   	<jjwt.version>0.11.5</jjwt.version>
   	<mapstruct.version>1.5.3.Final</mapstruct.version>
+  	<portal-frontend.path>${project.basedir}/../portal-frontend</portal-frontend.path>
   </properties>
   <build>
   <sourceDirectory>src</sourceDirectory>
@@ -49,11 +50,11 @@
 		                <goal>generate</goal>
 		            </goals>
 		            <configuration>
-		                <inputSpec>${project.basedir}/openapi.yaml</inputSpec>
+		                <inputSpec>${portal-frontend.path}/openapi.yaml</inputSpec>
 		                <output>${project.basedir}</output>
 		                <generatorName>spring</generatorName>
-		                <apiPackage>co.icreated.portal.api</apiPackage>
-		                <modelPackage>co.icreated.portal.model</modelPackage>
+		                <apiPackage>co.icreated.portal.api.service</apiPackage>
+		                <modelPackage>co.icreated.portal.api.model</modelPackage>
 		                <modelNameSuffix>Dto</modelNameSuffix>
 		                <generateApiTests>false</generateApiTests>
                         <generateModelTests>true</generateModelTests>
@@ -72,6 +73,9 @@
 		                   <hideGenerationTimestamp>true</hideGenerationTimestamp>
 		                   <skipDefaultInterface>true</skipDefaultInterface>
 		                   <useTags>true</useTags>
+		                   <useBeanValidation>true</useBeanValidation>
+		                   <performBeanValidation>true</performBeanValidation>
+		                   
 		                </configOptions>
 		            </configuration>
 		        </execution>
@@ -104,8 +108,8 @@
 		        <staticGroups>*</staticGroups>
 		        <groups>java.,javax.,org.,com.</groups>
 		        <excludes>
-		        	<exclude>co/icreated/portal/api/*.java</exclude>
-		        	<exclude>co/icreated/portal/model/*.java</exclude>
+		        	<exclude>co/icreated/portal/api/service/*.java</exclude>
+		        	<exclude>co/icreated/portal/api/model/*.java</exclude>
 		        </excludes>
 		    </configuration>
 		    <executions>
@@ -123,7 +127,7 @@
 			<executions>
 				<execution>
 					<id>copy_libs</id>
-					<phase>prepare-package</phase>
+					<phase>validate</phase>
 					<goals>
 						<goal>copy</goal>
 					</goals>
@@ -176,6 +180,23 @@
 							    <artifactId>swagger-parser</artifactId>
 							    <version>${swagger.version}</version>
 							</artifactItem>
+							<artifactItem>
+							    <groupId>org.hibernate</groupId>
+							    <artifactId>hibernate-validator</artifactId>
+							    <version>6.0.23.Final</version>
+							</artifactItem>
+							<artifactItem>
+							    <groupId>org.jboss.logging</groupId>
+							    <artifactId>jboss-logging</artifactId>
+							    <version>3.5.0.Final</version>
+							</artifactItem>
+							<artifactItem>
+							    <groupId>com.fasterxml</groupId>
+							    <artifactId>classmate</artifactId>
+							    <version>1.5.1</version>
+							</artifactItem>
+
+							
 							
 							<artifactItem>
 						        <groupId>org.mapstruct</groupId>
@@ -185,7 +206,7 @@
 							<artifactItem>
 							    <groupId>org.mapstruct</groupId>
 							    <artifactId>mapstruct-processor</artifactId>
-							    <version>>${mapstruct.version}</version>
+							    <version>${mapstruct.version}</version>
 							</artifactItem>
 							<artifactItem>
 							    <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -200,7 +221,32 @@
 					</configuration>
 				</execution>	
 			</executions>
-		</plugin>     
+		</plugin>
+		
+         <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <executions>
+               <execution>
+                  <id>copy-openapi</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${basedir}</outputDirectory>
+                     <resources>
+                        <resource>
+                            <directory>${portal-frontend.path}</directory>
+                            <includes>
+                                <include>openapi.yaml</include>
+                            </includes>                        	
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>		
     </plugins>
   </build>
   

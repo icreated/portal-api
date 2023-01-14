@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -15,9 +16,10 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * CreditCardDto
+ * Credit card object
  */
 
+@Schema(name = "CreditCard", description = "Credit card object")
 @JsonTypeName("CreditCard")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class CreditCardDto {
@@ -52,8 +54,8 @@ public class CreditCardDto {
    * The credit card type.
    * @return creditCardType
   */
-  
-  @Schema(name = "creditCardType", example = "Visa", description = "The credit card type.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardType", example = "Visa", description = "The credit card type.", required = true)
   public String getCreditCardType() {
     return creditCardType;
   }
@@ -71,8 +73,8 @@ public class CreditCardDto {
    * The credit card number.
    * @return creditCardNumber
   */
-  
-  @Schema(name = "creditCardNumber", example = "4111111111111111", description = "The credit card number.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardNumber", example = "4111111111111111", description = "The credit card number.", required = true)
   public String getCreditCardNumber() {
     return creditCardNumber;
   }
@@ -90,8 +92,8 @@ public class CreditCardDto {
    * The credit card expiration month.
    * @return creditCardExpMM
   */
-  
-  @Schema(name = "creditCardExpMM", example = "12", description = "The credit card expiration month.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardExpMM", example = "12", description = "The credit card expiration month.", required = true)
   public Integer getCreditCardExpMM() {
     return creditCardExpMM;
   }
@@ -109,8 +111,8 @@ public class CreditCardDto {
    * The credit card expiration year.
    * @return creditCardExpYY
   */
-  
-  @Schema(name = "creditCardExpYY", example = "2020", description = "The credit card expiration year.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardExpYY", example = "2020", description = "The credit card expiration year.", required = true)
   public Integer getCreditCardExpYY() {
     return creditCardExpYY;
   }
@@ -128,8 +130,8 @@ public class CreditCardDto {
    * The credit card name.
    * @return creditCardName
   */
-  
-  @Schema(name = "creditCardName", example = "John Doe", description = "The credit card name.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardName", example = "John Doe", description = "The credit card name.", required = true)
   public String getCreditCardName() {
     return creditCardName;
   }
@@ -147,8 +149,8 @@ public class CreditCardDto {
    * The credit card verification value.
    * @return creditCardVV
   */
-  
-  @Schema(name = "creditCardVV", example = "123", description = "The credit card verification value.", required = false)
+  @NotNull 
+  @Schema(name = "creditCardVV", example = "123", description = "The credit card verification value.", required = true)
   public String getCreditCardVV() {
     return creditCardVV;
   }
@@ -166,8 +168,8 @@ public class CreditCardDto {
    * The payment amount.
    * @return paymentAmount
   */
-  
-  @Schema(name = "paymentAmount", example = "100.0", description = "The payment amount.", required = false)
+  @NotNull 
+  @Schema(name = "paymentAmount", example = "100.0", description = "The payment amount.", required = true)
   public java.math.BigDecimal getPaymentAmount() {
     return paymentAmount;
   }

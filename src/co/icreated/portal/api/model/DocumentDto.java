@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -65,8 +66,8 @@ public class DocumentDto {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "4", required = false)
+  @NotNull 
+  @Schema(name = "id", example = "4", required = true)
   public Integer getId() {
     return id;
   }
@@ -84,8 +85,8 @@ public class DocumentDto {
    * The document number of the order / invoice.
    * @return documentNo
   */
-  
-  @Schema(name = "documentNo", example = "1000001", description = "The document number of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "documentNo", example = "1000001", description = "The document number of the order / invoice.", required = true)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -141,8 +142,8 @@ public class DocumentDto {
    * The document status of the order / invoice.
    * @return docStatus
   */
-  
-  @Schema(name = "docStatus", example = "CO", description = "The document status of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "docStatus", example = "CO", description = "The document status of the order / invoice.", required = true)
   public String getDocStatus() {
     return docStatus;
   }
@@ -160,8 +161,8 @@ public class DocumentDto {
    * The total lines of the order / invoice.
    * @return totalLines
   */
-  
-  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "totalLines", example = "100.0", description = "The total lines of the order / invoice.", required = true)
   public java.math.BigDecimal getTotalLines() {
     return totalLines;
   }
@@ -179,8 +180,8 @@ public class DocumentDto {
    * The grand total of the order / invoice.
    * @return grandTotal
   */
-  
-  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "grandTotal", example = "100.0", description = "The grand total of the order / invoice.", required = true)
   public java.math.BigDecimal getGrandTotal() {
     return grandTotal;
   }
@@ -198,8 +199,8 @@ public class DocumentDto {
    * The currency of the order / invoice.
    * @return currency
   */
-  
-  @Schema(name = "currency", example = "USD", description = "The currency of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "currency", example = "USD", description = "The currency of the order / invoice.", required = true)
   public String getCurrency() {
     return currency;
   }
@@ -236,8 +237,8 @@ public class DocumentDto {
    * The Business Partner of the order / invoice.
    * @return bpartnerName
   */
-  
-  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = false)
+  @NotNull 
+  @Schema(name = "bpartnerName", example = "John Smith", description = "The Business Partner of the order / invoice.", required = true)
   public String getBpartnerName() {
     return bpartnerName;
   }

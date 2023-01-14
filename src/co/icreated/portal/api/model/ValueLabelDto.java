@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -37,8 +38,8 @@ public class ValueLabelDto {
    * Get label
    * @return label
   */
-  
-  @Schema(name = "label", required = false)
+  @NotNull 
+  @Schema(name = "label", required = true)
   public String getLabel() {
     return label;
   }
@@ -56,8 +57,8 @@ public class ValueLabelDto {
    * Get value
    * @return value
   */
-  
-  @Schema(name = "value", required = false)
+  @NotNull 
+  @Schema(name = "value", required = true)
   public String getValue() {
     return value;
   }

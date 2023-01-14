@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -80,8 +81,8 @@ public class PaymentDto {
    * The document number of the payment.
    * @return documentNo
   */
-  
-  @Schema(name = "documentNo", example = "1000001", description = "The document number of the payment.", required = false)
+  @NotNull 
+  @Schema(name = "documentNo", example = "1000001", description = "The document number of the payment.", required = true)
   public String getDocumentNo() {
     return documentNo;
   }
@@ -137,8 +138,8 @@ public class PaymentDto {
    * The amount of the payment.
    * @return payAmt
   */
-  
-  @Schema(name = "payAmt", example = "100.0", description = "The amount of the payment.", required = false)
+  @NotNull 
+  @Schema(name = "payAmt", example = "100.0", description = "The amount of the payment.", required = true)
   public java.math.BigDecimal getPayAmt() {
     return payAmt;
   }
@@ -175,8 +176,8 @@ public class PaymentDto {
    * The currency of the payment.
    * @return currency
   */
-  
-  @Schema(name = "currency", example = "USD", description = "The currency of the payment.", required = false)
+  @NotNull 
+  @Schema(name = "currency", example = "USD", description = "The currency of the payment.", required = true)
   public String getCurrency() {
     return currency;
   }
@@ -194,8 +195,8 @@ public class PaymentDto {
    * The tender type of the payment.
    * @return tenderType
   */
-  
-  @Schema(name = "tenderType", example = "C", description = "The tender type of the payment.", required = false)
+  @NotNull 
+  @Schema(name = "tenderType", example = "C", description = "The tender type of the payment.", required = true)
   public String getTenderType() {
     return tenderType;
   }
@@ -213,8 +214,8 @@ public class PaymentDto {
    * The transaction date of the payment.
    * @return date
   */
-  @Valid 
-  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the payment.", required = false)
+  @NotNull @Valid 
+  @Schema(name = "date", example = "Fri Jan 01 01:00:00 CET 2021", description = "The transaction date of the payment.", required = true)
   public LocalDate getDate() {
     return date;
   }

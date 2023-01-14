@@ -1,4 +1,4 @@
-package co.icreated.portal.model;
+package co.icreated.portal.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -15,33 +16,34 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * CommonStringDto
+ * Password object
  */
 
-@JsonTypeName("CommonString")
+@Schema(name = "Password_allOf", description = "Password object")
+@JsonTypeName("Password_allOf")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class CommonStringDto {
+public class PasswordAllOfDto {
 
-  @JsonProperty("value")
-  private String value;
+  @JsonProperty("password")
+  private String password;
 
-  public CommonStringDto value(String value) {
-    this.value = value;
+  public PasswordAllOfDto password(String password) {
+    this.password = password;
     return this;
   }
 
   /**
-   * Get value
-   * @return value
+   * Get password
+   * @return password
   */
-  
-  @Schema(name = "value", required = false)
-  public String getValue() {
-    return value;
+  @NotNull 
+  @Schema(name = "password", required = true)
+  public String getPassword() {
+    return password;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override
@@ -52,20 +54,20 @@ public class CommonStringDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CommonStringDto commonString = (CommonStringDto) o;
-    return Objects.equals(this.value, commonString.value);
+    PasswordAllOfDto passwordAllOf = (PasswordAllOfDto) o;
+    return Objects.equals(this.password, passwordAllOf.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(password);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CommonStringDto {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class PasswordAllOfDto {\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }
