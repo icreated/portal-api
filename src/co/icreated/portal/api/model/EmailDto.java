@@ -15,34 +15,33 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * Password object
+ * EmailDto
  */
 
-@Schema(name = "Password_allOf", description = "Password object")
-@JsonTypeName("Password_allOf")
+@JsonTypeName("Email")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class PasswordAllOfDto {
+public class EmailDto {
 
-  @JsonProperty("password")
-  private String password;
+  @JsonProperty("value")
+  private String value;
 
-  public PasswordAllOfDto password(String password) {
-    this.password = password;
+  public EmailDto value(String value) {
+    this.value = value;
     return this;
   }
 
   /**
-   * Get password
-   * @return password
+   * Get value
+   * @return value
   */
-  @NotNull 
-  @Schema(name = "password", required = true)
-  public String getPassword() {
-    return password;
+  @NotNull @Email
+  @Schema(name = "value", required = true)
+  public String getValue() {
+    return value;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setValue(String value) {
+    this.value = value;
   }
 
   @Override
@@ -53,20 +52,20 @@ public class PasswordAllOfDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PasswordAllOfDto passwordAllOf = (PasswordAllOfDto) o;
-    return Objects.equals(this.password, passwordAllOf.password);
+    EmailDto email = (EmailDto) o;
+    return Objects.equals(this.value, email.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(password);
+    return Objects.hash(value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PasswordAllOfDto {\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("class EmailDto {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

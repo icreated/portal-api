@@ -16,8 +16,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.icreated.portal.api.model.CommonStringDto;
+import co.icreated.portal.api.model.EmailDto;
 import co.icreated.portal.api.model.ForgottenPasswordDto;
 import co.icreated.portal.api.model.PasswordDto;
+import co.icreated.portal.api.model.SendEmailTokenRequestDto;
 import co.icreated.portal.api.model.UserDto;
 import co.icreated.portal.api.service.UsersApi;
 import co.icreated.portal.bean.SessionUser;
@@ -66,11 +68,10 @@ public class UserController implements UsersApi, Authenticated {
 
 
   @Override
-  public ResponseEntity<Void> sendEmailToken(@Valid CommonStringDto commonStringDto) {
+  public ResponseEntity<Void> sendEmailToken(@Valid EmailDto emailDto) {
 
 
-
-    MUser user = userService.getUserByParam(commonStringDto.getValue().toUpperCase(),
+    MUser user = userService.getUserByParam(emailDto.getValue().toUpperCase(),
         "isActive='Y' AND UPPER(email) LIKE ?");
 
     String uuid = UUID.randomUUID().toString();
@@ -78,7 +79,7 @@ public class UserController implements UsersApi, Authenticated {
     String bodyEmail = emailService.getMsgBody(this.emaillinkBodyFile, user.getName(),
         String.join("/", frontendUrl, uuid));
 
-    if (emailService.sendEmail(commonStringDto.getValue(), this.emaillinkTitle, bodyEmail)) {
+    if (emailService.sendEmail(emailDto.getValue(), this.emaillinkTitle, bodyEmail)) {
       user.setLastResult(uuid);
       if (user.save()) {
         return ResponseEntity.ok().build();
@@ -149,5 +150,7 @@ public class UserController implements UsersApi, Authenticated {
 
     throw new PortalBusinessException("Password not updated");
   }
+
+
 
 }

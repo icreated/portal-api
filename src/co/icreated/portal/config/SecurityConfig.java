@@ -1,6 +1,7 @@
 package co.icreated.portal.config;
 
 import java.security.Key;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,29 +65,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
 
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-    return source;
+      CorsConfiguration configuration = new CorsConfiguration();
+      configuration.setAllowedOrigins(List.of("*"));
+      configuration.addAllowedHeader("*");
+      configuration.addAllowedMethod("*");
+      configuration.setAllowCredentials(true);
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/**", configuration);
+      return source;
   }
 
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    http.authorizeRequests() //
-        .antMatchers(HttpMethod.POST, "/api/user/password/emaillink").permitAll() //
-        .antMatchers(HttpMethod.POST, "/api/user/password/validate").permitAll() //
-        .antMatchers("/api/swagger-ui.html").authenticated() //
-        .antMatchers("/api/v2/api-docs").authenticated() //
-        .and().httpBasic();
 
-
-
-    http.cors().and().csrf().disable()
-        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime))
-        .addFilter(new JwtAuthorizationFilter(authenticationManager(), sessionUserDetailsService))
-        .authorizeRequests().antMatchers("/api/**").authenticated().and().sessionManagement()
+    http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() //
+        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime)) //
+        .addFilter(new JwtAuthorizationFilter(authenticationManager(), sessionUserDetailsService)) //
+        .authorizeRequests() //
+        .antMatchers(HttpMethod.POST, "/api/users/email/token").permitAll() //
+        .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
+        .and().httpBasic()
+        .and()
+        .authorizeRequests() //
+        .antMatchers("/api/**").authenticated().and().sessionManagement() //
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
   }
 
   // @Override

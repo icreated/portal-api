@@ -8,6 +8,7 @@ package co.icreated.portal.api.service;
 import co.icreated.portal.api.model.DocumentDto;
 import co.icreated.portal.api.model.InvoiceDto;
 import co.icreated.portal.api.model.OpenItemDto;
+import co.icreated.portal.api.model.PortalErrorDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -42,11 +43,7 @@ public interface InvoicesApi {
      *
      * @param id Invoice id (required)
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getInvoice",
@@ -56,11 +53,9 @@ public interface InvoicesApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = InvoiceDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
@@ -78,11 +73,7 @@ public interface InvoicesApi {
      * Get user invoices
      *
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getInvoices",
@@ -92,11 +83,9 @@ public interface InvoicesApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DocumentDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
@@ -114,11 +103,7 @@ public interface InvoicesApi {
      * Get open items
      *
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getOpenItems",
@@ -128,11 +113,9 @@ public interface InvoicesApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OpenItemDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(

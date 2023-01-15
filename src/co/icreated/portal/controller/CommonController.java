@@ -3,6 +3,8 @@ package co.icreated.portal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +13,7 @@ import co.icreated.portal.api.service.CommonApi;
 import co.icreated.portal.service.CommonService;
 
 @RestController
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CommonController implements CommonApi {
 
   @Value("${reference.creditCardType}")

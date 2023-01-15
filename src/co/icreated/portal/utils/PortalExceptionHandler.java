@@ -1,8 +1,6 @@
 package co.icreated.portal.utils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -19,7 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.util.NestedServletException;
 
-import co.icreated.portal.bean.ErrorDetails;
+import co.icreated.portal.api.model.PortalErrorDto;
 import co.icreated.portal.exceptions.PortalBusinessException;
 import co.icreated.portal.exceptions.PortalInvalidInputException;
 import co.icreated.portal.exceptions.PortalNotFoundException;
@@ -34,8 +32,7 @@ public class PortalExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<Object> handleInvalidInputException(PortalInvalidInputException exception) {
 
     log.warn(exception.getMessage());
-    return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-
+    return getCommonResponseEntity(exception, HttpStatus.BAD_REQUEST);
   }
 
 
@@ -43,35 +40,47 @@ public class PortalExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<Object> handleNotFoundException(PortalNotFoundException exception) {
 
     log.warn(exception.getMessage());
-    return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.NOT_FOUND);
-
+    return getCommonResponseEntity(exception, HttpStatus.NOT_FOUND);
   }
 
 
   @ExceptionHandler(value = {PortalBusinessException.class, AdempiereException.class,
       IllegalArgumentException.class, IllegalStateException.class, NestedServletException.class})
   protected ResponseEntity<Object> handleConflict(RuntimeException exception) {
-    log.error("Portal exception: ", exception);
-    return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    log.error("Business Portal exception: ", exception);
+    return getCommonResponseEntity(exception, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   @ExceptionHandler(value = {Exception.class})
   protected ResponseEntity<Object> handleCommonException(Exception exception) {
-    log.error("Portal exception: ", exception);
-    return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    log.error("Global Portal exception: ", exception);
+    return getCommonResponseEntity(exception, HttpStatus.INTERNAL_SERVER_ERROR);
   }
   
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-      List<String> errorList = ex
-              .getBindingResult()
-              .getFieldErrors()
-              .stream()
-              .map(FieldError::getDefaultMessage)
+      List<String> errorList = ex //
+              .getBindingResult() //
+              .getFieldErrors() //
+              .stream() //
+              .map(FieldError::getDefaultMessage) //
               .collect(Collectors.toList());
-      ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errorList);
-      return handleExceptionInternal(ex, errorDetails, headers, errorDetails.getStatus(), request);
+
+      PortalErrorDto errorDetails = new PortalErrorDto() //
+    	    	.code(HttpStatus.BAD_REQUEST.name()) //
+    	    	.message(ex.getLocalizedMessage()) //
+    	    	.details(errorList);
+      return handleExceptionInternal(ex, errorDetails, headers, HttpStatus.BAD_REQUEST, request);
+  }
+  
+
+  private ResponseEntity<Object> getCommonResponseEntity(Exception exception, HttpStatus httpStatus) {
+
+    PortalErrorDto errorDetails = new PortalErrorDto() //
+    	.code(httpStatus.name()) //
+    	.message(exception.getLocalizedMessage());
+    return new ResponseEntity<Object>(errorDetails, httpStatus);
   }
 
 

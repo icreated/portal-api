@@ -15,34 +15,33 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * Password object
+ * SendEmailTokenRequestDto
  */
 
-@Schema(name = "Password_allOf", description = "Password object")
-@JsonTypeName("Password_allOf")
+@JsonTypeName("sendEmailToken_request")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class PasswordAllOfDto {
+public class SendEmailTokenRequestDto {
 
-  @JsonProperty("password")
-  private String password;
+  @JsonProperty("email")
+  private String email;
 
-  public PasswordAllOfDto password(String password) {
-    this.password = password;
+  public SendEmailTokenRequestDto email(String email) {
+    this.email = email;
     return this;
   }
 
   /**
-   * Get password
-   * @return password
+   * Get email
+   * @return email
   */
-  @NotNull 
-  @Schema(name = "password", required = true)
-  public String getPassword() {
-    return password;
+  @Email
+  @Schema(name = "email", required = false)
+  public String getEmail() {
+    return email;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   @Override
@@ -53,20 +52,20 @@ public class PasswordAllOfDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PasswordAllOfDto passwordAllOf = (PasswordAllOfDto) o;
-    return Objects.equals(this.password, passwordAllOf.password);
+    SendEmailTokenRequestDto sendEmailTokenRequest = (SendEmailTokenRequestDto) o;
+    return Objects.equals(this.email, sendEmailTokenRequest.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(password);
+    return Objects.hash(email);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PasswordAllOfDto {\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("class SendEmailTokenRequestDto {\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("}");
     return sb.toString();
   }

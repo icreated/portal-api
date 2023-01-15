@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -73,7 +72,7 @@ public class CreditCardDto {
    * The credit card number.
    * @return creditCardNumber
   */
-  @NotNull 
+  @NotNull @Size(max = 16) 
   @Schema(name = "creditCardNumber", example = "4111111111111111", description = "The credit card number.", required = true)
   public String getCreditCardNumber() {
     return creditCardNumber;

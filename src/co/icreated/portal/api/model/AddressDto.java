@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -70,7 +69,7 @@ public class AddressDto {
    * The first line of the address.
    * @return address1
   */
-  @NotNull 
+  @NotNull @Size(min = 1) 
   @Schema(name = "address1", example = "123 Main Street", description = "The first line of the address.", required = true)
   public String getAddress1() {
     return address1;
@@ -108,7 +107,7 @@ public class AddressDto {
    * The city of the address.
    * @return city
   */
-  @NotNull 
+  @NotNull @Size(min = 1) 
   @Schema(name = "city", example = "New York", description = "The city of the address.", required = true)
   public String getCity() {
     return city;
@@ -127,7 +126,7 @@ public class AddressDto {
    * The zip code of the address.
    * @return postal
   */
-  @NotNull 
+  @NotNull @Size(min = 5) 
   @Schema(name = "postal", example = "10001", description = "The zip code of the address.", required = true)
   public String getPostal() {
     return postal;

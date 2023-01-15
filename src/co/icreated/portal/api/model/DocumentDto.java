@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -199,7 +198,7 @@ public class DocumentDto {
    * The currency of the order / invoice.
    * @return currency
   */
-  @NotNull 
+  @NotNull @Size(max = 3) 
   @Schema(name = "currency", example = "USD", description = "The currency of the order / invoice.", required = true)
   public String getCurrency() {
     return currency;

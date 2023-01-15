@@ -2,19 +2,16 @@ package co.icreated.portal.config;
 
 import java.util.Properties;
 
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import co.icreated.portal.api.model.CommonStringDto;
 import co.icreated.portal.controller.CommonController;
 import co.icreated.portal.controller.InvoiceController;
 import co.icreated.portal.controller.PaymentController;

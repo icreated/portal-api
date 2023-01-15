@@ -7,6 +7,7 @@ package co.icreated.portal.api.service;
 
 import co.icreated.portal.api.model.CreditCardDto;
 import co.icreated.portal.api.model.PaymentDto;
+import co.icreated.portal.api.model.PortalErrorDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -41,10 +42,7 @@ public interface PaymentsApi {
      *
      * @param creditCardDto Payment object (required)
      * @return successful operation (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Unauthorized (status code 401)
-     *         or Forbidden (status code 403)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "createPayment",
@@ -52,15 +50,15 @@ public interface PaymentsApi {
         tags = { "Payments" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation"),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/payments",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
     ResponseEntity<Void> createPayment(

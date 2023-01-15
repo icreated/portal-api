@@ -5,6 +5,7 @@
  */
 package co.icreated.portal.api.service;
 
+import co.icreated.portal.api.model.PortalErrorDto;
 import co.icreated.portal.api.model.ValueLabelDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -67,7 +68,7 @@ public interface CommonApi {
      * @param language Language (required)
      * @param value Value (required)
      * @return OK (status code 200)
-     *         or Not Found (status code 404)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getDocStatus",
@@ -77,7 +78,9 @@ public interface CommonApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Not Found")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
@@ -98,7 +101,7 @@ public interface CommonApi {
      * @param language Language (required)
      * @param value Value (required)
      * @return OK (status code 200)
-     *         or Not Found (status code 404)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "getTenderType",
@@ -108,7 +111,9 @@ public interface CommonApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Not Found")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(

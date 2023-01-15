@@ -10,6 +10,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,7 @@ import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;
 
 @RestController
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class PaymentController implements PaymentsApi, Authenticated {
 
   CLogger log = CLogger.getCLogger(PaymentController.class);

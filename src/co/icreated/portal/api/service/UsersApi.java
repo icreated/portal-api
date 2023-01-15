@@ -5,9 +5,10 @@
  */
 package co.icreated.portal.api.service;
 
-import co.icreated.portal.api.model.CommonStringDto;
+import co.icreated.portal.api.model.EmailDto;
 import co.icreated.portal.api.model.ForgottenPasswordDto;
 import co.icreated.portal.api.model.PasswordDto;
+import co.icreated.portal.api.model.PortalErrorDto;
 import co.icreated.portal.api.model.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,11 +42,9 @@ public interface UsersApi {
      * POST /users/email/token : Send email token
      * Send email with a token to reset password
      *
-     * @param commonStringDto User mail to send link (required)
+     * @param emailDto User mail to send link (required)
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "sendEmailToken",
@@ -53,18 +52,19 @@ public interface UsersApi {
         tags = { "Users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/users/email/token",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
     ResponseEntity<Void> sendEmailToken(
-        @Parameter(name = "CommonStringDto", description = "User mail to send link", required = true) @Valid @RequestBody CommonStringDto commonStringDto
+        @Parameter(name = "EmailDto", description = "User mail to send link", required = true) @Valid @RequestBody EmailDto emailDto
     );
 
 
@@ -75,9 +75,7 @@ public interface UsersApi {
      * @param token Token given by email (required)
      * @param forgottenPasswordDto Password object (required)
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "updateForgottenPassword",
@@ -85,14 +83,15 @@ public interface UsersApi {
         tags = { "Users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(
         method = RequestMethod.PUT,
         value = "/users/password/{token}",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
     ResponseEntity<Void> updateForgottenPassword(
@@ -107,9 +106,7 @@ public interface UsersApi {
      *
      * @param passwordDto Password object (required)
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Not Found (status code 404)
-     *         or Internal Server Error (status code 500)
+     *         or Unexpected error (status code 200)
      */
     @Operation(
         operationId = "updatePassword",
@@ -119,9 +116,9 @@ public interface UsersApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
+            })
         }
     )
     @RequestMapping(

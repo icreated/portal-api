@@ -23,7 +23,7 @@
   </properties>
   <build>
   <sourceDirectory>src</sourceDirectory>
-  <outputDirectory>${project.build.directory}/../WEB-INF/classes</outputDirectory>
+  <outputDirectory>WEB-INF/classes</outputDirectory>
   
     <plugins>
 		<plugin>
@@ -45,7 +45,7 @@
 		    <artifactId>openapi-generator-maven-plugin</artifactId>
 		    <version>6.2.1</version>
 		    <executions>
-		        <execution>
+		        <execution> 
 		            <goals>
 		                <goal>generate</goal>
 		            </goals>
@@ -74,7 +74,7 @@
 		                   <skipDefaultInterface>true</skipDefaultInterface>
 		                   <useTags>true</useTags>
 		                   <useBeanValidation>true</useBeanValidation>
-		                   <performBeanValidation>true</performBeanValidation>
+		                   <performBeanValidation>false</performBeanValidation>
 		                   
 		                </configOptions>
 		            </configuration>
