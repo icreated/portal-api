@@ -45,6 +45,7 @@ Be sure to satisfy all required dependencies. All needed jars are added directly
 Eclipse needs a mapstruct plugin to compile converters. It can be found here [https://mapstruct.org/documentation/ide-support/](https://mapstruct.org/documentation/ide-support/) 
 
 Follow instructions for installation
+
 Fill in generated source directory as: src
 
 openapi.yaml is configured in Icreated Web Portal. It's easier to work with one file and share it between backend & frontend. The copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
