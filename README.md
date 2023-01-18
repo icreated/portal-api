@@ -48,7 +48,8 @@ Follow instructions for installation
 
 Fill in generated source directory as: src
 
-openapi.yaml is configured in Icreated Web Portal. It's easier to work with one file and share it between backend & frontend. The copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
+openapi.yaml is configured in Icreated Web Portal. It's easier to work with one file and share it between backend & frontend. 
+The copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
 
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
