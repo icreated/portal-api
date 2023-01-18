@@ -17,6 +17,7 @@ IPA is fully based on Spring Framework and integrates its features:
 *	Spring Security integration
  
 
+
 IPA provides following features:
 
 *	API-first product-centric approach 
