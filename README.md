@@ -54,7 +54,7 @@ The copy of openapi.yaml is automatically copied with a maven plugin to project 
 
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
-[http://localhost:8888/portal/api](http://localhost:8888/portal/api) 
+[http://localhost:8080/portal/api](http://localhost:8080/portal/api) 
 To connect to API you have to provide AD_User Value and Password. For example: gardenusr / GardenUser
 
 !["Swagger UI"](Swagger_UI.png "Swagger UI") 
