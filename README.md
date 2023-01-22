@@ -42,14 +42,21 @@ git clone https://github.com/icreated/portal-api.git
 ```
 Import this project to Eclipse.
 Be sure to satisfy all required dependencies. All needed jars are added directly to lib folder.
-Eclipse needs a mapstruct plugin to compile converters. It can be found here [https://mapstruct.org/documentation/ide-support/](https://mapstruct.org/documentation/ide-support/) Follow instructions for installation
+Eclipse needs a mapstruct plugin to compile converters. It can be found here [https://mapstruct.org/documentation/ide-support/](https://mapstruct.org/documentation/ide-support/) 
+
+Follow instructions for installation
 
 
-openapi.yaml is configured in Icreated Web Portal. It's easier to work with one file and share it between backend & frontend. But the copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
+
+openapi.yaml is configured in Icreated Web Portal. It's easier to work with one file and share it between backend & frontend. 
+
+The copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
+
+
 
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
-[http://localhost:8888/portal/api](http://localhost:8888/portal/api) 
+[http://localhost:8080/portal/api](http://localhost:8080/portal/api) 
 To connect to API you have to provide AD_User Value and Password. For example: gardenusr / GardenUser
 
 !["Swagger UI"](Swagger_UI.png "Swagger UI") 
