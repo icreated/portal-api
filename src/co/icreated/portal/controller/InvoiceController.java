@@ -36,7 +36,7 @@ public class InvoiceController implements InvoicesApi, Authenticated {
 
   @Override
   public ResponseEntity<InvoiceDto> getInvoice(Integer id) {
-    return ResponseEntity.ok(invoiceService.findInvoiceById(id));
+    return ResponseEntity.ok(invoiceService.findInvoiceById(id, getSessionUser().getPartnerId()));
   }
 
 

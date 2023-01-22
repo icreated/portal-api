@@ -11,7 +11,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-        co.icreated.portal.config.AppPortalConfiguration
+        co.icreated.portal.config.PortalConfig
         </param-value>
     </context-param>
     

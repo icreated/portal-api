@@ -65,14 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
 
-      CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOrigins(List.of("*"));
-      configuration.addAllowedHeader("*");
-      configuration.addAllowedMethod("*");
-      configuration.setAllowCredentials(true);
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      source.registerCorsConfiguration("/**", configuration);
-      return source;
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(List.of("*"));
+    configuration.addAllowedHeader("*");
+    configuration.addAllowedMethod("*");
+    configuration.setAllowCredentials(true);
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 
 
@@ -86,9 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests() //
         .antMatchers(HttpMethod.POST, "/api/users/email/token").permitAll() //
         .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
-        .and().httpBasic()
-        .and()
-        .authorizeRequests() //
+        .and().httpBasic().and().authorizeRequests() //
         .antMatchers("/api/**").authenticated().and().sessionManagement() //
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

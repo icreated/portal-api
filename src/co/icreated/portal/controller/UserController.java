@@ -12,14 +12,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.icreated.portal.api.model.CommonStringDto;
 import co.icreated.portal.api.model.EmailDto;
 import co.icreated.portal.api.model.ForgottenPasswordDto;
 import co.icreated.portal.api.model.PasswordDto;
-import co.icreated.portal.api.model.SendEmailTokenRequestDto;
 import co.icreated.portal.api.model.UserDto;
 import co.icreated.portal.api.service.UsersApi;
 import co.icreated.portal.bean.SessionUser;

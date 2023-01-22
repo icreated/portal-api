@@ -56,30 +56,32 @@ public class PortalExceptionHandler extends ResponseEntityExceptionHandler {
     log.error("Global Portal exception: ", exception);
     return getCommonResponseEntity(exception, HttpStatus.INTERNAL_SERVER_ERROR);
   }
-  
+
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-      List<String> errorList = ex //
-              .getBindingResult() //
-              .getFieldErrors() //
-              .stream() //
-              .map(FieldError::getDefaultMessage) //
-              .collect(Collectors.toList());
-
-      PortalErrorDto errorDetails = new PortalErrorDto() //
-    	    	.code(HttpStatus.BAD_REQUEST.name()) //
-    	    	.message(ex.getLocalizedMessage()) //
-    	    	.details(errorList);
-      return handleExceptionInternal(ex, errorDetails, headers, HttpStatus.BAD_REQUEST, request);
-  }
-  
-
-  private ResponseEntity<Object> getCommonResponseEntity(Exception exception, HttpStatus httpStatus) {
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+      HttpHeaders headers, HttpStatus status, WebRequest request) {
+    List<String> errorList = ex //
+        .getBindingResult() //
+        .getFieldErrors() //
+        .stream() //
+        .map(FieldError::getDefaultMessage) //
+        .collect(Collectors.toList());
 
     PortalErrorDto errorDetails = new PortalErrorDto() //
-    	.code(httpStatus.name()) //
-    	.message(exception.getLocalizedMessage());
+        .code(HttpStatus.BAD_REQUEST.name()) //
+        .message(ex.getLocalizedMessage()) //
+        .details(errorList);
+    return handleExceptionInternal(ex, errorDetails, headers, HttpStatus.BAD_REQUEST, request);
+  }
+
+
+  private ResponseEntity<Object> getCommonResponseEntity(Exception exception,
+      HttpStatus httpStatus) {
+
+    PortalErrorDto errorDetails = new PortalErrorDto() //
+        .code(httpStatus.name()) //
+        .message(exception.getLocalizedMessage());
     return new ResponseEntity<Object>(errorDetails, httpStatus);
   }
 

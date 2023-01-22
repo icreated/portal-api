@@ -7,6 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="src" path="target/generated-sources/annotations"/>
 	<classpathentry kind="lib" path="WEB-INF/classes" sourcepath="WEB-INF/classes"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-api.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-impl.jar"/>
@@ -19,7 +20,6 @@
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/swagger-parser.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/mapstruct.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jackson-datatype-jsr310.jar"/>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/mapstruct-processor.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/hibernate-validator.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jboss-logging.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classmate.jar"/>

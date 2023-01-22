@@ -32,8 +32,9 @@ public class SendEmailTokenRequestDto {
 
   /**
    * Get email
+   *
    * @return email
-  */
+   */
   @Email
   @Schema(name = "email", required = false)
   public String getEmail() {
@@ -71,8 +72,7 @@ public class SendEmailTokenRequestDto {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

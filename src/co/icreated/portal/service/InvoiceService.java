@@ -59,15 +59,17 @@ public class InvoiceService {
    * @param C_BPartner_ID
    * @return
    */
-  public InvoiceDto findInvoiceById(int C_Invoice_ID) {
-
-    MInvoice invoice = MInvoice.get(ctx, C_Invoice_ID);
+  public InvoiceDto findInvoiceById(int C_Invoice_ID, int C_BPartner_ID) {
+    MInvoice invoice =
+        new PQuery(ctx, MInvoice.Table_Name, "C_Invoice_ID=? AND C_BPartner_ID=?", null) //
+            .setParameters(C_Invoice_ID, C_BPartner_ID) //
+            .setOrderBy("DocumentNo DESC") //
+            .first();
     if (invoice == null) {
-      throw new PortalNotFoundException("Invoice not exists");
+      throw new PortalNotFoundException("Invoice not found");
     }
     return invoiceMapper.toDto(invoice);
   }
-
 
 
   /**
