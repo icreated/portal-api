@@ -20,6 +20,7 @@
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/swagger-parser.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/mapstruct.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jackson-datatype-jsr310.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/mapstruct-processor.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/hibernate-validator.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jboss-logging.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classmate.jar"/>
