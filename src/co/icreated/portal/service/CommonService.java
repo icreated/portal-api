@@ -19,6 +19,7 @@ public class CommonService {
   Properties ctx;
   CommonMapper commonMapper;
 
+
   public CommonService(Properties ctx, CommonMapper commonMapper) {
     this.ctx = ctx;
     this.commonMapper = commonMapper;

@@ -9,7 +9,9 @@ import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.SecureEngine;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class IdempierePasswordEncoder implements PasswordEncoder {
 
   private CLogger log = CLogger.getCLogger(IdempierePasswordEncoder.class);
@@ -59,7 +61,5 @@ public class IdempierePasswordEncoder implements PasswordEncoder {
 
     return valid;
   }
-
-
 
 }

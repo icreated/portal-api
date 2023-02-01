@@ -33,6 +33,7 @@ public class PaymentController implements PaymentsApi, Authenticated {
   PaymentService paymentService;
   InvoiceService invoiceService;
 
+
   public PaymentController(PaymentService paymentService, InvoiceService invoiceService) {
     this.paymentService = paymentService;
     this.invoiceService = invoiceService;

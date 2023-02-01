@@ -27,6 +27,7 @@ public class CommonController implements CommonApi {
 
   CommonService commonService;
 
+
   public CommonController(CommonService commonService) {
     this.commonService = commonService;
   }

@@ -52,15 +52,15 @@ public class UserController implements UsersApi, Authenticated {
 
   EmailService emailService;
 
-  IdempierePasswordEncoder passwordEncoder;
+  IdempierePasswordEncoder idempierePasswordEncoder;
 
 
   public UserController(Properties ctx, UserService userService, EmailService emailService,
-      IdempierePasswordEncoder passwordEncoder) {
+      IdempierePasswordEncoder idempierePasswordEncoder) {
     this.ctx = ctx;
     this.userService = userService;
     this.emailService = emailService;
-    this.passwordEncoder = passwordEncoder;
+    this.idempierePasswordEncoder = idempierePasswordEncoder;
   }
 
 
@@ -100,7 +100,7 @@ public class UserController implements UsersApi, Authenticated {
 
     MUser user = userService.getUserByParam(token, "isActive='Y' AND lastResult LIKE ?");
 
-    passwordEncoder.setSalt(user.getSalt());
+    idempierePasswordEncoder.setSalt(user.getSalt());
 
     if (userService.changePassword(passwordDto.getConfirmPassword(), user)) {
       return ResponseEntity.ok().build();
@@ -117,9 +117,9 @@ public class UserController implements UsersApi, Authenticated {
       throw new PortalInvalidInputException("Passwords are not set");
     }
 
-    passwordEncoder.setSalt(getSessionUser().getSalt());
+    idempierePasswordEncoder.setSalt(getSessionUser().getSalt());
     CharSequence pass = passwordDto.getPassword();
-    if (!passwordEncoder.matches(pass, getSessionUser().getPassword())) {
+    if (!idempierePasswordEncoder.matches(pass, getSessionUser().getPassword())) {
       throw new PortalInvalidInputException("Current Password not valid");
     }
 

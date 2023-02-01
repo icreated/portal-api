@@ -20,6 +20,7 @@ public class InvoiceController implements InvoicesApi, Authenticated {
 
   InvoiceService invoiceService;
 
+
   public InvoiceController(InvoiceService invoiceService) {
     this.invoiceService = invoiceService;
 

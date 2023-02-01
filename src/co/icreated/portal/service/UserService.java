@@ -9,32 +9,51 @@ import org.compiere.model.MBPartner;
 import org.compiere.model.MUser;
 import org.compiere.util.CLogger;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.exceptions.PortalInvalidInputException;
 import co.icreated.portal.exceptions.PortalNotFoundException;
 import co.icreated.portal.mapper.UserMapper;
+import co.icreated.portal.utils.IdempierePasswordEncoder;
 import co.icreated.portal.utils.PQuery;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
   public static final String CACHE = "users";
 
   CLogger log = CLogger.getCLogger(UserService.class);
 
   Properties ctx;
+  IdempierePasswordEncoder passwordEncoder;
   UserMapper userMapper;
+
 
   /**
    *
    * @param ctx
    * @param userMapper
    */
-  public UserService(Properties ctx, UserMapper userMapper) {
+  public UserService(Properties ctx, IdempierePasswordEncoder passwordEncoder,
+      UserMapper userMapper) {
     this.ctx = ctx;
+    this.passwordEncoder = passwordEncoder;
     this.userMapper = userMapper;
+  }
+
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    SessionUser user = findSessionUserByValue(username);
+    if (user == null) {
+      throw new UsernameNotFoundException(username);
+    }
+    passwordEncoder.setSalt(user.getSalt());
+    return user;
   }
 
 
@@ -108,7 +127,4 @@ public class UserService {
     user.setEMailVerifyCode(user.getEMailVerifyCode(), "By Changing password");
     return user.save();
   }
-
-
-
 }

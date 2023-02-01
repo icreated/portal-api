@@ -49,6 +49,9 @@ public interface CommonApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ValueLabelDto.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -81,6 +84,9 @@ public interface CommonApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -114,6 +120,9 @@ public interface CommonApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(

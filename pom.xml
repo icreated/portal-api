@@ -137,7 +137,13 @@
 							    <groupId>org.springframework</groupId>
 							    <artifactId>spring-webmvc</artifactId>
 							    <version>${spring.version}</version>
-							</artifactItem>																								
+							</artifactItem>	
+							<artifactItem>
+							    <groupId>io.github.classgraph</groupId>
+							    <artifactId>classgraph</artifactId>
+							    <version>4.8.154</version>
+							</artifactItem>
+																														
 							<artifactItem>
 							    <groupId>org.springframework.security</groupId>
 							    <artifactId>spring-security-core</artifactId>

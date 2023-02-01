@@ -57,9 +57,18 @@ The copy of openapi.yaml is automatically copied with a maven plugin to project 
 ### Deploying / Publishing / Testing
 Check if it works by accessing to Swagger Home Page:
 [http://localhost:8080/portal/api](http://localhost:8080/portal/api) 
-To connect to API you have to provide AD_User Value and Password. For example: gardenusr / GardenUser
+To connect to API provide JWT Token you can get like this:
 
-!["Swagger UI"](Swagger_UI.png "Swagger UI") 
+```shell
+curl --location --request POST 'http://localhost:8080/portal/api/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "username":"gardenusr",
+   "password":"GardenUser"
+}'
+```
+
+!["Swagger UI"](Swagger_UI.jpeg "Swagger UI") 
 
 
 ## Contributing

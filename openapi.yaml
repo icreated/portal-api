@@ -9,6 +9,8 @@ info:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 
+security:
+  - bearerAuth: []
 
 tags:
   - name: Common
@@ -793,3 +795,9 @@ components:
           description: The paid amount of the invoice.
           format: double
           example: 100.00
+  securitySchemes:
+    bearerAuth:
+      type: http
+      bearerFormat: JWT
+      scheme: bearer
+

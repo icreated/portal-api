@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import co.icreated.portal.bean.SessionUser;
 import co.icreated.portal.config.SecurityConfig;
+import co.icreated.portal.service.UserService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
@@ -29,13 +30,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
   static String BEARER_PREFIX = "Bearer ";
 
-  SessionUserDetailsService userDetailsService;
+  UserService userService;
 
   public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-      SessionUserDetailsService userDetailsService) {
+      UserService userService) {
     super(authenticationManager);
-
-    this.userDetailsService = userDetailsService;
+    this.userService = userService;
   }
 
 
@@ -74,8 +74,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
           return null;
         }
 
-        SessionUser sessionUser =
-            (SessionUser) this.userDetailsService.loadUserByUsername(username);
+        SessionUser sessionUser = (SessionUser) userService.loadUserByUsername(username);
 
         return new UsernamePasswordAuthenticationToken(sessionUser, null,
             List.of(new SimpleGrantedAuthority("ROLE_USER")));

@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import co.icreated.portal.security.JwtAuthenticationFilter;
 import co.icreated.portal.security.JwtAuthorizationFilter;
-import co.icreated.portal.security.SessionUserDetailsService;
+import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -37,7 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
   @Autowired
-  SessionUserDetailsService sessionUserDetailsService;
+  UserService userService;
+
+  @Autowired
+  IdempierePasswordEncoder idempierePasswordEncoder;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,16 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public DaoAuthenticationProvider authenticationProvider() {
 
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(sessionUserDetailsService);
-    authProvider.setPasswordEncoder(passwordEncoder());
+    authProvider.setUserDetailsService(userService);
+    authProvider.setPasswordEncoder(idempierePasswordEncoder);
     return authProvider;
-  }
-
-
-  @Bean
-  public IdempierePasswordEncoder passwordEncoder() {
-
-    return new IdempierePasswordEncoder();
   }
 
 
@@ -79,14 +75,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-
     http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() //
         .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime)) //
-        .addFilter(new JwtAuthorizationFilter(authenticationManager(), sessionUserDetailsService)) //
+        .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService)) //
         .authorizeRequests() //
-        .antMatchers(HttpMethod.POST, "/api/users/email/token").permitAll() //
+        .antMatchers(HttpMethod.POST, "/api/users/email/to	ken").permitAll() //
         .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
-        .and().httpBasic().and().authorizeRequests() //
         .antMatchers("/api/**").authenticated().and().sessionManagement() //
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
