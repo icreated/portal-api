@@ -3,7 +3,8 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7TYVAGLZ7XATQ&source=url) 
 
 # Icreated Portal API (IPA) for ERP Idempiere
-> 
+
+**Attention!** The full documentation is provided in Icreated blog: [https://icreated.co/projects/webportal-api](https://icreated.co/projects/webportal-api)
 
 This REST API OSGI plugin for ERP Idempiere initially has been created to communicate with Icreated Web Portal 
 [https://github.com/icreated/portal-frontend](https://github.com/icreated/portal-frontend) 
@@ -68,7 +69,7 @@ curl --location --request POST 'http://localhost:8080/portal/api/login' \
 }'
 ```
 
-!["Swagger UI"](Swagger_UI.jpeg "Swagger UI") 
+!["Swagger UI"](https://icreated.co/assets/images/projects/webportal-api/Swagger_UI.jpeg "Swagger UI") 
 
 
 ## Contributing
