@@ -53,9 +53,6 @@ public interface PaymentsApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -83,9 +80,6 @@ public interface PaymentsApi {
             @ApiResponse(responseCode = "200", description = "OK", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDto.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(

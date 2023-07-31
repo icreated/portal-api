@@ -1,6 +1,7 @@
 package co.icreated.portal.service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Properties;
 
@@ -64,7 +65,8 @@ public class UserService implements UserDetailsService {
    */
   public SessionUser findSessionUserByValue(String value) {
 
-    MUser user = new PQuery(ctx, MUser.Table_Name, "Value LIKE ?", null).setParameters(value) //
+    MUser user = new PQuery(ctx, MUser.Table_Name, "Value LIKE ?", null) //
+    	.setParameters(value) //
         .first();
 
     if (user == null) {
@@ -102,7 +104,8 @@ public class UserService implements UserDetailsService {
       throw new PortalInvalidInputException("User not defined");
     }
 
-    MUser user = new PQuery(ctx, MUser.Table_Name, sql, null).setParameters(value) //
+    MUser user = new PQuery(ctx, MUser.Table_Name, sql, null) //
+    		.setParameters(value) //
         .first();
 
     if (user == null) {
@@ -123,7 +126,7 @@ public class UserService implements UserDetailsService {
 
     user.setPassword(newPassword);
     user.setIsLocked(false);
-    user.setDatePasswordChanged(new Timestamp(System.currentTimeMillis()));
+    user.setDatePasswordChanged(Timestamp.from(Instant.now()));
     user.setEMailVerifyCode(user.getEMailVerifyCode(), "By Changing password");
     return user.save();
   }

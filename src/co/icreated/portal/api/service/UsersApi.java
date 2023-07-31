@@ -55,9 +55,6 @@ public interface UsersApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -89,9 +86,6 @@ public interface UsersApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -125,9 +119,6 @@ public interface UsersApi {
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(

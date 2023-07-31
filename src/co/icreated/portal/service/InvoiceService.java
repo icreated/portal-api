@@ -1,15 +1,11 @@
 package co.icreated.portal.service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.compiere.model.MInvoice;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +15,7 @@ import co.icreated.portal.api.model.OpenItemDto;
 import co.icreated.portal.exceptions.PortalNotFoundException;
 import co.icreated.portal.mapper.InvoiceMapper;
 import co.icreated.portal.utils.PQuery;
+import co.icreated.portal.utils.QueryTool;
 
 @Service
 public class InvoiceService {
@@ -89,16 +86,10 @@ public class InvoiceService {
             + "FROM RV_OpenItem WHERE AD_Client_ID = ? AND C_BPartner_ID = ? AND isSOTrx='Y' "
             + "ORDER BY dateInvoiced DESC";
 
-    ArrayList<OpenItemDto> list = new ArrayList<OpenItemDto>();
-    try (PreparedStatement pstmtActual = DB.prepareStatement(sql, null);) {
-      pstmtActual.setInt(1, Env.getAD_Client_ID(ctx));
-      pstmtActual.setInt(2, C_BPartner_ID);
-      ResultSet rs = pstmtActual.executeQuery();
-
-      while (rs.next()) {
-        list.add(
+    Map<Integer, Object> params = Map.of(1, Env.getAD_Client_ID(ctx), 2, C_BPartner_ID);
+    return QueryTool.nativeList(sql, params, rs -> {
         //@formatter:off
-	        	new OpenItemDto()
+	        	return new OpenItemDto()
 	        	.invoiceId(rs.getInt("C_Invoice_ID"))
 	            .orderId(rs.getInt("C_Order_ID"))
 	            .bpartnerId(rs.getInt("C_BPartner_ID"))
@@ -116,17 +107,8 @@ public class InvoiceService {
 	            .totalLines(rs.getBigDecimal("totalLines"))
 	            .grandTotal(rs.getBigDecimal("grandTotal"))
 	            .paidAmt(rs.getBigDecimal("paidAmt"))
-	            .openAmt(rs.getBigDecimal("openAmt"))
+	            .openAmt(rs.getBigDecimal("openAmt"));
             //@formatter:on
-        );
-      }
-
-
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return list;
+    });
   }
 }

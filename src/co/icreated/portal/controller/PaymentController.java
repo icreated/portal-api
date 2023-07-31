@@ -23,6 +23,7 @@ import co.icreated.portal.api.service.PaymentsApi;
 import co.icreated.portal.security.Authenticated;
 import co.icreated.portal.service.InvoiceService;
 import co.icreated.portal.service.PaymentService;
+import co.icreated.portal.utils.Transaction;
 
 @RestController
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -74,27 +75,10 @@ public class PaymentController implements PaymentsApi, Authenticated {
       throw new AdempiereException("Totals from backend & frontend not are equal");
     }
 
-    // TODO It's a good idea to put this Idempiere Trx deal to AOP Spring Annotation @Around
-    // For instance it's a unique case, but later it's a "must be"
-    String trxName = Trx.createTrxName("portalPayments");
-    Trx trx = Trx.get(trxName, true);
-
-    try {
-      paymentService.createPayments(getSessionUser(), openItems, creditCardDto, trxName);
-      trx.commit();
-      log.log(Level.INFO, "Transaction Payments Completed");
-      return ResponseEntity.ok().build();
-    } catch (Exception e) {
-      log.log(Level.WARNING, "Not proceed. Transaction Payments Aborted");
-      trx.rollback();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    } finally {
-      trx.close();
-      trx = null;
-    }
-
-
-
+    Transaction.run(trxName -> { 
+    	paymentService.createPayments(getSessionUser(), openItems, creditCardDto, trxName);
+    });
+	return null;
   }
 
 

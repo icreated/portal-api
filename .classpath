@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classgraph.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/"/>
 	<classpathentry kind="src" path="target/generated-sources/annotations"/>
 	<classpathentry kind="lib" path="WEB-INF/classes" sourcepath="WEB-INF/classes"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jjwt-api.jar"/>
@@ -25,5 +24,6 @@
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/hibernate-validator.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/jboss-logging.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classmate.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/classgraph.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

@@ -67,7 +67,6 @@ public class PaymentService {
 
     openItems.stream()
         .forEach(openItem -> createCreditCardPayment(sessionUser, openItem, creditCard, trxName));
-
   }
 
 
@@ -100,8 +99,9 @@ public class PaymentService {
             .setParameters(Env.getAD_Org_ID(ctx), openItem.getCurrencyId()) //
             .setOrderBy("IsDefault DESC") //
             .first();
-    if (ba != null)
+    if (ba != null) {
       payment.setC_BankAccount_ID(ba.getC_BankAccount_ID());
+    }
 
 
     MDocType[] doctypes = MDocType.getOfDocBaseType(ctx, MDocType.DOCBASETYPE_ARReceipt);
@@ -120,33 +120,25 @@ public class PaymentService {
 
 
     payment.processIt(DocAction.ACTION_Complete);
-    boolean ok = payment.save();
-    return ok;
+    return payment.save();
   }
 
 
 
   public MBPBankAccount getBankAccount(SessionUser sessionUser, OpenItemDto openItem,
-      String trxName) {
-
+ String trxName) {
+	  
     MBPartner bp = new MBPartner(ctx, sessionUser.getPartnerId(), trxName);
-
-    Stream<MBPBankAccount> stream = Arrays.stream(bp.getBankAccounts(true));
-    MBPBankAccount retValue = stream //
-        .filter(item -> item.getAD_User_ID() == sessionUser.getUserId() && item.isActive()) //
-        .findFirst().orElse(null);
-
-    // create new
-    if (retValue == null) {
-      MUser user = new MUser(ctx, sessionUser.getUserId(), trxName);
-
-      MLocation location = MLocation.getBPLocation(ctx, openItem.getBpartnerLocationId(), trxName);
-      retValue = new MBPBankAccount(ctx, bp, user, location);
-      retValue.setAD_User_ID(sessionUser.getUserId());
-      retValue.save();
-    }
-
-    return retValue;
+    return Stream.of(bp.getBankAccounts(false))
+        .filter(ba -> ba.getAD_User_ID() == sessionUser.getUserId()).findAny()
+        .orElseGet(() -> {
+          MUser user = new MUser(ctx, sessionUser.getUserId(), trxName);
+          MLocation location = MLocation.get(ctx, openItem.getBpartnerLocationId(), trxName);
+          MBPBankAccount bankAccount = new MBPBankAccount(ctx, bp, user, location);
+          bankAccount.setAD_User_ID(user.getAD_User_ID());
+          bankAccount.save();
+          return bankAccount;
+        });
   }
 
 }
