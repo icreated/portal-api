@@ -76,7 +76,7 @@ public interface CommonApi {
         tags = { "Common" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ValueLabelDto.class))
             }),
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
@@ -88,7 +88,7 @@ public interface CommonApi {
         value = "/common/reference/docstatus/{language}/{value}",
         produces = { "application/json" }
     )
-    ResponseEntity<String> getDocStatus(
+    ResponseEntity<ValueLabelDto> getDocStatus(
         @Parameter(name = "language", description = "Language", required = true) @PathVariable("language") String language,
         @Parameter(name = "value", description = "Value", required = true) @PathVariable("value") String value
     );
@@ -109,7 +109,7 @@ public interface CommonApi {
         tags = { "Common" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ValueLabelDto.class))
             }),
             @ApiResponse(responseCode = "200", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PortalErrorDto.class))
@@ -121,7 +121,7 @@ public interface CommonApi {
         value = "/common/reference/tendertype/{language}/{value}",
         produces = { "application/json" }
     )
-    ResponseEntity<String> getTenderType(
+    ResponseEntity<ValueLabelDto> getTenderType(
         @Parameter(name = "language", description = "Language", required = true) @PathVariable("language") String language,
         @Parameter(name = "value", description = "Value", required = true) @PathVariable("value") String value
     );

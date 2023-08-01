@@ -53,9 +53,12 @@ public class CommonController implements CommonApi {
    * @return
    */
   @Override
-  public ResponseEntity<String> getDocStatus(String language, String value) {
+  public ResponseEntity<ValueLabelDto> getDocStatus(String language, String value) {
     // AD_Reference_ID = 131 _DocStatus
-    return ResponseEntity.ok(commonService.getReferenceValue(language, REFERENCE_DOCSTATUS, value));
+    return ResponseEntity.ok(new ValueLabelDto() //
+    		.value(value) //
+    		.label(commonService.getReferenceValue(language, REFERENCE_DOCSTATUS, value))
+    		);
   }
 
 
@@ -67,10 +70,11 @@ public class CommonController implements CommonApi {
    * @return
    */
   @Override
-  public ResponseEntity<String> getTenderType(String language, String value) {
+  public ResponseEntity<ValueLabelDto> getTenderType(String language, String value) {
     // AD_Reference_ID = 214 C_Payment TenderType
-    return ResponseEntity
-        .ok(commonService.getReferenceValue(language, REFERENCE_TENDERTYPE, value));
+    return ResponseEntity.ok(new ValueLabelDto() //
+    		.value(value) //
+    		.label(commonService.getReferenceValue(language, REFERENCE_TENDERTYPE, value)));
   }
 
 }
