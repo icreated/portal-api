@@ -80,7 +80,8 @@ public class InvoiceService {
 
     String sql =
         "SELECT C_Invoice_ID, C_Order_ID, C_BPartner_ID, C_BPartner_Location_ID, C_Currency_ID,"
-            + "documentNo, description, docStatus, " + "isSOTrx, isActive, "
+            + "documentNo, description, docStatus, " //
+        	+ "isSOTrx, isActive, "
             + "dateOrdered, dateInvoiced, dueDate, netDays, "
             + "totalLines, grandTotal, paidAmt, openAmt "
             + "FROM RV_OpenItem WHERE AD_Client_ID = ? AND C_BPartner_ID = ? AND isSOTrx='Y' "
