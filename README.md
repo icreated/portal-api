@@ -53,6 +53,9 @@ openapi.yaml is configured in Icreated Web Portal. It's easier to work with one 
 
 The copy of openapi.yaml is automatically copied with a maven plugin to project because of use of swagger plugin when Idempiere sever is started.
 
+**Important**:  add VM argument on startup (we need it to import spring beans)
+> --add-opens java.base/sun.reflect.annotation=ALL-UNNAMED'
+
 
 
 ### Deploying / Publishing / Testing

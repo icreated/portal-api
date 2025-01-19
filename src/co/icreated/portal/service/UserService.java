@@ -25,109 +25,104 @@ import co.icreated.portal.utils.PQuery;
 @Service
 public class UserService implements UserDetailsService {
 
-  public static final String CACHE = "users";
+    public static final String CACHE = "users";
 
-  CLogger log = CLogger.getCLogger(UserService.class);
+    CLogger log = CLogger.getCLogger(UserService.class);
 
-  Properties ctx;
-  IdempierePasswordEncoder passwordEncoder;
-  UserMapper userMapper;
+    Properties ctx;
+    IdempierePasswordEncoder passwordEncoder;
+    UserMapper userMapper;
 
-
-  /**
-   *
-   * @param ctx
-   * @param userMapper
-   */
-  public UserService(Properties ctx, IdempierePasswordEncoder passwordEncoder,
-      UserMapper userMapper) {
-    this.ctx = ctx;
-    this.passwordEncoder = passwordEncoder;
-    this.userMapper = userMapper;
-  }
-
-
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    SessionUser user = findSessionUserByValue(username);
-    if (user == null) {
-      throw new UsernameNotFoundException(username);
-    }
-    passwordEncoder.setSalt(user.getSalt());
-    return user;
-  }
-
-
-  /**
-   *
-   * @param value
-   * @return
-   */
-  public SessionUser findSessionUserByValue(String value) {
-
-    MUser user = new PQuery(ctx, MUser.Table_Name, "Value LIKE ?", null) //
-    	.setParameters(value) //
-        .first();
-
-    if (user == null) {
-      return null;
+    /**
+     *
+     * @param ctx
+     * @param userMapper
+     */
+    public UserService(Properties ctx, IdempierePasswordEncoder passwordEncoder, UserMapper userMapper) {
+        this.ctx = ctx;
+        this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
-    MBPartner bpartner = MBPartner.get(ctx, user.getC_BPartner_ID());
-
-    return new SessionUser.Builder() //
-        .userId(user.getAD_User_ID()) //
-        .value(user.getValue()) //
-        .name(user.getName()) //
-        .email(user.getEMail()) //
-        .password(user.getPassword()) //
-        .salt(user.getSalt()) //
-        .partnerId(user.getC_BPartner_ID()) //
-        .accountNonExpired(user.isExpired() == false) //
-        .accountNonLocked(user.isLocked() == false) //
-        .credentialsNonExpired(true) //
-        .enabled(user.isActive() && bpartner.isActive()) //
-        .authorities(List.of(new SimpleGrantedAuthority("ROLE_USER"))).build();
-  }
-
-
-
-  /**
-   *
-   * @param value
-   * @param sql
-   * @return
-   */
-  public MUser getUserByParam(Object value, String sql) {
-
-    if (value instanceof String && StringUtils.isBlank((String) value)) {
-      throw new PortalInvalidInputException("User not defined");
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SessionUser user = findSessionUserByValue(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        passwordEncoder.setSalt(user.getSalt());
+        return user;
     }
 
-    MUser user = new PQuery(ctx, MUser.Table_Name, sql, null) //
-    	.setParameters(value) //
-        .first();
+    /**
+     *
+     * @param value
+     *
+     * @return
+     */
+    public SessionUser findSessionUserByValue(String value) {
 
-    if (user == null) {
-      throw new PortalNotFoundException("User not found");
+        MUser user = new PQuery(ctx, MUser.Table_Name, "Value LIKE ?", null) //
+                .setParameters(value) //
+                .first();
+
+        if (user == null) {
+            return null;
+        }
+
+        MBPartner bpartner = MBPartner.get(ctx, user.getC_BPartner_ID());
+
+        return new SessionUser.Builder() //
+                .userId(user.getAD_User_ID()) //
+                .value(user.getValue()) //
+                .name(user.getName()) //
+                .email(user.getEMail()) //
+                .password(user.getPassword()) //
+                .salt(user.getSalt()) //
+                .partnerId(user.getC_BPartner_ID()) //
+                .accountNonExpired(user.isExpired() == false) //
+                .accountNonLocked(user.isLocked() == false) //
+                .credentialsNonExpired(true) //
+                .enabled(user.isActive() && bpartner.isActive()) //
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_USER"))).build();
     }
-    return user;
-  }
 
+    /**
+     *
+     * @param value
+     * @param sql
+     *
+     * @return
+     */
+    public MUser getUserByParam(Object value, String sql) {
 
+        if (value instanceof String && StringUtils.isBlank((String) value)) {
+            throw new PortalInvalidInputException("User not defined");
+        }
 
-  /**
-   *
-   * @param newPassword
-   * @param AD_User_ID
-   * @return
-   */
-  public boolean changePassword(String newPassword, MUser user) {
+        MUser user = new PQuery(ctx, MUser.Table_Name, sql, null) //
+                .setParameters(value) //
+                .first();
 
-    user.setPassword(newPassword);
-    user.setIsLocked(false);
-    user.setDatePasswordChanged(Timestamp.from(Instant.now()));
-    user.setEMailVerifyCode(user.getEMailVerifyCode(), "By Changing password");
-    return user.save();
-  }
+        if (user == null) {
+            throw new PortalNotFoundException("User not found");
+        }
+        return user;
+    }
+
+    /**
+     *
+     * @param newPassword
+     * @param AD_User_ID
+     *
+     * @return
+     */
+    public boolean changePassword(String newPassword, MUser user) {
+
+        user.setPassword(newPassword);
+        user.setIsLocked(false);
+        user.setDatePasswordChanged(Timestamp.from(Instant.now()));
+        user.setEMailVerifyCode(user.getEMailVerifyCode(), "By Changing password");
+        return user.save();
+    }
 }

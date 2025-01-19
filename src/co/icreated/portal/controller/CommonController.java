@@ -16,65 +16,62 @@ import co.icreated.portal.service.CommonService;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CommonController implements CommonApi {
 
-  @Value("${reference.creditCardType}")
-  int REFERENCE_CREDIT_CARD_TYPE;
+    @Value("${reference.creditCardType}")
+    int REFERENCE_CREDIT_CARD_TYPE;
 
-  @Value("${reference._docStatus}")
-  int REFERENCE_DOCSTATUS;
+    @Value("${reference._docStatus}")
+    int REFERENCE_DOCSTATUS;
 
-  @Value("${reference.tenderType}")
-  int REFERENCE_TENDERTYPE;
+    @Value("${reference.tenderType}")
+    int REFERENCE_TENDERTYPE;
 
-  CommonService commonService;
+    CommonService commonService;
 
+    public CommonController(CommonService commonService) {
+        this.commonService = commonService;
+    }
 
-  public CommonController(CommonService commonService) {
-    this.commonService = commonService;
-  }
+    /**
+     * Get credit card list
+     *
+     * @return
+     */
+    @Override
+    public ResponseEntity<List<ValueLabelDto>> getCreditCardTypes() {
+        // AD_Reference_ID = 149 CreditCardType
+        return ResponseEntity.ok(commonService.getValueLabelList(REFERENCE_CREDIT_CARD_TYPE));
+    }
 
+    /**
+     * Get tenderTyper with translation
+     *
+     * @param language
+     * @param value
+     *
+     * @return
+     */
+    @Override
+    public ResponseEntity<ValueLabelDto> getDocStatus(String language, String value) {
+        // AD_Reference_ID = 131 _DocStatus
+        return ResponseEntity.ok(new ValueLabelDto() //
+                .value(value) //
+                .label(commonService.getReferenceValue(language, REFERENCE_DOCSTATUS, value)));
+    }
 
-  /**
-   * Get credit card list
-   *
-   * @return
-   */
-  @Override
-  public ResponseEntity<List<ValueLabelDto>> getCreditCardTypes() {
-    // AD_Reference_ID = 149 CreditCardType
-    return ResponseEntity.ok(commonService.getValueLabelList(REFERENCE_CREDIT_CARD_TYPE));
-  }
-
-
-  /**
-   * Get tenderTyper with translation
-   *
-   * @param language
-   * @param value
-   * @return
-   */
-  @Override
-  public ResponseEntity<ValueLabelDto> getDocStatus(String language, String value) {
-    // AD_Reference_ID = 131 _DocStatus
-    return ResponseEntity.ok(new ValueLabelDto() //
-    		.value(value) //
-    		.label(commonService.getReferenceValue(language, REFERENCE_DOCSTATUS, value))
-    		);
-  }
-
-
-  /**
-   * Get docStatus Value with translation
-   *
-   * @param language
-   * @param value
-   * @return
-   */
-  @Override
-  public ResponseEntity<ValueLabelDto> getTenderType(String language, String value) {
-    // AD_Reference_ID = 214 C_Payment TenderType
-    return ResponseEntity.ok(new ValueLabelDto() //
-    		.value(value) //
-    		.label(commonService.getReferenceValue(language, REFERENCE_TENDERTYPE, value)));
-  }
+    /**
+     * Get docStatus Value with translation
+     *
+     * @param language
+     * @param value
+     *
+     * @return
+     */
+    @Override
+    public ResponseEntity<ValueLabelDto> getTenderType(String language, String value) {
+        // AD_Reference_ID = 214 C_Payment TenderType
+        return ResponseEntity.ok(new ValueLabelDto() //
+                .value(value) //
+                .label(commonService.getReferenceValue(language, REFERENCE_TENDERTYPE, value)));
+    }
 
 }

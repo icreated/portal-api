@@ -11,11 +11,9 @@ import co.icreated.portal.api.model.ValueLabelDto;
 @Mapper(componentModel = "spring")
 public abstract class CommonMapper {
 
+    @Mapping(source = "name", target = "label")
+    public abstract ValueLabelDto vnpToValueLabelDto(ValueNamePair valueNamePair);
 
-  @Mapping(source = "name", target = "label")
-  public abstract ValueLabelDto vnpToValueLabelDto(ValueNamePair valueNamePair);
-
-
-  public abstract List<ValueLabelDto> vnpListToValueLabelDtoList(ValueNamePair[] valueNamePairList);
+    public abstract List<ValueLabelDto> vnpListToValueLabelDtoList(ValueNamePair[] valueNamePairList);
 
 }

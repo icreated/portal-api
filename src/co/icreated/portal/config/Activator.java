@@ -38,57 +38,49 @@ import io.github.classgraph.ScanResult;
 
 public class Activator implements BundleActivator {
 
-  private static BundleContext context;
+    private static BundleContext context;
 
-  static BundleContext getContext() {
-    return context;
-  }
-
-
-  public void start(BundleContext bundleContext) throws Exception {
-	  
-    Activator.context = bundleContext;
-
-    String propertyFile = Ini.getFileName(false);
-    File file = new File(propertyFile);
-    if (!file.exists()) {
-      throw new IllegalStateException(
-          "idempiere.properties file missing. Path=" + file.getAbsolutePath());
+    static BundleContext getContext() {
+        return context;
     }
-    if (!Adempiere.isStarted()) {
-      boolean started = Adempiere.startup(false);
-      if (!started) {
-        throw new AdempiereException("Could not start ADempiere");
-      }
+
+    public void start(BundleContext bundleContext) throws Exception {
+
+        Activator.context = bundleContext;
+
+        String propertyFile = Ini.getFileName(false);
+        File file = new File(propertyFile);
+        if (!file.exists()) {
+            throw new IllegalStateException("idempiere.properties file missing. Path=" + file.getAbsolutePath());
+        }
+        if (!Adempiere.isStarted()) {
+            boolean started = Adempiere.startup(false);
+            if (!started) {
+                throw new AdempiereException("Could not start ADempiere");
+            }
+        }
+
+        // Custom autoscan for Spring which isn't working in OSGI (contextLoader issues)
+        Import importAnnotation = PortalConfig.class.getAnnotation(Import.class);
+        PortalUtils.changeAnnotationValue(importAnnotation, "value", getSpringComponents());
     }
-    
-    // Custom autoscan for Spring which isn't working in OSGI (contextLoader issues)
-    Import importAnnotation = PortalConfig.class.getAnnotation(Import.class);
-    PortalUtils.changeAnnotationValue(importAnnotation, "value", getSpringComponents());
-  }
 
-  
-  public void stop(BundleContext bundleContext) throws Exception {
-    Activator.context = null;
-  }
-  
-  
-  public static Class<?>[] getSpringComponents() {
-	  
-	  List<Class<?>> list = null;
-	  try (ScanResult scanResult = new ClassGraph() //
-			  .acceptPackages("co.icreated.portal") //
-			  .enableAnnotationInfo()
-	          .enableClassInfo().scan()) {
-		  ClassInfoList beans = scanResult.getClassesWithAnnotation(Component.class);
-		  
-		  list = beans
-		  .filter(classInfo -> classInfo.getName().startsWith("co.icreated") && !classInfo.getName().endsWith("PortalConfig"))
-		  .loadClasses();
-	  }
-	  return list.toArray(new Class<?>[list.size()]);
-  } 
-  
+    public void stop(BundleContext bundleContext) throws Exception {
+        Activator.context = null;
+    }
 
+    public static Class<?>[] getSpringComponents() {
+
+        List<Class<?>> list = null;
+        try (ScanResult scanResult = new ClassGraph() //
+                .acceptPackages("co.icreated.portal") //
+                .enableAnnotationInfo().enableClassInfo().scan()) {
+            ClassInfoList beans = scanResult.getClassesWithAnnotation(Component.class);
+
+            list = beans.filter(classInfo -> classInfo.getName().startsWith("co.icreated")
+                    && !classInfo.getName().endsWith("PortalConfig")).loadClasses();
+        }
+        return list.toArray(new Class<?>[list.size()]);
+    }
 
 }
