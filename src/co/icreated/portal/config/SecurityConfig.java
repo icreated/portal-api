@@ -29,61 +29,61 @@ import io.jsonwebtoken.security.Keys;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final static Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+  public final static Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    @Value("${jwt.expiration-time}")
-    private long jwtExpirationTime;
+  @Value("${jwt.expiration-time}")
+  private long jwtExpirationTime;
 
-    @Autowired
-    UserService userService;
+  @Autowired
+  UserService userService;
 
-    @Autowired
-    IdempierePasswordEncoder idempierePasswordEncoder;
+  @Autowired
+  IdempierePasswordEncoder idempierePasswordEncoder;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.authenticationProvider(authenticationProvider());
+  }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+  @Bean
+  public DaoAuthenticationProvider authenticationProvider() {
 
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
-        authProvider.setPasswordEncoder(idempierePasswordEncoder);
-        return authProvider;
-    }
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userService);
+    authProvider.setPasswordEncoder(idempierePasswordEncoder);
+    return authProvider;
+  }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+    configuration.addAllowedHeader("*");
+    configuration.addAllowedMethod("*");
+    configuration.setAllowCredentials(true);
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() //
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime)) //
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService)) //
-                .authorizeRequests() //
-                .antMatchers(HttpMethod.POST, "/api/users/email/to	ken").permitAll() //
-                .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
-                .antMatchers("/api/**").authenticated().and().sessionManagement() //
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() //
+        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime)) //
+        .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService)) //
+        .authorizeRequests() //
+        .antMatchers(HttpMethod.POST, "/api/users/email/to	ken").permitAll() //
+        .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
+        .antMatchers("/api/**").authenticated().and().sessionManagement() //
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    }
+  }
 
-    // @Override
-    // public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    // auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-    // }
+  // @Override
+  // public void configure(AuthenticationManagerBuilder auth) throws Exception {
+  // auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+  // }
 
 }

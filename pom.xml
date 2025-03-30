@@ -23,7 +23,7 @@
   </properties>
   <build>
   <sourceDirectory>src</sourceDirectory>
-  <outputDirectory>WEB-INF/classes</outputDirectory>
+  <outputDirectory>target/classes</outputDirectory>
   
     <plugins>
 		<plugin>
