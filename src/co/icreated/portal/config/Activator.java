@@ -18,10 +18,8 @@ import org.compiere.Adempiere;
 import org.compiere.util.Ini;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
-import co.icreated.portal.utils.PortalUtils;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -54,10 +52,6 @@ public class Activator implements BundleActivator {
         throw new AdempiereException("Could not start ADempiere");
       }
     }
-
-    // Custom autoscan for Spring which isn't working in OSGI (contextLoader issues)
-    Import importAnnotation = PortalConfig.class.getAnnotation(Import.class);
-    PortalUtils.changeAnnotationValue(importAnnotation, "value", getSpringComponents());
   }
 
   public void stop(BundleContext bundleContext) throws Exception {

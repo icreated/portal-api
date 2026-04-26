@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 @Configuration
-@Import({})
+@Import(ComponentScanRegistrar.class)
 @PropertySource(value = {"classpath:webportal.properties"})
 public class PortalConfig {
 
