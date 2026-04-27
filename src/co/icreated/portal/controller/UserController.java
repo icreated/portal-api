@@ -1,5 +1,6 @@
 package co.icreated.portal.controller;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
@@ -20,7 +21,6 @@ import co.icreated.portal.api.model.PasswordDto;
 import co.icreated.portal.api.model.UserDto;
 import co.icreated.portal.api.service.UsersApi;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.config.SecurityConfig;
 import co.icreated.portal.exceptions.PortalBusinessException;
 import co.icreated.portal.exceptions.PortalInvalidInputException;
 import co.icreated.portal.security.Authenticated;
@@ -54,13 +54,16 @@ public class UserController implements UsersApi, Authenticated {
 
   IdempierePasswordEncoder idempierePasswordEncoder;
 
+  Key jwtSigningKey;
+
 
   public UserController(Properties ctx, UserService userService, EmailService emailService,
-      IdempierePasswordEncoder idempierePasswordEncoder) {
+      IdempierePasswordEncoder idempierePasswordEncoder, Key jwtSigningKey) {
     this.ctx = ctx;
     this.userService = userService;
     this.emailService = emailService;
     this.idempierePasswordEncoder = idempierePasswordEncoder;
+    this.jwtSigningKey = jwtSigningKey;
   }
 
 
@@ -100,8 +103,6 @@ public class UserController implements UsersApi, Authenticated {
 
     MUser user = userService.getUserByParam(token, "isActive='Y' AND lastResult LIKE ?");
 
-    idempierePasswordEncoder.setSalt(user.getSalt());
-
     if (userService.changePassword(passwordDto.getConfirmPassword(), user)) {
       return ResponseEntity.ok().build();
     }
@@ -118,6 +119,7 @@ public class UserController implements UsersApi, Authenticated {
     }
 
     idempierePasswordEncoder.setSalt(getSessionUser().getSalt());
+    idempierePasswordEncoder.setAlgorithm(getSessionUser().getPasswordHashAlgorithm());
     CharSequence pass = passwordDto.getPassword();
     if (!idempierePasswordEncoder.matches(pass, getSessionUser().getPassword())) {
       throw new PortalInvalidInputException("Current Password not valid");
@@ -132,7 +134,7 @@ public class UserController implements UsersApi, Authenticated {
           userService.findSessionUserByValue(getSessionUser().getUsername());
 
       String token = Jwts.builder() //
-          .signWith(SecurityConfig.SECRET) //
+          .signWith(jwtSigningKey) //
           .setSubject(authenticatedUser.getUsername()) //
           .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)).compact();
 

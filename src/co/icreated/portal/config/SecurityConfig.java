@@ -1,5 +1,6 @@
 package co.icreated.portal.config;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.List;
 
@@ -22,14 +23,14 @@ import co.icreated.portal.security.JwtAuthenticationFilter;
 import co.icreated.portal.security.JwtAuthorizationFilter;
 import co.icreated.portal.service.UserService;
 import co.icreated.portal.utils.IdempierePasswordEncoder;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  public final static Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+  @Value("${jwt.secret}")
+  private String jwtSecret;
 
   @Value("${jwt.expiration-time}")
   private long jwtExpirationTime;
@@ -39,6 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   IdempierePasswordEncoder idempierePasswordEncoder;
+
+  @Bean
+  Key jwtSigningKey() {
+    return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+  }
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,11 +76,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
+    Key signingKey = jwtSigningKey();
     http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() //
-        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtExpirationTime)) //
-        .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService)) //
+        .addFilter(new JwtAuthenticationFilter(authenticationManager(), signingKey,
+            jwtExpirationTime)) //
+        .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService, signingKey)) //
         .authorizeRequests() //
-        .antMatchers(HttpMethod.POST, "/api/users/email/to	ken").permitAll() //
+        .antMatchers(HttpMethod.POST, "/api/users/email/token").permitAll() //
         .antMatchers(HttpMethod.PUT, "/api/users/password/**").permitAll() //
         .antMatchers("/api/**").authenticated().and().sessionManagement() //
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -1,7 +1,7 @@
 package co.icreated.portal.security;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.security.Key;
 import java.util.Date;
 
 import javax.servlet.FilterChain;
@@ -21,17 +21,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.icreated.portal.api.model.UserDto;
 import co.icreated.portal.bean.Credentials;
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.config.SecurityConfig;
 import io.jsonwebtoken.Jwts;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-  private long jwtExpirationTime;
+  private final Key signingKey;
+  private final long jwtExpirationTime;
 
-  public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+  public JwtAuthenticationFilter(AuthenticationManager authenticationManager, Key signingKey,
       long jwtExpirationTime) {
 
     this.setAuthenticationManager(authenticationManager);
+    this.signingKey = signingKey;
     this.jwtExpirationTime = jwtExpirationTime;
     setFilterProcessesUrl("/api/login");
   }
@@ -70,11 +71,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain, Authentication authentication) {
+      FilterChain filterChain, Authentication authentication) throws IOException {
 
     SessionUser user = (SessionUser) authentication.getPrincipal();
     String token = Jwts.builder() //
-        .signWith(SecurityConfig.SECRET) //
+        .signWith(signingKey) //
         .setSubject(user.getUsername()) //
         .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime)) //
         .compact();
@@ -86,24 +87,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         .name(user.getName()) //
         .token(token);
 
-    String body = "";
-    ObjectMapper mapper = new ObjectMapper();
-
-    try {
-      body = mapper.writeValueAsString(userDto);
-
-      PrintWriter out = response.getWriter();
-      response.setContentType("application/json");
-      response.setCharacterEncoding("UTF-8");
-      out.print(body);
-      out.flush();
-
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-
-
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    new ObjectMapper().writeValue(response.getWriter(), userDto);
   }
 }

@@ -52,6 +52,7 @@ public class UserService implements UserDetailsService {
       throw new UsernameNotFoundException(username);
     }
     passwordEncoder.setSalt(user.getSalt());
+    passwordEncoder.setAlgorithm(user.getPasswordHashAlgorithm());
     return user;
   }
 
@@ -80,6 +81,7 @@ public class UserService implements UserDetailsService {
         .email(user.getEMail()) //
         .password(user.getPassword()) //
         .salt(user.getSalt()) //
+        .passwordHashAlgorithm(user.getPasswordHashAlgorithm()) //
         .partnerId(user.getC_BPartner_ID()) //
         .accountNonExpired(user.isExpired() == false) //
         .accountNonLocked(user.isLocked() == false) //

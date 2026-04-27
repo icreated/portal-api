@@ -1,6 +1,7 @@
 package co.icreated.portal.security;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -19,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import co.icreated.portal.bean.SessionUser;
-import co.icreated.portal.config.SecurityConfig;
 import co.icreated.portal.service.UserService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -31,11 +31,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
   static String BEARER_PREFIX = "Bearer ";
 
   UserService userService;
+  Key signingKey;
 
   public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-      UserService userService) {
+      UserService userService, Key signingKey) {
     super(authenticationManager);
     this.userService = userService;
+    this.signingKey = signingKey;
   }
 
 
@@ -63,7 +65,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
       try {
         String username = Jwts //
             .parserBuilder() //
-            .setSigningKey(SecurityConfig.SECRET) //
+            .setSigningKey(signingKey) //
             .build() //
             .parseClaimsJws(token) //
             .getBody() //
@@ -79,7 +81,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         return new UsernamePasswordAuthenticationToken(sessionUser, null,
             List.of(new SimpleGrantedAuthority("ROLE_USER")));
       } catch (JwtException exception) {
-        log.log(Level.SEVERE, token, exception.getMessage());
+        // Malformed or expired token is a normal client error, not a server fault.
+        log.log(Level.FINE, "Rejected JWT: {0}", exception.getMessage());
       }
     }
 

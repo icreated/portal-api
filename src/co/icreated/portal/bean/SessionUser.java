@@ -17,6 +17,7 @@ public class SessionUser implements UserDetails {
   String email;
   String password;
   String salt;
+  String passwordHashAlgorithm;
   int partnerId;
 
   boolean isAccountNonExpired = true;
@@ -36,6 +37,7 @@ public class SessionUser implements UserDetails {
     String email;
     String password;
     String salt;
+    String passwordHashAlgorithm;
     int partnerId;
 
     boolean isAccountNonExpired = true;
@@ -79,6 +81,11 @@ public class SessionUser implements UserDetails {
       return this;
     }
 
+    public Builder passwordHashAlgorithm(String passwordHashAlgorithm) {
+      this.passwordHashAlgorithm = passwordHashAlgorithm;
+      return this;
+    }
+
     public Builder partnerId(int partnerId) {
       this.partnerId = partnerId;
       return this;
@@ -119,6 +126,7 @@ public class SessionUser implements UserDetails {
     this.email = builder.email;
     this.password = builder.password;
     this.salt = builder.salt;
+    this.passwordHashAlgorithm = builder.passwordHashAlgorithm;
     this.partnerId = builder.partnerId;
     this.isAccountNonExpired = builder.isAccountNonExpired;
     this.isAccountNonLocked = builder.isAccountNonLocked;
@@ -190,6 +198,10 @@ public class SessionUser implements UserDetails {
 
   public String getSalt() {
     return salt;
+  }
+
+  public String getPasswordHashAlgorithm() {
+    return passwordHashAlgorithm;
   }
 
   public int getPartnerId() {
