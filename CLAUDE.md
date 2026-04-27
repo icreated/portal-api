@@ -34,7 +34,7 @@ This replaces an earlier hack that mutated the `@Import` annotation's `value` ar
 ### Layering
 `controller` → `service` → Idempiere model (`M*` POs) via `PQuery` / `QueryTool`, with `mapper` (MapStruct, `componentModel="spring"`) translating between PO and DTO at the service↔controller boundary.
 
-- **Controllers** implement the generated `*Api` interface and the `Authenticated` mixin (`getSessionUser()` reads the JWT principal from `SecurityContextHolder`). They are `@Scope(proxyMode=TARGET_CLASS)` because of the OSGi-classloader interaction.
+- **Controllers** implement the generated `*Api` interface and the `Authenticated` mixin (`getSessionUser()` reads the JWT principal from `SecurityContextHolder`). They are plain `@RestController` singletons — no scoped proxy is needed because nothing in this project (no `@Transactional`, no `@Validated`, no aspect) wraps them.
 - **Services** (`@Service`) take `Properties ctx` and any required mappers/services via constructor injection. They never call `Env.getCtx()` directly for the request context — they use the injected `ctx`.
 - **Mappers** are abstract MapStruct classes that may inject other Spring beans (`@Autowired`) and use `@AfterMapping` to enrich the DTO with related-entity lookups (e.g. addresses, taxes, payments).
 
